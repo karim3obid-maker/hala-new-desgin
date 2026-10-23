@@ -17,22 +17,23 @@ export default function DraftEditPage(){
   if(!draft)return <Card className="empty-state"><h2>طلب الدرافت غير متاح</h2><Link className="platform-link" to="/orders/drafts">الرجوع لطلبات الدرافت</Link></Card>;
   return <DraftEditor key={orderId} draft={draft}/>;
 }
-function DraftEditor({draft}){
+export function NewOrderPage(){return <DraftEditor createMode draft={{name:'',phone:'',address:'',country:'المملكة العربية السعودية'}}/>}
+function DraftEditor({draft,createMode=false}){
   const navigate=useNavigate();
   const {notify}=useOutletContext();
-  const {newOrders,submitDraft}=useOrdersPreview();
+  const {newOrders,submitDraft,createOrder}=useOrdersPreview();
   const [values,setValues]=useState({name:draft.name,phone:draft.phone,altPhone:'',country:draft.country,region:'',city:'',district:'',address:draft.address,nationalAddress:'',notes:''});
   const [products,setProducts]=useState(draft.id==='ORD-ZH62'?[{...editorProduct,price:89,quantity:2}]:[]);
   const [pricingMode,setPricingMode]=useState('unit');
   const [codTotal,setCodTotal]=useState('');
   const pricing={mode:pricingMode,codTotal};
-  const [errors,setErrors]=useState({phone:'رقم الهاتف المسجل غير صالح. راجعه مع العميل وأدخل الرقم الصحيح.'});
+  const [errors,setErrors]=useState(createMode?{}:{phone:'رقم الهاتف المسجل غير صالح. راجعه مع العميل وأدخل الرقم الصحيح.'});
   const [pickerOpen,setPickerOpen]=useState(false);
   const [submitted,setSubmitted]=useState(false);
   const [saving,setSaving]=useState(false);
   const submitting=useRef(false);
   const totals=productTotals(products,pricing);
-  const existing=newOrders.find(order=>order.sourceDraftId===draft.id);
+  const existing=!createMode&&newOrders.find(order=>order.sourceDraftId===draft.id);
   const errorKeys=Object.keys(errors);
   const phoneValid=!validateDraft(values,products,pricing).phone;
   if(existing)return <Card className="empty-state"><Icon name="circle-check"/><h2>تم إنشاء طلب جديد في المعاينة</h2><p>لن تتم إعادة إرسال نفس الدرافت مرة أخرى.</p><Link className="platform-link" to={'/orders/'+existing.id}>عرض الطلب الجديد</Link><Link className="order-back-link" to="/orders/drafts">الرجوع للدرافت</Link></Card>;
@@ -61,7 +62,7 @@ function DraftEditor({draft}){
     const problems=validateDraft(values,products,pricing);setErrors(problems);setSubmitted(true);
     if(Object.keys(problems).length){focusField(Object.keys(problems)[0]);return}
     submitting.current=true;setSaving(true);
-    const order=submitDraft(draft,values,products,pricing);
+    const order=createMode?createOrder(values,products,pricing):submitDraft(draft,values,products,pricing);
     notify('تمت إضافة الطلب الجديد إلى المعاينة المحلية');
     navigate('/orders',{state:{newOrderId:order.id}});
   }
@@ -75,10 +76,10 @@ function DraftEditor({draft}){
     </div>;
   }
   return <div className="draft-editor-page">
-    <div className="draft-edit-intro"><div><div className="draft-edit-title"><h2>إصلاح طلب الدرافت</h2><bdi dir="ltr">{draft.id}</bdi></div><p>صحّح البيانات، راجع الطلب، ثم أرسله كطلب جديد.</p></div><Link className="order-back-link" to="/orders/drafts"><Icon name="chevron-right"/>رجوع للدرافت</Link></div>
-    <div className={'draft-edit-alert '+(!errorKeys.length?'resolved':'')} role={submitted&&errorKeys.length?'alert':'status'}>
+    <div className="draft-edit-intro"><div><div className="draft-edit-title"><h2>{createMode?'طلب جديد':'إصلاح طلب الدرافت'}</h2>{!createMode?<bdi dir="ltr">{draft.id}</bdi>:null}</div><p>{createMode?'أضف بيانات العميل والمنتجات، ثم راجع الإجمالي.':'صحّح البيانات، راجع الطلب، ثم أرسله كطلب جديد.'}</p></div><Link className="order-back-link" to={createMode?'/orders':'/orders/drafts'}><Icon name="chevron-right"/>{createMode?'رجوع للطلبات':'رجوع للدرافت'}</Link></div>
+    {(!createMode||submitted&&errorKeys.length>0)?<div className={'draft-edit-alert '+(!errorKeys.length?'resolved':'')} role={submitted&&errorKeys.length?'alert':'status'}>
       <Icon name={errorKeys.length?'warning':'circle-check'}/><div><h2>{errorKeys.length?submitted?'راجع البيانات المطلوبة':'ابدأ بتصحيح رقم الهاتف':'تم حل المشكلات الظاهرة'}</h2><p>{submitted&&errorKeys.length?`يوجد ${errorKeys.length} حقول تحتاج مراجعة. اضغط على الحقل للانتقال إليه.`:errorKeys.length?draft.reason:'راجع بيانات الشحن والمنتجات قبل إرسال الطلب.'}</p>{submitted&&errorKeys.length?<div className="draft-error-links">{errorKeys.map(key=><button type="button" key={key} onClick={()=>focusField(key)}>{({name:'اسم العميل',phone:'رقم الهاتف',altPhone:'الرقم البديل',region:'المنطقة',city:'المدينة',district:'الحي',address:'العنوان',nationalAddress:'العنوان الوطني',products:'المنتجات',codTotal:'إجمالي COD'})[key]}</button>)}</div>:null}</div>{!submitted&&errors.phone?<Button size="sm" variant="secondary" onPress={()=>focusField('phone')}>راجع رقم الهاتف<Icon name="chevron-left"/></Button>:null}
-    </div>
+    </div>:null}
     <div className="draft-edit-layout">
       <form id="draft-edit-form" className="draft-edit-form" noValidate onSubmit={submit}>
         <EditSection number="1" title="بيانات العميل" description="الرقم الصحيح يساعد الفريق على تأكيد الطلب بسرعة.">
@@ -90,8 +91,8 @@ function DraftEditor({draft}){
             <div className="draft-form-field"><label htmlFor="draft-region">المنطقة<span className="field-required">*</span></label><select id="draft-region" value={values.region} onChange={event=>update('region',event.target.value)} required aria-invalid={!!errors.region} aria-describedby={errors.region?'draft-region-error':undefined}><option value="">اختر المنطقة</option>{regions.map(region=><option key={region} value={region}>{region}</option>)}</select>{errors.region?<p className="draft-field-error" id="draft-region-error">{errors.region}</p>:null}</div>
             {field('city','المدينة',{required:true,placeholder:'اكتب المدينة'})}
             {field('district','الحي',{required:true,placeholder:'اكتب اسم الحي'})}
-            {field('nationalAddress','العنوان الوطني المختصر',{dir:'ltr',placeholder:'ABPE3294'})}
-            {field('address','العنوان بالتفصيل',{required:true,span:true,placeholder:'الشارع، رقم المبنى أو أقرب علامة مميزة',hint:'استبدل أي نص مختصر بالعنوان الكامل من العميل.'})}
+            {!createMode?field('nationalAddress','العنوان الوطني المختصر',{dir:'ltr',placeholder:'ABPE3294'}):null}
+            {field('address','العنوان بالتفصيل',{required:true,span:true,placeholder:'الشارع، رقم المبنى أو أقرب علامة مميزة',hint:createMode?undefined:'استبدل أي نص مختصر بالعنوان الكامل من العميل.'})}
           </div>
         </EditSection>
         <EditSection number="3" title="منتجات الطلب" description="راجع المنتج والكمية وسعر البيع قبل الإرسال." action={<Button className="draft-add-product" size="sm" variant="secondary" onPress={()=>setPickerOpen(true)}><Icon name="plus"/>إضافة منتج</Button>}>
@@ -103,17 +104,17 @@ function DraftEditor({draft}){
           </div>
           {errors.products?<p id="draft-products-error" className="draft-field-error">{errors.products}</p>:null}
         </EditSection>
-        <Card className="draft-edit-card"><details className="draft-extra-fields"><summary><span><Icon name="file-import"/>بيانات إضافية <small>اختياري</small></span><Icon name="chevron-down"/></summary><div className="draft-form-grid">{field('altPhone','رقم هاتف بديل',{type:'tel',dir:'ltr'})}<div className="draft-form-field"><label htmlFor="draft-notes">ملاحظات العميل<span className="field-optional">اختياري</span></label><textarea id="draft-notes" rows="2" value={values.notes} onChange={event=>update('notes',event.target.value)} placeholder="تعليمات إضافية تساعد في توصيل الطلب"/></div></div></details></Card>
+        <Card className="draft-edit-card"><details className="draft-extra-fields"><summary><span><Icon name="file-import"/>بيانات إضافية <small>اختياري</small></span><Icon name="chevron-down"/></summary><div className="draft-form-grid">{field('altPhone','رقم هاتف بديل',{type:'tel',dir:'ltr'})}{createMode?field('nationalAddress','العنوان الوطني المختصر',{dir:'ltr',placeholder:'ABPE3294'}):null}<div className="draft-form-field"><label htmlFor="draft-notes">ملاحظات العميل<span className="field-optional">اختياري</span></label><textarea id="draft-notes" rows="2" value={values.notes} onChange={event=>update('notes',event.target.value)} placeholder="تعليمات إضافية تساعد في توصيل الطلب"/></div></div></details></Card>
       </form>
       <aside className="draft-submit-summary" aria-labelledby="draft-summary-title"><Card className="draft-edit-card"><div className="draft-summary-heading"><Icon name="shopping-cart"/><h2 id="draft-summary-title">ملخص الطلب</h2><span>طلب جديد</span></div><div className="draft-summary-body">
-        <div className="draft-source-reference"><span>مرجع الدرافت</span><bdi dir="ltr">{draft.id}</bdi></div>
+        {!createMode?<div className="draft-source-reference"><span>مرجع الدرافت</span><bdi dir="ltr">{draft.id}</bdi></div>:null}
         {products.length?products.map(product=><div className="draft-summary-product" key={product.id}><span>{product.name}<small>{product.quantity||'—'} قطع {pricingMode==='unit'?<>× {price(Number(product.price)||0)}</>:null}</small></span>{pricingMode==='unit'?<strong>{price((Number(product.price)||0)*(Number(product.quantity)||0))}</strong>:null}</div>):<p className="draft-summary-empty">لم تتم إضافة منتجات.</p>}
         <dl className="draft-summary-facts"><div><dt>طريقة الدفع</dt><dd><span className="order-payment">عند الاستلام</span></dd></div><div><dt>الربح قبل الرسوم</dt><dd className={totals.profit<0?'negative':'positive'}>{price(totals.profit)}</dd></div></dl>
         <div className="draft-summary-total"><div><span>المستحق للدفع من العميل</span><small>{pricingMode==='cod'?'إجمالي COD المحدد يدويًا':'إجمالي المنتجات'}</small></div><strong>{price(totals.total)}</strong></div>
-        <div className="draft-submit-explanation"><Icon name="info"/><p>بعد التصحيح، ينتقل الطلب من الدرافت إلى الطلبات الجديدة برقم جديد.</p></div>
-        <Button type="submit" form="draft-edit-form" className="draft-submit-button" isDisabled={saving}>{saving?'جاري الإضافة…':'إرسال كطلب جديد'}<Icon name="chevron-left"/></Button>
+        <div className="draft-submit-explanation"><Icon name="info"/><p>{createMode?'سيظهر الطلب في الطلبات الجديدة بعد مراجعة البيانات.':'بعد التصحيح، ينتقل الطلب من الدرافت إلى الطلبات الجديدة برقم جديد.'}</p></div>
+        <Button type="submit" form="draft-edit-form" className="draft-submit-button" isDisabled={saving}>{saving?'جاري الإضافة…':createMode?'إضافة الطلب':'إرسال كطلب جديد'}<Icon name="chevron-left"/></Button>
         <p className="draft-preview-disclosure">معاينة محلية فقط؛ لا يتم إرسال طلب فعلي. تُمسح التغييرات عند تحديث الصفحة.</p>
-        <Link className="draft-cancel-link" to="/orders/drafts">إلغاء والرجوع للدرافت</Link>
+        <Link className="draft-cancel-link" to={createMode?'/orders':'/orders/drafts'}>{createMode?'إلغاء والرجوع للطلبات':'إلغاء والرجوع للدرافت'}</Link>
       </div></Card></aside>
     </div>
     {pickerOpen?<DraftProductPicker currentProducts={products} setOpen={setPickerOpen} onAdd={addProducts}/>:null}

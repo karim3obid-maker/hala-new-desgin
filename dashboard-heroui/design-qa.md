@@ -2,6 +2,14 @@
 
 final result: passed
 
+## Wallet forms and revised pricing — 2026-10-23
+
+Supersedes the earlier disabled transaction actions and old price-dialog content. Current prices show shipping first: shipped 3 USD, delivered 2 USD, returned 0 USD; call center 1.50 USD per uploaded order. Historical summary costs remain explicitly labeled as a prior snapshot. Invoice tab shows the existing Hala logo and separate issue-date/due-date-time fields, with unavailable values clearly marked rather than fabricated.
+
+Withdrawal, deposit and receiving-account forms now work as local previews. Exactly three methods are available: Instapay, Payoneer and Saudi bank account. No API requests, actual transfers or receipt uploads occur. Blank deposit validation, Arabic decimal amount entry, required receipt selection, local ledger insertion, withdrawal balance limits and adding a Payoneer account while preserving the withdrawal draft were verified in the browser. Eleven integer-cent amount parsing cases passed. Reload cleared all test records and accounts.
+
+Mobile deposit verified at 390 × 844 with no horizontal overflow and accessible form actions. Latest browser console had no errors. Production build passed. Evidence: `design/wallet-deposit-mobile.png`, `design/wallet-transfer-accounts.png`, `design/wallet-current-prices.png`, `design/wallet-invoice-preview.png`.
+
 ## Source and state
 Source visual truth: `design/concept.png`, 992×1586. Latest user changes override its spacious sizing and section tabs: reduce whitespace, remove all section tabs, promote this version to primary.
 Implementation: `../hala-dashboard.html`, light Arabic RTL, all three sections, default period.
@@ -117,3 +125,46 @@ final result: passed
 - دائرة الشحن 50% في أول عمود يمينًا، ثم أسباب فشل الشحنات في الأعمدة الثلاثة المتبقية داخل سطح واحد.
 - الهاتف 390px: الصفحة بلا تجاوز أفقي، دائرة الشحن أولًا ثم أسباب الفشل، وكل جزء بعرض 366px. لا أخطاء متصفح.
 - بناء الإنتاج وتصدير HTML ناجحان. صورة التحقق: `../hala-shipping-first.png`.
+
+## Wallet implementation — 2026-10-23
+
+Source: `/Users/mac/.codex/generated_images/01a16969-9b74-78f3-aa90-dcd101d1cbaf/exec-0963d95e-e5b9-4b94-87c6-0a09f9388185.png` (1330 × 1182).
+Implementation: `http://127.0.0.1:4181/#/wallet`, `design/wallet-desktop.png` (1440 × 1280 pixels; viewport 1440 × 1280 CSS pixels). State: summary active, dialog closed.
+Full-view evidence: `design/wallet-comparison.png`, equal 720px widths, natural aspect ratios retained (source/implementation ratios match). Focused evidence: `design/wallet-detail-comparison.png`, confirmation tables normalized to 900px width, inspected together for text, numeric columns and amounts.
+Mobile: `design/wallet-mobile.png`, 390 × 844 CSS px. clientWidth/scrollWidth both 390. Also checked 320 × 568 price dialog: x14/y16, width292/height536; table body scrolls while close footer remains visible.
+
+Findings/history: initial interaction review found HeroUI Button discarded custom tab roles and selection attributes. Fixed tab controls using native buttons with shared styles, roving tabindex and RTL navigation. Post-fix role/selection/focus verified. No remaining actionable P0/P1/P2 issues.
+
+Required fidelity surfaces:
+- Typography: existing IBM Plex Sans Arabic 400/500/600; approved compact sizes. LTR numbers inside bdi. Unit helper text sits below prices for mobile readability.
+- Layout: five-metric surface, action row and price trigger, five tabs, confirmation/shipping/additional-expense panels stacked. Original shell retained; compact density intentionally follows approved site baseline over generated-image enlargement.
+- Tokens: original Hala purple/lavender, fine gray borders, muted labels and white panels. Standard table amount text intentionally follows site styling rather than saturated generated purple.
+- Assets: original logo and Gravity icons reused; no replacement illustrations or approximations.
+- Copy/content: all eight aggregate service rows match original screenshot values. Extras show Hala Share 8.00 USD, ads 0.00 USD, private expenses unavailable. Overall snapshot expense total 221.87 USD retained. Invoice/deposit data unavailable; withdrawal empty per original source. No fabricated transactions.
+
+Verified all five tabs and their content; price modal shows eight services, Escape closes and restores focus. Home and RTL ArrowLeft/ArrowRight selection work. Latest browser console error query returned none. HMR previously emitted PressResponder warnings during component replacement; no runtime error observed.
+Build and standalone export pass. Financial transaction buttons intentionally remain disabled pending account API; tab navigation and service pricing work locally.
+Checklist complete. No blocking visual or interaction findings; no required polish remaining. Backend account integration is outside this design task.
+final result: passed
+
+## Hala offers — 2026-10-23
+Added sidebar link, two offer cards and direct detail routes. Verified opening both details and returning to the list. Hala Partner content and five rates match the user brief, including program-specific 15% COD (wallet/calculator defaults unchanged). Missing first-offer details and incomplete registration URL are disclosed; no invented terms, registration or redirect. Existing account-manager WhatsApp opens only on deliberate click.
+Desktop and 390 × 844 mobile inspected; mobile clientWidth and scrollWidth both390. Sidebar active for nested offer routes; account-tools divider now follows the calculator path rather than a fragile index. No browser console errors. Production build passed. Evidence: `design/hala-partner-desktop.png`, `design/hala-partner-mobile.png`.
+User clarification implemented: registration opens a simple form with full name, average daily orders and detailed experience. Tested empty-submit errors and focus; valid test submission using Arabic order count٢٠ reaches local-only confirmation. Closing/reopening clears test data. No request is transmitted. This supersedes the earlier unavailable-registration-URL state.
+Application modal verified at390×844: all three fields and action footer visible, no horizontal page overflow. Evidence `design/hala-partner-application-mobile.png`. Updated standalone export passed.
+
+## Public homepage — 2026-10-23
+- Added independent `/#/home` preview using the approved Hala identity.
+- Browser checked at 1366×950 and 390×844: no horizontal overflow; hero image, logo, and dashboard image loaded successfully.
+- Mobile menu opens and closes; selecting a section closes it and scrolls beneath sticky header. FAQ expands and reveals its answer.
+- Verified signup/login/booking destinations against the current public homepage; no external forms submitted.
+- Production build and single-file build pass. Existing bundle-size advisory remains.
+- Captures: design/home-desktop.jpg, design/home-mobile.jpg.
+- Shareable standalone export: ../hala-home.html (defaults to /home; dashboard exports were not overwritten).
+
+## Login-focused homepage and account pages
+- Verified zero meeting links and all primary homepage CTAs target /auth/login.
+- Verified fixed bottom CTA and mobile navigation at 390px; no horizontal overflow.
+- Auth layouts reviewed at 1366×950 and 390×844; 250 original country options preserved.
+- Password visibility works. Registration mismatch blocks submission; matching synthetic values produce explicit preview-only status and clear fields. Login produces explicit preview-only status. No requests or persistence added.
+- Screenshots: design/auth-login-desktop.jpg, design/auth-login-mobile.jpg, design/auth-register-desktop.jpg, design/auth-register-mobile.jpg. Homepage captures refreshed.

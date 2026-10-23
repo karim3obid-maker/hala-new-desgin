@@ -1,48 +1,80 @@
+import {useRef,useState} from 'react';
 import {Button,Card} from '@heroui/react';
 import {MetricRows} from '../components/dashboard/Metrics';
+import {AppModal} from '../components/ui/AppModal';
 import {Icon} from '../components/ui/Icon';
-import {walletMetrics,serviceFees,performance} from '../data/wallet';
+import logo from '../assets/hala-logo.png';
+import {sellerAccount} from '../config/account';
+import {TransferLedger,useWalletTransfers} from '../components/wallet/WalletTransfers';
+import {walletMetrics,serviceFees,additionalExpenses,currentServicePrices} from '../data/wallet';
 
+const tabs=[{id:'summary',label:'الملخص'},{id:'invoices',label:'الفواتير'},{id:'withdrawals',label:'طلبات السحب'},{id:'deposits',label:'طلبات الإيداع'},{id:'expenses',label:'مصاريف أخرى'}];
+const groups=[{name:'التأكيد',icon:'users'},{name:'الشحن',icon:'truck'}];
 function Money({value}){return <bdi dir="ltr" className="wallet-money">{value} <small>USD</small></bdi>}
+function Rate({fee}){return <span className="wallet-rate"><bdi dir="ltr">{fee.rate}{!fee.percentage?' USD':''}</bdi><small>{fee.unit}</small></span>}
+
+function ServiceSummary({group}){
+  const title='خدمات '+group.name;
+  return <Card className="wallet-panel wallet-service-panel"><header className="wallet-panel-heading"><h2>{title}</h2><Icon name={group.icon}/></header>
+    <div className="wallet-table-scroll" tabIndex={0} role="region" aria-label={title}>
+      <table className="wallet-table"><caption className="sr-only">{title} — السعر وعدد الطلبات والإجمالي بالدولار الأمريكي</caption><thead><tr><th scope="col">الخدمة</th><th scope="col">السعر</th><th scope="col">الطلبات</th><th scope="col">الإجمالي</th></tr></thead>
+        <tbody>{serviceFees.filter(fee=>fee.group===group.name).map(fee=><tr key={fee.name}><th scope="row">{fee.name}</th><td><Rate fee={fee}/></td><td><bdi dir="ltr">{fee.orders}</bdi></td><td><Money value={fee.total}/></td></tr>)}</tbody>
+      </table>
+    </div>
+  </Card>;
+}
+function ExtraExpenses({summary=false}){
+  return <Card className="wallet-panel wallet-extra-panel"><header className="wallet-panel-heading"><h2>{summary?'مصاريف إضافية':'مصاريف أخرى'}</h2><Icon name="currency-dollar"/></header>
+    <table className="wallet-extra-table"><caption className="sr-only">المصاريف الإضافية بالدولار الأمريكي</caption><thead><tr><th scope="col">البند</th><th scope="col">الإجمالي</th></tr></thead><tbody>
+      {additionalExpenses.map(expense=><tr key={expense.name}><th scope="row">{expense.name}</th><td>{expense.total!==null?<Money value={expense.total}/>:<span className="wallet-unavailable">— <small>غير متاحة</small></span>}</td></tr>)}
+    </tbody></table>
+    <footer className="wallet-fees-total"><span>{summary?'إجمالي المصروفات':'إجمالي المصاريف الإضافية المتاحة'}{summary?<small>حسب لقطة المالية</small>:null}</span><Money value={summary?'221.87':'8.00'}/></footer>
+    <p className="wallet-source-note wallet-expenses-note">مبالغ النقل والاستيراد وإعلانات تيك توك غير متاحة حاليًا، ولا تُحتسب ضمن الإجمالي المعروض.</p>
+  </Card>;
+}
+function InvoicePreview(){
+  return <section className="wallet-invoices" aria-labelledby="invoice-section-title">
+    <div className="wallet-invoices-intro"><h2 id="invoice-section-title">الفواتير</h2><p>لا تتوفر فواتير فعلية حاليًا. هذا نموذج لشكل الفاتورة عند إصدارها.</p></div>
+    <Card className="wallet-invoice" aria-label="معاينة نموذج فاتورة هلا">
+      <header className="wallet-invoice-header"><div><span className="wallet-invoice-label">معاينة فاتورة</span><h3>فاتورة خدمات</h3><p>رقم الفاتورة: <span>يُحدّد عند الإصدار</span></p></div><span className="logo-crop"><img src={logo} alt="هلا كوميرس"/></span></header>
+      <div className="wallet-invoice-parties"><div><span>من</span><strong>هلا كوميرس</strong></div><div><span>إلى</span><strong>{sellerAccount.name}</strong><small>معرّف البائع: <bdi dir="ltr">{sellerAccount.sellerId}</bdi></small></div></div>
+      <dl className="wallet-invoice-dates"><div><dt><Icon name="calendar"/>تاريخ الإصدار</dt><dd>غير محدد</dd></div><div><dt><Icon name="clock"/>موعد الاستحقاق</dt><dd>التاريخ والوقت غير محددين</dd></div></dl>
+      <div className="wallet-table-scroll" tabIndex={0} role="region" aria-label="بنود الفاتورة"><table className="wallet-invoice-table"><caption className="sr-only">بنود نموذج الفاتورة</caption><thead><tr><th scope="col">الخدمة</th><th scope="col">الكمية</th><th scope="col">سعر الوحدة</th><th scope="col">الإجمالي</th></tr></thead><tbody><tr><td colSpan={4}>تظهر الخدمات والمبالغ هنا عند إصدار الفاتورة.</td></tr></tbody></table></div>
+      <div className="wallet-invoice-total"><span>إجمالي الفاتورة <small>بالدولار الأمريكي</small></span><strong>غير متاح</strong></div>
+      <footer className="wallet-invoice-note"><Icon name="info"/>هذه معاينة للشكل، وليست فاتورة صادرة أو مبلغًا مستحقًا.</footer>
+    </Card>
+  </section>;
+}
 
 export default function WalletPage(){
-  return <div className="wallet-page">
-    <div className="wallet-toolbar">
-      <p>رصيدك، مصروفاتك وطلباتك المالية في مكان واحد.</p>
-      <div className="wallet-actions" aria-describedby="wallet-preview-note">
-        <Button size="sm" isDisabled><Icon name="plus"/>إيداع رصيد</Button>
-        <Button size="sm" variant="secondary" isDisabled><Icon name="download"/>طلب سحب</Button>
-        <Button size="sm" variant="tertiary" isDisabled><Icon name="wallet"/>الحسابات البنكية</Button>
-      </div>
-    </div>
+  const [activeTab,setActiveTab]=useState('summary');
+  const [pricesOpen,setPricesOpen]=useState(false);
+  const transfers=useWalletTransfers({onCreated:setActiveTab});
+  const tabRefs=useRef([]);
+  function navigateTabs(event,index){
+    let next;
+    if(event.key==='ArrowLeft')next=(index+1)%tabs.length;
+    else if(event.key==='ArrowRight')next=(index-1+tabs.length)%tabs.length;
+    else if(event.key==='Home')next=0;
+    else if(event.key==='End')next=tabs.length-1;
+    else return;
+    event.preventDefault();setActiveTab(tabs[next].id);tabRefs.current[next]?.focus();
+  }
+  return <div className="wallet-page wallet-redesign">
+    <p className="wallet-intro">رصيدك، مصروفاتك وطلباتك المالية في مكان واحد.</p>
     <Card className="section-card wallet-overview" aria-label="ملخص المالية"><MetricRows items={walletMetrics} group="financial"/></Card>
-    <div className="wallet-context"><span><Icon name="calendar"/>الفترة غير محددة في المصدر</span><p id="wallet-preview-note">معاينة تصميم · الإيداع والسحب والحسابات البنكية غير مفعّلة حاليًا.</p></div>
-
-    <div className="wallet-details-grid">
-      <Card className="wallet-fees wallet-panel">
-        <header className="wallet-panel-heading"><div><h2>تفاصيل المصروفات</h2><p>كل الرسوم في جدول واحد · بالدولار الأمريكي</p></div><Icon name="calculator"/></header>
-        <div className="wallet-table-scroll" tabIndex={0} role="region" aria-label="جدول رسوم التأكيد والشحن">
-          <table className="wallet-table"><caption className="sr-only">تفاصيل رسوم خدمات التأكيد والشحن بالدولار الأمريكي</caption>
-            <thead><tr><th scope="col">الخدمة</th><th scope="col">السعر</th><th scope="col">الطلبات</th><th scope="col">الإجمالي</th></tr></thead>
-            <tbody>{serviceFees.map((fee,index)=><tr key={fee.name} className={index===4?'wallet-group-start':''}>
-              <th scope="row"><span className="wallet-service">{fee.name}<small>{fee.group}</small></span></th>
-              <td><span className="wallet-rate"><bdi dir="ltr">{fee.rate}{!fee.percentage?' USD':''}</bdi><small>{fee.unit}</small></span></td>
-              <td><bdi dir="ltr">{fee.orders}</bdi></td><td><Money value={fee.total}/></td>
-            </tr>)}</tbody>
-          </table>
-        </div>
-        <div className="wallet-extra-fees"><h3>تكاليف إضافية</h3><div><span>منتجات هلا شير</span><Money value="8.00"/></div><div><span>إعلانات</span><Money value="0.00"/></div><div className="wallet-extra-total"><span>إجمالي التكاليف الإضافية</span><Money value="8.00"/></div></div>
-        <footer className="wallet-fees-total"><span>إجمالي المصروفات <small>الخدمات + التكاليف الإضافية</small></span><Money value="221.87"/></footer>
-      </Card>
-      <div className="wallet-side-panels">
-        <Card className="wallet-panel wallet-performance"><header className="wallet-panel-heading"><h2>مؤشرات الأداء</h2><Icon name="chart-bar"/></header>
-          <div className="wallet-performance-list">{performance.map(item=><div className="wallet-performance-item" key={item.label}><div><span>{item.label}</span><bdi dir="ltr">{item.value}%</bdi></div><div className="wallet-bar" aria-hidden="true"><span style={{width:item.value+'%'}}/></div></div>)}</div>
-        </Card>
-        <Card className="wallet-panel wallet-net"><header className="wallet-panel-heading"><h2>الملخص المالي</h2><Icon name="currency-dollar"/></header><dl><div><dt>إجمالي الإيرادات</dt><dd><Money value="56.47"/></dd></div><div><dt>إجمالي المصاريف</dt><dd className="wallet-expense"><Money value="221.87"/></dd></div><div className="wallet-net-total"><dt>صافي الإيرادات</dt><dd><Money value="0.00"/></dd></div></dl><p className="wallet-source-note">صافي الإيرادات معروض كما ورد في المصدر؛ طريقة احتسابه غير متاحة.</p></Card>
-      </div>
+    <div className="wallet-control-row">
+      <Button variant="secondary" className="wallet-prices-trigger" onPress={()=>setPricesOpen(true)} aria-haspopup="dialog"><Icon name="calculator"/>أسعار الرسوم<Icon name="chevron-left"/></Button>
+      <div className="wallet-actions" aria-describedby="wallet-preview-note"><Button size="sm" onPress={transfers.openDeposit}><Icon name="plus"/>إيداع رصيد</Button><Button size="sm" variant="secondary" onPress={transfers.openWithdrawal}><Icon name="download"/>طلب سحب</Button><Button size="sm" variant="tertiary" onPress={transfers.openAccounts}><Icon name="wallet"/>الحسابات البنكية</Button></div>
     </div>
-
-    <section className="wallet-requests" aria-labelledby="wallet-requests-title"><div className="section-heading"><Icon name="clock"/><h2 id="wallet-requests-title">الطلبات المالية</h2></div><Card className="wallet-requests-card"><div><span className="wallet-request-icon"><Icon name="download"/></span><div><h3>طلبات السحب</h3><p>لا توجد طلبات سحب في البيانات المعروضة.</p></div></div><div><span className="wallet-request-icon"><Icon name="plus"/></span><div><h3>طلبات الإيداع</h3><p>بيانات طلبات الإيداع غير متاحة في المصدر.</p></div></div></Card></section>
-    <p className="wallet-source-note wallet-snapshot-note">الأرقام من لقطة المالية المرفقة، وهي مستقلة عن ملخص الرئيسية. لا يوجد اتصال ببيانات الحساب الفعلية حاليًا.</p>
+    <div className="wallet-tabs" role="tablist" aria-label="أقسام المالية">{tabs.map((tab,index)=><button type="button" key={tab.id} ref={node=>{tabRefs.current[index]=node}} id={'wallet-tab-'+tab.id} role="tab" className={'button wallet-tab'+(activeTab===tab.id?' selected':'')} aria-selected={activeTab===tab.id} aria-controls="wallet-tabpanel" tabIndex={activeTab===tab.id?0:-1} onKeyDown={event=>navigateTabs(event,index)} onClick={()=>setActiveTab(tab.id)}>{tab.label}</button>)}</div>
+    <div id="wallet-tabpanel" role="tabpanel" aria-labelledby={'wallet-tab-'+activeTab} tabIndex={0} className="wallet-tabpanel">
+      {activeTab==='summary'?<div className="wallet-summary-stack"><p className="wallet-source-note">الملخص يعرض تكاليف لقطة سابقة. الأسعار الحالية متاحة من «أسعار الرسوم».</p>{groups.map(group=><ServiceSummary key={group.name} group={group}/>)}<ExtraExpenses summary/></div>:activeTab==='invoices'?<InvoicePreview/>:activeTab==='expenses'?<ExtraExpenses/>:<TransferLedger kind={activeTab} requests={transfers.requests[activeTab]} onAdd={activeTab==='withdrawals'?transfers.openWithdrawal:transfers.openDeposit}/>}
+    </div>
+    <p id="wallet-preview-note" className="wallet-source-note wallet-snapshot-note">معاينة تصميم · الأرقام من لقطة المالية، مستقلة عن ملخص الرئيسية. طلبات السحب والإيداع محلية فقط ولا تغيّر الرصيد الفعلي. إعادة التحميل تمسح المعاينة. الفترة غير محددة في المصدر.</p>
+    <AppModal open={pricesOpen} setOpen={setPricesOpen} title="أسعار الخدمات" footer={<Button variant="secondary" onPress={()=>setPricesOpen(false)}>إغلاق</Button>}>
+      <div className="wallet-prices wallet-current-prices"><p>أسعار الخدمات الحالية بالدولار الأمريكي.</p>{currentServicePrices.map(group=><section className="wallet-price-section" key={group.name} aria-label={group.name}><h3><span className="wallet-price-section-icon"><Icon name={group.icon}/></span>{group.name}</h3><dl>{group.items.map(item=><div key={item.name}><dt><Icon name={item.icon}/><span>{item.name}<small>{item.unit}</small></span></dt><dd><Money value={item.rate}/></dd></div>)}</dl></section>)}</div>
+    </AppModal>
+    {transfers.dialogs}
   </div>;
 }

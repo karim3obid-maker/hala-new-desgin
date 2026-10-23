@@ -15,7 +15,7 @@ export default function OrdersPage({draft=false}){
   const navigate=useNavigate();
   const location=useLocation();
   const {newOrders}=useOrdersPreview();
-  const promoted=new Set(newOrders.map(order=>order.sourceDraftId));
+  const promoted=new Set(newOrders.map(order=>order.sourceDraftId).filter(Boolean));
   const statuses=orderStatuses.map(item=>({...item,count:item.count+(['all','new'].includes(item.id)?newOrders.length:0)}));
   const pageColumns=draft?draftColumns:orderColumns;
   const initialColumns=draft?draftColumns.map(([id])=>id):defaultColumns;
@@ -49,7 +49,7 @@ export default function OrdersPage({draft=false}){
     <div className="orders-intro">
       <div><h2>{draft?'إدارة طلبات الدرافت':'إدارة الطلبات'}</h2><p>{draft?'الطلبات التي فشل إنشاؤها أو لم تكتمل بياناتها، مع توضيح سبب المشكلة.':'تابع طلبات متجرك وحالاتها في مكان واحد.'}</p></div>
       <div className="orders-actions" aria-label="إجراءات الطلبات">
-        <Button size="sm" isDisabled><Icon name="plus"/>طلب جديد</Button>
+        <Button size="sm" onPress={()=>navigate('/orders/new')}><Icon name="plus"/>طلب جديد</Button>
         <Button size="sm" variant="secondary" isDisabled><Icon name="file-import"/>استيراد Excel</Button>
         <Button size="sm" variant="secondary" isDisabled><Icon name="download"/>تصدير</Button>
       </div>

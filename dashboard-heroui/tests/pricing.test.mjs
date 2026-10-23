@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {calculatePricing,priceOutcome,pricingDefaults} from '../src/utils/pricing.js';
+const close=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-8,`${actual} != ${expected}`);
+const model=calculatePricing({...pricingDefaults,product:10});
+close(model.base,10+6/.1925+1.5/.1925+3/.35+2);
+close(priceOutcome(model,model.suggested).margin,30);
+close(priceOutcome(model,model.breakEven).profit,0);
+assert.ok(priceOutcome(model,20).campaignProfit<0);
+close(priceOutcome(model,80).delivered,19.25);
+const perfect=calculatePricing({...pricingDefaults,product:10,confirmation:100,delivery:100});
+close(perfect.base,22.5);
+for(const patch of [{product:''},{confirmation:0},{delivery:0},{ads:-1},{units:1.2},{leads:0},{cod:101},{exchange:0}])assert.ok(calculatePricing({...pricingDefaults,product:10,...patch}).error);
+assert.equal(calculatePricing({...pricingDefaults,product:0,margin:95}).suggested,null);
+assert.equal(calculatePricing({...pricingDefaults,product:10,cod:100}).breakEven,null);
+const returned=calculatePricing({...pricingDefaults,product:10,returnedFee:5});
+close(returned.base-model.base,5*.65/.35);
+console.log('Pricing checks passed: margins, break-even, losses, allocations, returns and invalid inputs.');

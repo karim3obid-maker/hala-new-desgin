@@ -1,0 +1,2 @@
+const digits=value=>value.trim().replace(/[٠-٩]/g,n=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(n))).replace(/[۰-۹]/g,n=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(n))).replace(/[٫،,]/g,'.');
+export function amountCents(value){const normalized=digits(value);if(!/^\d{1,9}(\.\d{1,2})?$/.test(normalized))return null;const [whole,fraction='']=normalized.split('.');const cents=Number(whole)*100+Number(fraction.padEnd(2,'0'));return cents>0?cents:null}

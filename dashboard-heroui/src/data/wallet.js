@@ -22,3 +22,25 @@ export const performance = [
   {label:'المرتجعات',value:'0.00'},
   {label:'نسبة COD',value:'5'},
 ];
+
+// Expense categories requested by the user. Missing amounts remain unknown.
+export const additionalExpenses = [
+  {name:'منتجات هلا شير',total:'8.00'},
+  {name:'مصاريف إعلانات',total:'0.00'},
+  {name:'نقل بضاعة إلى المخزن',total:null},
+  {name:'استيراد بضاعة من الصين',total:null},
+  {name:'نقل بضاعة من مصر إلى السعودية',total:null},
+  {name:'تكاليف إعلانات تيك توك',total:null},
+];
+
+// Current tariff supplied by the user; historical summary charges remain a snapshot.
+export const currentServicePrices = [
+  {name:'خدمات الشحن',icon:'truck',items:[
+    {name:'الشحن',rate:'3.00',unit:'لكل طلب مشحون',icon:'truck'},
+    {name:'التوصيل',rate:'2.00',unit:'لكل طلب موصّل',icon:'package'},
+    {name:'المرتجع',rate:'0.00',unit:'لكل طلب مرتجع',icon:'arrow-forward-up'},
+  ]},
+  {name:'خدمات الكول سنتر',icon:'headset',items:[
+    {name:'الكول سنتر',rate:'1.50',unit:'لكل طلب مرفوع',icon:'headset'},
+  ]},
+];

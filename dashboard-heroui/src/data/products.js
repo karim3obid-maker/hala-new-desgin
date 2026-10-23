@@ -15,3 +15,12 @@ const rows=[
  ['bloom','قهوة بلوم بالكولاجين (Bloom Collagen Coffee)','other',30800],
 ];
 export const products=rows.map(([id,name,category,stock],index)=>({id,name,category,stock,index,cost:15,suggestedPrice:15,image:images[`../assets/catalog/${id}.jpg`]}));
+
+// User-requested testing versions of the same catalog, with separate saved offers and no stock.
+export const testingProducts=products.map(product=>({...product,id:'testing-'+product.id,originalId:product.id,testing:true,stock:null}));
+
+// User-requested saved-list preview; reuse catalog prices without inventing offers.
+export const savedPreviewProductIds=['magic-book','lumbar','olevs','dental','grinder','bloom'];
+export function createSavedPreviewOffers(){
+  return Object.fromEntries(products.filter(product=>savedPreviewProductIds.includes(product.id)).map(product=>[product.id,[{quantity:1,price:product.suggestedPrice}]]));
+}
