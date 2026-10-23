@@ -23,7 +23,7 @@ export default function GulfMap(){
  <g fill="none">{routes.map((d,i)=><path key={d} d={d} className="gulf-route" style={{'--route-delay':`${-i*1.3}s`}}/>)}</g>
  <g aria-hidden="true">{routes.map((d,i)=><circle key={d} r={i===3?5:3.5} className={'gulf-moving-dot '+(i===3?'is-orange':'')} style={{offsetPath:`path('${d}')`,'--route-delay':`${-i*1.8}s`,'--route-duration':`${8+i*1.4}s`}}/>)}</g>
  <g className="gulf-markers">{places.map((p,i)=><g key={p.name}><circle cx={p.x} cy={p.y} r="14" className="gulf-pulse" style={{'--pulse-delay':`${-i*.6}s`,transformOrigin:`${p.x}px ${p.y}px`}}/><circle cx={p.x} cy={p.y} r="5.6" fill="#48148C" stroke="#F9F6FF" strokeWidth="2"/><text x={p.lx} y={p.ly} textAnchor={p.anchor} className="gulf-label">{p.name}</text></g>)}</g>
- <g className="gulf-logo-pin" filter="url(#gulf-pin-shadow)" aria-hidden="true"><path d="M411 256 C400 242 378 225 378 205 A33 33 0 1 1 444 205 C444 225 422 242 411 256Z" fill="white"/><svg x="385" y="187" width="52" height="35" viewBox="50 260 1240 680"><image href={logo} width="1340" height="1174"/></svg></g>
+ <g className="gulf-logo-pin" filter="url(#gulf-pin-shadow)" aria-hidden="true"><path d="M411 256 C400 242 378 225 378 205 A33 33 0 1 1 444 205 C444 225 422 242 411 256Z" fill="white"/><svg x="385" y="187" width="52" height="35" viewBox="60 255 1220 670"><image href={logo} width="1339" height="1174"/></svg></g>
  </svg>
  <div className="gulf-map-caption"><span>شبكة تشغيل تجمع أسواق الخليج</span><button type="button" onClick={()=>{if(reduced&&!motionOverride){setMotionOverride(true);setPaused(false)}else setPaused(!paused)}} aria-pressed={!stopped}>{stopped?'تشغيل الحركة':'إيقاف الحركة'}<span aria-hidden="true">{stopped?'▷':'Ⅱ'}</span></button></div>
  </div>

@@ -9,8 +9,9 @@ export function Account({onCopy,onFullscreen}){
   const navigate=useNavigate();
   const [open,setOpen]=useState(false),[notificationsOpen,setNotificationsOpen]=useState(false);
   const [notifications,setNotifications]=useState([]),[filter,setFilter]=useState('all');
-  const [dark,setDark]=useState(()=>{try{return localStorage.getItem('hala-theme')==='dark'}catch{return false}});
-  useEffect(()=>{document.documentElement.classList.toggle('dark',dark);document.documentElement.classList.toggle('light',!dark);document.documentElement.style.colorScheme=dark?'dark':'light';try{localStorage.setItem('hala-theme',dark?'dark':'light')}catch{}},[dark]);
+  // Every new visit starts light; dark mode is an optional in-session choice.
+  const [dark,setDark]=useState(false);
+  useEffect(()=>{document.documentElement.classList.toggle('dark',dark);document.documentElement.classList.toggle('light',!dark);document.documentElement.style.colorScheme=dark?'dark':'light'},[dark]);
   const unread=notifications.filter(item=>!item.read).length;
   const visible=filter==='unread'?notifications.filter(item=>!item.read):notifications;
   function go(path){setOpen(false);setNotificationsOpen(false);navigate(path)}

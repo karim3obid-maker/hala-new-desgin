@@ -1,3 +1,7 @@
+import HalaLandPage from './pages/HalaLandPage';
+import HalaLandEditorPage from './pages/HalaLandEditorPage';
+import HalaLandPreviewPage from './pages/HalaLandPreviewPage';
+import {ProductOffersProvider} from './context/ProductOffersContext';
 import {I18nProvider} from '@heroui/react';
 import {HashRouter,Navigate,Route,Routes} from 'react-router';
 import {AdminLayout} from './components/layout/AdminLayout';
@@ -27,12 +31,16 @@ import ImportOrderDetailsPage from './pages/ImportOrderDetailsPage';
 import {ImportOrdersProvider} from './context/ImportOrdersContext';
 
 export default function App(){
-  return <I18nProvider locale="ar-EG"><HashRouter><DashboardProvider><OrdersPreviewProvider><ImportOrdersProvider>
-    <Routes><Route path="home" element={<HomePage/>}/><Route path="blog" element={<BlogPage/>}/><Route path="blog/:slug" element={<BlogArticlePage/>}/><Route path="auth/login" element={<AuthPage key="login"/>}/><Route path="auth/register" element={<AuthPage key="register" register/>}/><Route path="auth/signup" element={<Navigate to="/auth/register" replace/>}/><Route element={<AdminLayout/>}>
+  return <I18nProvider locale="ar-EG"><HashRouter><DashboardProvider><OrdersPreviewProvider><ImportOrdersProvider><ProductOffersProvider>
+    <Routes><Route path="hala-land/preview/:pageId/cart" element={<HalaLandPreviewPage cart/>}/><Route path="hala-land/preview/:pageId/checkout" element={<HalaLandPreviewPage checkout/>}/><Route path="hala-land/preview/:pageId" element={<HalaLandPreviewPage/>}/><Route path="home" element={<HomePage/>}/><Route path="blog" element={<BlogPage/>}/><Route path="blog/:slug" element={<BlogArticlePage/>}/><Route path="auth/login" element={<AuthPage key="login"/>}/><Route path="auth/register" element={<AuthPage key="register" register/>}/><Route path="auth/signup" element={<Navigate to="/auth/register" replace/>}/><Route element={<AdminLayout/>}>
       <Route index element={<DashboardPage/>}/>
       <Route path="dashboard-2" element={<DashboardTwoPage/>}/>
       <Route path="overview" element={<Navigate to="/" replace/>}/>
       <Route path="products/*" element={<ProductsPage/>}/>
+      <Route path="hala-land" element={<HalaLandPage key="pages"/>}/>
+      <Route path="hala-land/settings" element={<HalaLandPage key="settings" settings/>}/>
+      <Route path="hala-land/pages/new" element={<HalaLandEditorPage/>}/>
+      <Route path="hala-land/pages/:pageId/edit" element={<HalaLandEditorPage/>}/>
       <Route path="affiliate" element={<AffiliatePage/>}/>
       <Route path="orders" element={<OrdersPage key="orders"/>}/>
       <Route path="orders/new" element={<NewOrderPage/>}/>
@@ -52,5 +60,5 @@ export default function App(){
       <Route path="financial" element={<Navigate to="/wallet" replace/>}/>
       <Route path="*" element={<NotFoundPage/>}/>
     </Route></Routes>
-  </ImportOrdersProvider></OrdersPreviewProvider></DashboardProvider></HashRouter></I18nProvider>;
+  </ProductOffersProvider></ImportOrdersProvider></OrdersPreviewProvider></DashboardProvider></HashRouter></I18nProvider>;
 }

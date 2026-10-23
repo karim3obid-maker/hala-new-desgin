@@ -2,7 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import {Button} from '@heroui/react';
 import {Link} from 'react-router';
 import {Icon} from '../components/ui/Icon';
-import logo from '../assets/hala-logo.png';
+import {BrandLogo} from '../components/ui/BrandLogo';
 import warehouse from '../assets/home/fulfillment.webp';
 import dashboard from '../assets/home/dashboard-preview.jpg';
 import heroTeam from '../assets/home/hero-fulfillment-team.webp';
@@ -23,7 +23,7 @@ const audiences=[['building-store','أصحاب المتاجر','لديك متج�
 const faqs=[['هل هلا مناسبة للمتاجر الصغيرة؟','نعم، تقدر تبدأ بكميات صغيرة وتزيد التشغيل تدريجيًا حسب طلباتك ومخزونك. نحدد معك المسار المناسب في البداية.'],['ما الفرق بين هلا وشركة الشحن؟','هلا تجمع التوريد والتخزين والتجهيز وتأكيد الطلبات والشحن والتحصيل، بدل متابعة كل طرف بشكل منفصل.'],['هل أحتاج إلى مخزون كبير للبدء؟','احتياج المخزون يعتمد على المنتج والسوق وحجم الطلبات. تتحدد الكمية المناسبة بحسب خطة التشغيل المتفق عليها.'],['كيف أبدأ، وما تكلفة الخدمة؟','سجّل دخولك للوصول إلى حسابك، أو أنشئ حسابًا إذا كنت جديدًا مع هلا. تتحدد التكلفة حسب المنتج والسوق والكميات والخدمات المطلوبة.'],['متى أستلم مستحقاتي؟','تتم تسوية مستحقات الطلبات المسلّمة حسب المواعيد والشروط المتفق عليها مع فريق التشغيل.']];
 function CTA(){return <Link className="home-cta" to="/auth/login">تسجيل الدخول<Icon name="chevron-left"/></Link>}
 function CommerceIcon({index}){return <span aria-hidden="true" className="home-commerce-icon" style={{backgroundImage:`url(${commerceIcons})`,backgroundPosition:`${(index%3)*50}% ${index<3?0:100}%`}}/>}
-function Brand(){return <span className="home-logo"><img src={logo} alt="هلا كوميرس"/></span>}
+function Brand(){return <span className="home-logo"><BrandLogo/></span>}
 export default function HomePage(){
  const [menu,setMenu]=useState(false);const root=useRef(null);
  useEffect(()=>{const previous=document.title;document.title='هلا كوميرس | تجارتك تكبر، وتشغيلك علينا';const nodes=root.current.querySelectorAll('[data-reveal]');const motion=window.matchMedia('(prefers-reduced-motion: reduce)');let observer;

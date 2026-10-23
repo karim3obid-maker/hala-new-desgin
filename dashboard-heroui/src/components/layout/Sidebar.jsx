@@ -1,7 +1,7 @@
 import {Fragment,useState} from 'react';
 import {Card} from '@heroui/react';
 import {NavLink,useLocation} from 'react-router';
-import logo from '../../assets/hala-logo.png';
+import {BrandLogo} from '../ui/BrandLogo';
 import {navigation} from '../../config/navigation';
 import {accountManager} from '../../config/account';
 import {useOrdersPreview} from '../../context/OrdersPreviewContext';
@@ -15,10 +15,10 @@ export function Sidebar({onNavigate,collapsed=false}){
   const draftBadge=draftCount>0?<bdi className="draft-nav-badge" dir="ltr" aria-label={`${draftCount} طلبات درافت`}>{draftCount}</bdi>:null;
   const [productsExpanded,setProductsExpanded]=useState(true);
   return <>
-    <NavLink to="/" onClick={onNavigate} className="brand" aria-label="هلا كوميرس — الرئيسية"><span className="logo-crop"><img src={logo} alt="Hala kommers"/></span></NavLink>
+    <NavLink to="/" onClick={onNavigate} className="brand" aria-label="هلا كوميرس — الرئيسية"><span className="logo-crop"><BrandLogo/></span></NavLink>
     <nav className="side-nav" aria-label="أقسام هلا">
       <p className="nav-caption">إدارة المتجر</p>
-      {navigation.map(({icon,label,path,children},index)=><Fragment key={label}>{path==='/calculator'?<p className="nav-caption nav-caption-tools">أدوات الحساب</p>:null}{path?<NavLink end={!children&&!['/shipments','/import-orders','/offers'].includes(path)} to={path} key={label} aria-label={label} title={collapsed?label:undefined} aria-expanded={!collapsed&&path==='/products'?pathname.startsWith(path)&&productsExpanded:undefined} onClick={event=>{if(path==='/products'&&!collapsed){if(pathname.startsWith(path)){event.preventDefault();setProductsExpanded(value=>!value);return}setProductsExpanded(true)}onNavigate?.()}} className={({isActive})=>'side-link '+(isActive?'current':'')}>
+      {navigation.map(({icon,label,path,children},index)=><Fragment key={label}>{path==='/calculator'?<p className="nav-caption nav-caption-tools">أدوات الحساب</p>:null}{path?<NavLink end={!children&&!['/shipments','/import-orders','/offers','/hala-land'].includes(path)} to={path} key={label} aria-label={label} title={collapsed?label:undefined} aria-expanded={!collapsed&&path==='/products'?pathname.startsWith(path)&&productsExpanded:undefined} onClick={event=>{if(path==='/products'&&!collapsed){if(pathname.startsWith(path)){event.preventDefault();setProductsExpanded(value=>!value);return}setProductsExpanded(true)}onNavigate?.()}} className={({isActive})=>'side-link '+(isActive?'current':'')}>
         {({isActive})=><><Icon name={icon} color={isActive?colors.purple:undefined}/><span>{label}</span>{path==='/orders'&&(collapsed||!pathname.startsWith('/orders'))?draftBadge:null}{children?<Icon name="chevron-down" className="nav-group-indicator"/>:null}</>}
       </NavLink>:<span className="side-link static" key={label}><Icon name={icon}/><span>{label}</span></span>}{!collapsed&&children&&pathname.startsWith(path)&&(path!=='/products'||productsExpanded)?<div className="side-subnav" aria-label={'صفحات '+label}>{children.map(child=><NavLink end={child.path==='/orders'||child.path==='/products'} to={child.path} title={child.description} key={child.path} onClick={onNavigate} className={({isActive})=>'side-link side-sublink '+(isActive?'current':'')}><span>{child.label}</span>{child.path==='/orders/drafts'?draftBadge:null}</NavLink>)}</div>:null}</Fragment>)}
     </nav>

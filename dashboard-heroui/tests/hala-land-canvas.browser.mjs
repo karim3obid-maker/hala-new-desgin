@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_EXECUTABLE});
+const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+const base=process.env.HALA_BASE_URL||'http://127.0.0.1:4181/';
+const image=fileURLToPath(new URL('../src/assets/catalog/grinder.jpg',import.meta.url));
+try{
+ await page.goto(base+'#/hala-land');await page.locator('.land-table tbody tr').nth(4).waitFor();
+ assert.equal(await page.locator('.land-table tbody tr').count(),5);
+ const ids=await page.evaluate(async()=>{const {halaLandService:s}=await import('/src/services/halaLand.js');const {defaultStore}=await import('/src/services/halaLandValidation.js');await s.saveStore({...defaultStore,name:'متجر اختبار',slug:'test'});return (await s.listPages()).map(p=>p.id)});
+ await page.reload();await page.locator('.land-table tbody tr').nth(4).waitFor();assert.equal(await page.locator('.land-table tbody tr').count(),5);
+ await page.goto(base+'#/hala-land/pages/'+ids[0]+'/edit');await page.getByRole('heading',{name:'عرض اللاند وتعديلها'}).waitFor();
+ await page.getByLabel('عنوان الفورم',{exact:true}).fill('فورم خاص بالصفحة الأولى');await page.getByLabel('نص زر إرسال الفورم').fill('تأكيد طلبي التجريبي');
+ assert.match(await page.locator('.land-canvas-form').innerText(),/فورم خاص بالصفحة الأولى/);
+ await page.getByRole('switch',{name:'إظهار حقل الملاحظات',exact:true}).uncheck();
+ await page.getByRole('button',{name:'تعديل صورة اللاند 1',exact:true}).click();await page.getByLabel('استبدال الصورة المحددة').setInputFiles(image);
+ await page.getByText('grinder.jpg',{exact:true}).first().waitFor();await page.getByRole('button',{name:'الفورم',exact:true}).click();
+ await page.getByLabel('مكان فورم هذه اللاند').selectOption('inline');
+ await page.getByRole('button',{name:'حفظ المسودة',exact:true}).click();await page.getByText('تم حفظ المسودة المحلية بنجاح.').waitFor();
+ await page.reload();await page.getByLabel('عنوان الفورم',{exact:true}).waitFor();assert.equal(await page.getByLabel('عنوان الفورم',{exact:true}).inputValue(),'فورم خاص بالصفحة الأولى');assert.equal(await page.getByRole('switch',{name:'إظهار حقل الملاحظات',exact:true}).isChecked(),false);
+ const saved=await page.evaluate(async({ids})=>{const {halaLandService:s}=await import('/src/services/halaLand.js');return Promise.all(ids.slice(0,2).map(id=>s.getPage(id)))},{ids});
+ assert.equal(saved[0].images[0].name,'grinder.jpg');assert.notEqual(saved[0].form.title,saved[1].form.title);
+ await page.screenshot({path:fileURLToPath(new URL('../design/hala-land-live-editor-desktop.png',import.meta.url)),fullPage:true});
+ await page.getByRole('button',{name:'حفظ ومعاينة'}).click();await page.getByRole('heading',{name:'فورم خاص بالصفحة الأولى',exact:true}).waitFor();assert.equal(await page.getByLabel('ملاحظات (اختياري)',{exact:true}).count(),0);await page.getByRole('button',{name:'تأكيد طلبي التجريبي',exact:true}).waitFor();
+ await page.getByRole('link',{name:'العودة للمحرر'}).click();await page.setViewportSize({width:390,height:844});await page.getByRole('heading',{name:'عرض اللاند وتعديلها'}).waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.screenshot({path:fileURLToPath(new URL('../design/hala-land-live-editor-mobile.png',import.meta.url)),fullPage:true});
+ await page.getByRole('button',{name:'تفعيل الوضع الداكن'}).click();await page.screenshot({path:fileURLToPath(new URL('../design/hala-land-live-editor-dark.png',import.meta.url)),fullPage:true});
+ await page.evaluate(async()=>{const {halaLandService:s}=await import('/src/services/halaLand.js');await s.deletePages((await s.listPages()).map(p=>p.id))});await page.goto(base+'#/hala-land');await page.getByRole('heading',{name:'صفحتك الأولى تبدأ من هنا'}).waitFor();await page.reload();await page.getByRole('heading',{name:'صفحتك الأولى تبدأ من هنا'}).waitFor();assert.deepEqual(errors,[]);
+ console.log('Passed: five examples once, independent form settings, live editing, image replacement, persistence, preview, mobile/dark and no reseeding after delete.');
+}finally{await context.close();await browser.close()}

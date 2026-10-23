@@ -2,7 +2,7 @@ import {useEffect,useState} from 'react';
 import {Link} from 'react-router';
 import {Button} from '@heroui/react';
 import {Icon} from '../components/ui/Icon';
-import logo from '../assets/hala-logo.png';
+import {BrandLogo} from '../components/ui/BrandLogo';
 import photo from '../assets/home/fulfillment.webp';
 import countries from '../data/auth-countries.json';
 
@@ -14,7 +14,7 @@ export default function AuthPage({register=false}){
  const [notice,setNotice]=useState('');
  useEffect(()=>{const previous=document.title;document.title=(register?'إنشاء حساب':'تسجيل الدخول')+' | هلا كوميرس';window.scrollTo(0,0);return()=>{document.title=previous}},[register]);
  function submit(e){e.preventDefault();const form=e.currentTarget;const data=new FormData(form);if(register&&data.get('password')!==data.get('confirmation')){const field=form.elements.confirmation;field.setCustomValidity('تأكيد كلمة المرور غير مطابق.');field.reportValidity();return}form.reset();setNotice(register?'هذه معاينة للتصميم. لم يتم إنشاء حساب أو إرسال بياناتك.':'هذه معاينة للتصميم. لم يتم تسجيل الدخول أو إرسال بياناتك.');}
- return <div className="hala-auth" dir="rtl"><header className="hala-auth-header"><Link to="/home" aria-label="العودة لرئيسية هلا"><span className="home-logo"><img src={logo} alt="هلا كوميرس"/></span></Link><Link className="auth-back" to="/home">العودة للرئيسية <Icon name="chevron-left"/></Link></header>
+ return <div className="hala-auth" dir="rtl"><header className="hala-auth-header"><Link to="/home" aria-label="العودة لرئيسية هلا"><span className="home-logo"><BrandLogo/></span></Link><Link className="auth-back" to="/home">العودة للرئيسية <Icon name="chevron-left"/></Link></header>
  <main className={'hala-auth-main '+(register?'is-register':'')}><section className="hala-auth-form-panel"><div className="hala-auth-tabs"><Link to="/auth/login" aria-current={!register?'page':undefined}>تسجيل الدخول</Link><Link to="/auth/register" aria-current={register?'page':undefined}>إنشاء حساب</Link></div><span className="home-kicker">{register?'بداية جديدة مع هلا':'أهلًا برجعتك'}</span><h1>{register?'ابدأ رحلتك مع هلا.':'كل تجارتك، في مكانك.'}</h1><p className="auth-intro">{register?'أنشئ حسابك وابدأ تنظيم تشغيل تجارتك مع هلا.':'سجّل دخولك وتابع طلباتك وشحناتك ومستحقاتك.'}</p>
  <form onSubmit={submit} onInput={e=>{setNotice('');if(e.currentTarget.elements.confirmation)e.currentTarget.elements.confirmation.setCustomValidity('')}} className={'hala-auth-form '+(register?'auth-form-grid':'')}>
  {register&&<Field name="fullname" label="الاسم الكامل" autoComplete="name" placeholder="اكتب اسمك الكامل"/>}

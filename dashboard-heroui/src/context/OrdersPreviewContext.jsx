@@ -22,6 +22,9 @@ export function OrdersPreviewProvider({children}){
     ordersRef.current=[order,...ordersRef.current];setNewOrders(ordersRef.current);
     return order;
   }
-  function createOrder(values,products,pricing){return submitDraft(null,{source:'إضافة يدوية',payment:'عند الاستلام',...values},products,pricing)}
+  function createOrder(values,products,pricing){
+    const existing=values.landSubmissionId&&ordersRef.current.find(order=>order.landSubmissionId===values.landSubmissionId);
+    return existing||submitDraft(null,{source:'إضافة يدوية',payment:'عند الاستلام',...values},products,pricing);
+  }
   return <OrdersPreviewContext.Provider value={{newOrders,submitDraft,createOrder}}>{children}</OrdersPreviewContext.Provider>;
 }

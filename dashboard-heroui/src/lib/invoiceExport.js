@@ -28,7 +28,7 @@ async function renderInvoice(invoice,seller){
     function rule(y){c.strokeStyle=line;c.lineWidth=1;c.beginPath();c.moveTo(margin,y);c.lineTo(W-margin,y);c.stroke()}
     function wrap(value,x,y,width,size=23){let current='';for(const word of String(value).split(' ')){const next=current?current+' '+word:word;c.font='400 '+size+'px "IBM Plex Sans Arabic"';if(c.measureText(next).width>width&&current){text(current,x,y,size);y+=34;current=word}else current=next}if(current)text(current,x,y,size);return y}
     c.fillStyle=purple;c.fillRect(0,0,W,12);
-    const imageW=180,imageH=logo.naturalHeight/logo.naturalWidth*imageW;c.drawImage(logo,margin,55,imageW,imageH);
+    const imageW=210,imageH=670/1220*imageW;c.drawImage(logo,60,255,1220,670,margin,75,imageW,imageH);
     text('فاتورة خدمات',W-margin,110,46,purple,600);text('SERVICE INVOICE',W-margin,150,19,muted,400,'ltr');text(invoice?.id||'نموذج غير صادر',W-margin,190,22,muted,400,'ltr');rule(230);
     text('الجهة المصدرة',W-margin,275,20,muted);text('هلا كوميرس',W-margin,315,28,purple,600);text('فاتورة إلى',550,275,20,muted);text(seller.name,550,315,26,'#15132B',600,'ltr');text('معرّف البائع: '+seller.sellerId,550,352,20,muted);
     c.fillStyle='#F7F8FC';c.fillRect(margin,390,W-margin*2,118);text('تاريخ الإصدار',W-margin-22,430,20,muted);text(date(invoice?.issuedAt),W-margin-22,472,24);text('موعد الاستحقاق',550,430,20,muted);text(date(invoice?.dueAt,true),550,472,23);

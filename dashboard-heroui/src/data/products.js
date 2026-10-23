@@ -1,5 +1,5 @@
 const images=import.meta.glob('../assets/catalog/*.jpg',{eager:true,query:'?url',import:'default'});
-export const categories=[{id:'all',label:'كل التصنيفات',icon:'layout-grid'},{id:'health',label:'الصحة والعناية',icon:'headset'},{id:'kids',label:'مستلزمات الأطفال',icon:'gift'},{id:'electronics',label:'الإلكترونيات',icon:'calculator'},{id:'other',label:'منتجات متنوعة',icon:'package'}];
+export const categories=[{id:'all',label:'كل التصنيفات',icon:'layout-grid'},{id:'discounts',label:'خصومات',icon:'gift'},{id:'health',label:'الصحة والعناية',icon:'headset'},{id:'kids',label:'مستلزمات الأطفال',icon:'gift'},{id:'electronics',label:'الإلكترونيات',icon:'calculator'},{id:'other',label:'منتجات متنوعة',icon:'package'}];
 const rows=[
  ['magic-book','Magic Book — مجموعة كتب تعليمية للأطفال لتعلم اللغة الإنجليزية','kids',7000],
  ['maxx','Purely MAXX Nitric Oxide Boost — مكمل غذائي لدعم الطاقة والأداء البدني','health',300],

@@ -228,3 +228,102 @@ Verified product picker search by English name, Arabic name and SKU (HALA-0010),
 
 ## Prominent product-add actions — 2026-10-23
 Applied shared action class across six product-add surfaces. Verified new-order trigger opens existing product picker on desktop and mobile. Computed desktop button148×49px,14px font, purple rgb(39,10,94) and white text. Mobile338×47px and page width/scrollWidth390 with no overflow. Reviewed screenshots design/product-add-button-desktop.png and design/product-add-button-mobile.png. Production build and standalone export passed; interaction handlers unchanged.
+
+## Complete shared logo — 2026-10-23
+Replaced hala-logo.png with the exact newly supplied asset and consolidated live identity rendering in BrandLogo. Visually reviewed full orange mark and both wordmark lines in dashboard sidebar and public header at desktop and390px mobile. Mobile page clientWidth/scrollWidth390. Evidence: design/full-logo-dashboard.png and design/full-logo-home-mobile.png. Invoice canvas uses the same padded source region; no modification to invoice data. Production and standalone builds passed. Marketing/photo assets remain intact.
+
+## Hala Land — 2026-10-23
+Implemented local storefront settings, page CRUD, image builder and independent order preview. Isolated Chromium browser checks cover: empty state; required store settings; rejecting disabled payment methods; logo/pixel persistence after reload; updated catalog offers available in the builder; invalid image type; two uploaded blobs restored and reordered by keyboard; duplicate page slugs; copy/delete persistence; unsaved-edit confirmation; Saudi form validation including Arabic phone digits; COD order appears once with source/page reference and correct89SAR total; Paymob cannot charge or create a paid order; no external pixel/payment requests; atomic cross-call slug uniqueness; stale-preview rejection; IndexedDB write failure does not report success or overwrite the previous store and can be retried. Desktop1440px, mobile390px and narrow320px checked without horizontal overflow; light/dark settings, list, editor and preview visually inspected. Evidence: design/hala-land-*.png (test content exists only in the isolated browser context).
+
+Run pure validation checks with `node tests/hala-land.test.mjs`. Run end-to-end checks against Vite with `node tests/hala-land.browser.mjs`; provide `PLAYWRIGHT_MODULE` and `PLAYWRIGHT_EXECUTABLE` when using an external Playwright installation, and optional `HALA_BASE_URL`. Browser checks use fresh isolated storage and do not alter the user's saved pages. Public hosting, Hala API integration, actual Paymob checkout and tracking delivery are deliberately pending API integration.
+Final verification: production build and standalone export passed; regenerated both shareable dashboard HTML files from the current React source. Independent preview restores the saved theme on direct reload. Source/docs whitespace check passed; generated HTML retains intentional PDF cross-reference string spacing from the invoice exporter.
+
+## Compact Land settings and separate checkout — 2026-10-23
+Settings now fit within the1000px desktop capture with all five sections and the save bar, using a compact three-column layout at1440px. Mobile remains one column with40px controls and no horizontal overflow at390/320px. Added persisted store-wide formPlacement with inline default (including existing stores). Browser checks verify switching to separate checkout, reload persistence, no inline form on the product preview, CTA navigation to /checkout, no repeated landing images there, and a successful local COD order with its source/page reference. Inline checkout, payment blocking, persistence, CRUD, keyboard ordering, storage failure recovery and other existing checks still pass. Screenshots updated, with separate checkout evidence at design/hala-land-checkout-mobile.png.
+
+## Land table, per-page settings and multiple offers — 2026-10-23
+Verified table name/product/SKU search, no-results state, timestamp sorting, row selection, canceling bulk deletion and atomic confirmed deletion with persistence after reload. New pages have creation timestamps; legacy pages retain the explicitly labelled last-modified timestamp. Table status stays local draft and stock is labelled as catalog preview stock. No screenshot product records were inserted into user storage.
+Verified two persisted offers (1/79 and3/199), custom offer text/help, free shipping and selection creating a local order for3units at199SAR. Per-page modal settings persist; hiding header, moving form before images and turning sticky CTA off affect the independent preview. Turning skip-cart off navigates through a cart summary and preserves the selected offer into checkout. Deadline expiration is enforced in order submission. Countdowns require real deadlines; visitor/review data remain unavailable without a source. Previous core Land browser suite still passes after updating selectors to the new table. Separate options suite: `node tests/hala-land-options.browser.mjs` with the same Playwright environment as the core suite. Desktop/mobile and dark evidence: design/hala-land-table-*.png, design/hala-land-page-settings-*.png and design/hala-land-multiple-offers-*.png. Horizontal overflow remains inside the table scroller, not the document.
+
+## Live landing editor and independent forms — 2026-10-23
+- Added live draft workspace with phone/desktop controls, keyboard-selectable images and contextual replacement, ordering and deletion; form, CTA and offer edits update immediately before save.
+- Per-page form title, description, submit label, success message and optional fields persist independently. Required Saudi address/phone validation remains shared.
+- Added five explicitly requested catalog-based example drafts, with atomic once-only seeding that preserves existing drafts and does not recreate deleted examples.
+- Verified isolated browser: five examples after first load and reload, independent forms, image replacement persistence, inline preview and disabled optional notes, mobile overflow and dark appearance. Existing table/offers/cart/COD browser checks and pure validation pass.
+- Evidence: `design/hala-land-live-editor-desktop.png`, `design/hala-land-live-editor-mobile.png`, `design/hala-land-live-editor-dark.png`.
+
+## Shared hover feedback — 2026-10-24
+Verified pointer hover on first dashboard-two status card: intended purple inset highlight and subtle shadow present. Neighbor card stays unchanged. Browser advertises reduced motion; confirmed hovered decorative icon transform remains none as required. Non-reduced icon transform is scoped to hover/fine pointer/no-preference CSS, with220ms transition and no loops or card geometry changes. No console errors. Production build and standalone export passed. Screenshot: design/card-hover-dashboard.png. Touch and print excluded by media queries.
+
+## Remove card highlight — 2026-10-24
+Removed shared hover shadow/highlight rules and their transitions; retained decorative icon transforms. Browser confirms dashboard-two-status is hovered with computed box-shadow none. Standalone production build passed. Evidence: design/card-hover-removed.png.
+
+## Hala Land polish — 2026-10-24
+- CUA browser checks on actual list: compact header, long titles, full-name disclosure by keyboard, keyboard dropdown opening/first-item focus, mobile menu stays in viewport; sticky action column remains visible with horizontal scroll. No document overflow at390px or desktop.
+- Light/dark desktop and mobile reviewed; settings mobile reviewed. Screenshots: design/hala-land-polished-desktop.png, design/hala-land-polished-desktop-dark.png, design/hala-land-polished-mobile.png, design/hala-land-polished-mobile-dark.png.
+- Temporary isolated in-memory service fixture rendered the real list/settings/editor. Passed: save pending, success after await, success reset on edit, storage failure without success, retry recovery for both forms; image preparation shows its own label; new-page save reaches its editor with success and appears in list. No test data persisted to user IndexedDB.
+- Isolated list checks passed: search/no matches/clear, keyboard menu, duplicate, delete dialog cancel preserving rows, selected bulk deletion and empty state. Temporary fixture removed after checks.
+- Dialog container selector confirmed against rendered DOM; HeroUI motion replaced on that container only. Reduced-motion overrides reviewed in source; OS preference was not changed for testing.
+- Existing browser regression script updated for menu actions and new-save success. Validation suite and production build run separately; full browser scripts not run through a separate automation runtime.
+
+## Black dark theme — 2026-10-24
+
+- Requested appearance: black page/sidebar, charcoal cards and controls, white main text, light gray supporting text. Shared tokens and merchant dark surfaces updated; light palette remains intact.
+- Checked the original dashboard, dashboard 2, and the orders table in the browser. Chart tracks now follow the theme and rebuild on theme class changes; semantic chart/status colors remain visible.
+- Mobile check at 390 × 844: viewport and document width both 390px, no horizontal page overflow. Desktop screenshot at 1440 × 1000.
+- Light switch check: body `rgb(247, 248, 251)`, text `rgb(21, 19, 43)`, purple lane `rgb(245, 241, 253)`. Dark check: body `rgb(13, 13, 15)`, text `rgb(245, 245, 245)`.
+- Evidence: `design/black-dark-desktop.png`, `design/black-dark-mobile.png`. Browser error log empty. Production build and standalone export pass.
+
+## Sitar fixed sales template — latest review, 2026-10-23
+
+Source visual truth: Lightfunnels preview `https://www.lightfunnels.com/preview/ts_kjUv0feEi_xh5RBSA1o4k`, Product Page / COD Checkout view, backed by `https://sitar.myecomstore.net/products/actlightweightslingminiRkpdTsF7?preview=true&preview-bar=false`. Captured homepage, product gallery, form, service strip, reviews, related products, FAQ interaction and footer before implementation.
+
+Source captures: `design/sitar-reference-desktop.png`, `design/sitar-reference-mobile.png`, `design/sitar-reference-form-mobile.png`. Implementation: `design/hala-land-sitar-desktop.png`, `design/hala-land-sitar-mobile.png`, `design/hala-land-sitar-form-mobile.png`. Desktop CSS viewport1280×900; mobile390×844. Implementation captures are1280×900 and390×844 pixels at1×. Source captures contain1273×895 and383×829 pixels within the same requested CSS viewports; its screenshot surface excludes scrollbar space. No image resampling was applied; compare the corresponding content regions and do not infer spacing changes from scrollbar edges. Compare page content, excluding the local preview toolbar. Source uses its example bag; implementation intentionally uses the merchant's catalog photos, prices and offers.
+
+Full-view comparison: source and implementation images emitted together in the browser-review input at the same desktop and mobile viewports. Focused comparison: mobile source form and local form emitted together; local dark state and disabled submission are intentional because current store settings are incomplete. Desktop light and dark, mobile light/dark, FAQ expanded and editor live text edits were inspected. No unsupported source photo, logo, review or badge was copied into the merchant's product.
+
+Required surfaces:
+- Typography: preserves Hala IBM400/500/600 instead of source Cairo, an intentional integration constraint.24px product title and red price maintain the source hierarchy; narrow titles wrap without truncation.
+- Layout rhythm: source two-column image-right/form-left composition, flat surfaces, thin rules and rectangular CTA retained; single-column mobile and container-based editor rendering. Different image aspect ratio is preserved, never stretched or cropped. Local preview warnings and existing Saudi fields increase page height intentionally.
+- Tokens: monochrome surface/CTA, red price, muted details; existing dark-theme surface/text tokens. Purple remains in dashboard controls and local warning UI.
+- Assets: real local catalog and uploaded images, merchant logo, shared Gravity icons. No source hotlinks, artificial testimonials, countdown claims or fabricated discounts.
+- Content: page title/description/benefits, factual shipping/return/warranty/privacy and seller text editable per page. Policies remain empty unless supplied. Required local-preview disclosures and truthful product-total/shipping caveat remain visible.
+
+Interactions verified through in-app Browser: phone/desktop switching, product-information/FAQ navigation preserves router hash, native FAQ expansion, sticky CTA scrolls and focuses `land-order-form`, live edits to title and benefits, discard without saving test content. Existing separate-checkout page displays its purchase CTA; inline page displays its form. No horizontal overflow at390px or1280px. Browser error log: empty. Successful COD order creation was not repeated in the user's incomplete store; submission service is unchanged and Saudi validation passes the pure test suite. Full checkout regression scripts remain available for isolated execution, but were not run via an additional browser controller in this review.
+
+Findings: no actionable P0/P1/P2 issues in the adapted template. Source testimonials, product variants, multi-product recommendations and false urgency are intentionally omitted for the single-product landing scope. Product-specific policy content is still the merchant's responsibility. CRO uplift has not been measured.
+
+Comparison history: one implementation pass against captured source. No visual fixes were required after comparison. Temporary screenshot-resize timing artifacts were discarded and recaptured after confirming CSS viewport size; retained captures are the stable evidence above.
+
+Implementation checklist: fixed shared renderer; independent editable content; bounded complete FAQs; explicit payment/publication limits; production build and standalone export.
+
+final result: passed
+
+## 24 October 2026 — sticky purchase bar and bundle offers
+- Shared fixed visual purchase bar in editor and saved preview: actual SAR price on the right, black bag CTA on the left; conditional COD availability. Opens the page's own form in AppModal without navigating. Existing non-sticky preference remains supported.
+- Browser verified 390×844 and default desktop: modal opens, exactly one #land-order-form exists, Escape closes and returns focus to trigger. No horizontal overflow; mobile dialog width366px. Browser console had no errors.
+- Shared offer cards show green two-piece and purple three-piece ribbons; checked state has a strong border and radio input in the saved form. Savings derive from the page's recorded one-piece offer. Editor-only unsaved test values15/24/33 showed20%/27% and reference totals30/45; test values were discarded without altering saved offers.
+- System prefers-reduced-motion was active, and the computed ribbon animation was correctly none. Normal-mode CSS has a single420ms entrance with120ms staggering, no looping motion.
+- Evidence: design/hala-land-sticky-mobile.png, design/hala-land-sticky-form-mobile.png, design/hala-land-bundles-desktop.png, design/hala-land-bundles-mobile.png (bundle screenshots use unsaved test prices in the editor).
+- Existing store settings are incomplete, so the browser correctly kept submission disabled; no merchant settings or orders changed. Pure Hala Land validation suite passed, production and standalone builds passed. Existing bundle-size advisory remains. Full browser automation suite was not rerun; options regression scenario updated for modal versus cart CTA routing.
+
+## 24 October 2026 — compact Hala form, service policies and black/red palette
+- Implemented raised form card, icon fields, finite red halo animation (respects reduced motion), Hala/Saudi/SAR information, black purchase CTA, and neutral/red template tokens scoped outside the dashboard identity.
+- Removed city in live form and canvas. Validation now explicitly allows no city only for Hala Land in both preview and service. Regression assertions confirm ordinary orders still require city; Saudi phone and region remain required.
+- Mobile390×844: collapsed offer selector and optional details keep essential fields and submit in one view. Measured form height661px, submit bottom665px; no horizontal overflow. Expanded offers can scroll; smaller viewports/zoom keep normal dialog scrolling rather than clipping. Inline landing retains full offer cards. Accessible labels remain present when visually hidden in compact modal.
+- Saved authorized example offers to existing Magic Book draft through editor:1×15,2×24,3×33SAR, with explicit experimental offer helper text. Reload confirmed all3 retained. Selecting three/two updates header, total and sticky price to33/24. No catalog price or other drafts modified.
+- Service accordion after form: COD conditionally, free shipping, free14-day returns, support7days, warranty only if supplied. Four benefit tiles mirror merchant-provided promises. Free shipping also used in local order metadata.
+- Browser verified return accordion expansion, modal opening/closing, selected offer update, desktop layout, and computed ribbon red rgb(217,35,41) for both bundles. Store remains incomplete so real submit stays disabled; did not change account settings or create orders.
+- Evidence: design/hala-land-compact-form-mobile.png and design/hala-land-service-policies-mobile.png. Pure validation tests passed; full browser suite not rerun. Updated browser selectors for city removal and fixed submit label.
+
+## 24 October 2026 — neutral offers and denser landing
+- Nonselected offer borders and ribbons are black; selected offer alone is red. Mobile browser computed borders22/22/22 for nonselected and217/35/41 for selected. Changing selection from3pieces to2moves the red treatment and updates total33→24. No horizontal overflow at390×844.
+- Reduced vertical padding for header, product intro, service accordion/grid, information, FAQs and footer; retained all content, image aspect ratios and form control touch sizes.
+- Evidence: design/hala-land-black-offers-selected-red.png. Standalone production export passed; no data or validation changes.
+
+## 24 October 2026 — stacked checkout fields and region dropdown
+- Fixed single-column field order in saved preview and draft canvas: name, Saudi mobile, region select, detailed address, optional customer notes, optional short national address. No collapsed optional details. Visible labels restored in modal. The address placeholder requests city/district/street/building without separate required locality inputs.
+- Saudi region data has13unique entries. Shared Land-only address validation rejects out-of-list regions and malformed national addresses, permits absent city/district, and preserves standard order editor requirements. Pure regression tests passed.
+- Added explicit products subtotal, free shipping and final total rows, matching the supplied checkout structure while retaining the approved black/red palette and actual offer prices.
+- Mobile390×844 browser measured all6fields at the same292px width and horizontal position, strictly increasing vertical positions. Select has13regions plus the empty choice; no horizontal overflow. Both optional fields are visible. Normal dialog scrolling exposes totals and submit. Store remains incomplete, so fields and submit were correctly disabled; no account settings or orders changed.
+- Evidence: design/hala-land-stacked-fields-mobile.png. Browser console had no errors. Existing browser test field selectors updated; full browser suite not rerun.
