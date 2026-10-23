@@ -1,0 +1,13 @@
+import {Button,Card} from '@heroui/react';
+import {Icon} from '../ui/Icon';
+import {categories} from '../../data/products';
+const money=value=>value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+export default function ProductDetails({product,offers,onOffers,onBack}){
+  const category=categories.find(item=>item.id===product.category);
+  const magic=product.id==='magic-book';
+  return <div className="product-details-page">
+    <nav className="product-breadcrumb" aria-label="مسار المنتج"><Button size="sm" variant="ghost" onPress={onBack}>هلا شير</Button><Icon name="chevron-left"/><span>{category.label}</span><Icon name="chevron-left"/><span>تفاصيل المنتج</span></nav>
+    <Card className="product-hero"><div className="product-gallery"><img src={product.image} alt={product.name}/><span><Icon name="package"/>صورة المنتج</span></div><div className="product-information"><div className="product-category-line"><span>{category.label}</span>{offers?<span className="product-saved-status"><Icon name="circle-check"/>في قائمتي</span>:null}</div><h2>{product.name}</h2><p className="product-description">{magic?'مجموعة كتب تعليمية للأطفال لتعلّم اللغة الإنجليزية، تجمع الرسم والأرقام والحروف والكلمات في تجربة تعليم ممتعة.':product.name}</p><div className="product-market"><span aria-hidden="true" className="product-country-flag">🇸🇦</span><span>السعودية</span></div><div className="product-key-facts"><div><span>المخزون المتاح</span><strong><bdi dir="ltr">{product.stock.toLocaleString('en-US')}</bdi><small>قطعة</small></strong></div><div><span>تكلفة القطعة</span><strong><bdi dir="ltr">{money(product.cost)}</bdi><small>ر.س</small></strong></div><div><span>سعر البيع المقترح</span><strong><bdi dir="ltr">{money(product.suggestedPrice)}</bdi><small>ر.س</small></strong></div></div><div className="product-main-action"><Button onPress={onOffers}><Icon name={offers?'edit':'plus'}/>{offers?'تعديل عروض البيع':'إضافة إلى قائمتي'}</Button></div><p className="product-action-note">حدّد عروض البيع ليستخدمها فريق الكول سنتر في الأب سيل.</p></div></Card>
+    <div className="product-detail-bottom"><Card className="product-information-card"><header><Icon name="package"/><h3>معلومات المنتج والشحن</h3></header><dl><div><dt>التصنيف</dt><dd>{category.label}</dd></div><div><dt>بلد البيع</dt><dd>المملكة العربية السعودية</dd></div>{magic?<><div><dt>رمز المنتج</dt><dd><bdi dir="ltr">TxzRIjPA</bdi></dd></div><div><dt>الطول × العرض × الارتفاع</dt><dd><bdi dir="ltr">1 × 1 × 1</bdi> سم</dd></div><div><dt>الوزن</dt><dd><bdi dir="ltr">1</bdi> كجم</dd></div></>:<div><dt>القياسات والوزن</dt><dd>غير متاحة في المصدر</dd></div>}</dl><small>البيانات من الصورة المرجعية؛ راجع القياسات قبل اعتماد الشحن.</small></Card></div>
+  </div>
+}

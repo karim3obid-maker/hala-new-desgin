@@ -1,0 +1,73 @@
+Use case: ui-mockup. Create ONE unified LONG SCROLLING DESKTOP DASHBOARD for Hala Kommers by combining the sections from the attached approved visual system into a SINGLE continuous page. This is a specific layout experiment requested by the user, not new visual ideation.
+
+INPUTS:
+1 approved overview = absolute authority for visual style, shell, font sizes, colors, spacing, icon treatment, active sidebar, surface treatments.
+2 orders analytics = authority for complete orders content, exact labels, values and ratios.
+3 shipments analytics = authority for complete shipments content, exact labels, values and distributions.
+4 financial analytics = authority for complete financial content and chart.
+5 original actual Hala logo = artwork identity reference.
+All supplied images must ground the output. DO NOT STACK THREE COMPLETE SCREENSHOTS. DO NOT REPEAT ANY HEADER, SIDEBAR, LOGO, TAB BAR, FILTER BAR OR SUPPORT BOX. It must look like ONE real long browser page screenshot, with exactly ONE common header, ONE right sidebar and ONE shared filter toolbar at the top, followed by three content sections under one another.
+
+Target dimensions: desktop width1728px by height2304px, a full-page screenshot of a vertically scrollable desktop web dashboard. Keep the DESKTOP UI at the SAME natural scale and column width as the attached1728x910 references. Do not shrink all three sections to fit one910px-tall screen. Use a long canvas, no browser chrome or devices, no collage labels, no presentation board. Same 232px-wide RIGHT sidebar and approximately1496px-wide main region. SINGLE desktop sidebar column on right runs alongside the page; its logo/menu/support controls appear ONCE near the upper viewport positions as in the references, lower sidebar area may be plain white. Do not stretch nav spacing or repeat nav to fill page. Only the content column extends vertically.
+Today2026-10-22; preserve source chart dates.
+
+STRICT STYLE LOCK:
+- IBM Plex Sans Arabic, 400 body,500 labels,600 headings and metric numerals, same recognizable typography as references. Readable14-16pxbody, 28-32pxmetrics.
+- Real supplied Hala Kommers logo unchanged, do not retype its artwork.
+- Brand primary #270A5E, pale lavender #F3EFF9, orange #FB6B12 restrained in logo. Chart curve deep purple #270A5E and very pale lavender fill, never bright neon violet.
+- Background #F6F8FB, white surfaces, dark text #15132B, muted #626B82, thin borders #E4E7EE, surfaces radius12px, controls radius8px. Same padding, small pale icon circles and fine separators as selected approved design.
+- CONTINUOUS METRIC STRIPS with four columns and light vertical separators, not a new independent-card grid. Same four donut styles, same shipment bar+doughnut graphic, same full-width finance chart.
+- Keep ALL data, zero statuses, original percentages and precision. DO NOT invent or omit metrics. Percentage badges are proportions not growth, no trend arrows or improvement arrows.
+- Do not add tables, transactions, action buttons, greetings, illustrations, new navigation, new charts or features.
+
+COMMON SHELL ONCE AT TOP:
+White header64px, title لوحة التحكم and search at right; account karim obide/avatar k/copy/notifications/fullscreen at left.
+Right sidebar actual Hala logo; nav entries exactly الرئيسية (ACTIVE pale-lavender row, darkpurple text and right-edge indicator), الأفلييت، المنتجات، الطلبات، الشحنات، التكاملات، طلبات الاستيراد، المحفظة المالية، الحاسبة، الإعدادات. Support block محتاج مساعدة؟ / فريق هلا جاهز لمساعدتك والإجابة على استفساراتك / تواصل الآن and chat icon appear once, same reference design, not visually dominant.
+Main heading لوحة التحكم. Keep the same quiet underline-style row labels نظرة عامة، الطلبات، الشحنات، المالية but these serve as section jump links for this one-page variant; نظرة عامة visually current. No alternate content pages in this composition.
+Single filter toolbar surface with four labeled fields exactly اختر الفترة (October1-22 2026), الدولة (كل الدول), المنتج (كل المنتجات), المتجر (كل المتاجر). Date rendered isolated LTR in chronological order from2026/10/01 to2026/10/22. Do not repeat these filters above sections.
+
+THREE CONTENT SECTIONS IN THIS EXACT VERTICAL ORDER, with plain right-aligned section heading and modest24pxgroup gaps. Do NOT include the overview summary again.
+
+SECTION الطلبات:
+First 4-column strip RTL:
+إجمالي الطلبات211;
+طلبات مؤكدة85,40.28%;
+جاري تأكيدها32,15.17%;
+الطلبات الملغاة85,40.28%.
+Second4-column strip RTL:
+طلبات جديدة0,0%;
+بانتظار المخزون0,0%;
+مؤجلة9,4.27%;
+وهمية18,8.53%.
+Then original4 donut ratios in one white divided surface, equal columns:
+نسبة التأكيد,85 طلب مؤكد,211 إجمالي,40.3%,green;
+نسبة الإلغاء,85 طلب ملغي,211 إجمالي,40.3%,red;
+نسبة التأجيل,9 طلب مؤجل,211 إجمالي,4.3%,purple;
+نسبة الوهمي,18 طلب وهمي,211 إجمالي,8.5%,orange.
+Preserve natural large enough doughnuts as in orders reference, no giant empty row and no obscured text.
+
+SECTION الشحنات:
+First4-column strip RTL:
+إجمالي الشحنات84;
+قيد الانتظار8,9.52%;
+جاهزة للتسليم0,0%;
+قيد التجهيز0,0%.
+Second4-column strip RTL:
+تم الشحن75,89.29%;
+تم التسليم1,1.19%;
+فشل التسليم0,0%;
+مرتجعات0,0%.
+Then the same white كفاءة الشحن panel from reference: caption توزيع الشحنات وحالة التسليم للفترة المختارة.
+Four horizontal bars with labels and numbers قيد الانتظار8 (orange),تم الشحن75 (blue),تم التسليم1(green),بانتظار المخزون0(gray); bar axis0,20,40,60,80. Alongside on right original small purple doughnut1.2% labeled نسبة التسليم. Retain both1.19%metric and1.2%rounded chart. Do not add second shipping panel.
+
+SECTION المالية:
+One4-column continuous financial strip RTL:
+رصيدي الآن USD49.79 with آخر تحديث: منذ5دقائق and PALE lavender highlighted quarter (NOT solid purple);
+إجمالي الدخل USD56.47 and existing caption إجمالي الإيرادات المسجلة خلال الفترة المحددة.;
+إجمالي المصروفات USD216.37 and caption إجمالي المصروفات المسجلة خلال الفترة المحددة.;
+قيد المعالجة USD225.
+Below original full-width revenue chart titled الإيرادات والطلبات, caption اتجاه الإيرادات وعدد الطلبات خلال الفترة المختارة., USD unit chip.
+One deep-purple #270A5E curve near0 through2026-10-17, then rises to~40Oct18,~85Oct19,~110Oct20,~140Oct22. Preserve original source visual trajectory, no extra series. Axis0,40,80,120,160; chronological xlabels span2026-09-30 through2026-10-22, modest readable subset. Light dashed grid and pale-lavender area fill. All labels legible.
+The entire finance section must fit on this long page, including bottom chart xlabels and a comfortable lower margin; do not crop the last section or shrink type.
+
+OUTPUT: ONE SINGLE realistic cohesive desktop dashboard full-page view, containing all three complete sections stacked inside same shell. Freeze visual design exactly; only information aggregation changes.

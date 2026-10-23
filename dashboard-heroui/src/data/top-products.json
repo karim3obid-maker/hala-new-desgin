@@ -1,0 +1,51 @@
+{
+  "demo": true,
+  "note": "Five illustrative products and values explicitly authorized by the user for design preview. Only confirmed and shipped show percentages, each as a share of its displayed column total. AOV is revenue divided by all product orders, as explicitly selected by the user. NDR counts are illustrative. Unrelated to other dashboard snapshots.",
+  "products": [
+    {
+      "id": "headphones",
+      "name": "سماعة لاسلكية",
+      "orders": 119,
+      "confirmed": 94,
+      "shipped": 75,
+      "revenue": 4005,
+      "ndr": 8
+    },
+    {
+      "id": "watch",
+      "name": "ساعة ذكية",
+      "orders": 98,
+      "confirmed": 80,
+      "shipped": 62,
+      "revenue": 3200,
+      "ndr": 7
+    },
+    {
+      "id": "blender",
+      "name": "خلاط محمول",
+      "orders": 76,
+      "confirmed": 61,
+      "shipped": 47,
+      "revenue": 2450,
+      "ndr": 5
+    },
+    {
+      "id": "bottle",
+      "name": "زجاجة حرارية",
+      "orders": 64,
+      "confirmed": 50,
+      "shipped": 36,
+      "revenue": 1860,
+      "ndr": 4
+    },
+    {
+      "id": "lamp",
+      "name": "مصباح مكتب",
+      "orders": 43,
+      "confirmed": 31,
+      "shipped": 24,
+      "revenue": 1285,
+      "ndr": 3
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "period": {"start": "2026-10-01", "end": "2026-10-22"},
+  "orders": [
+    {"label":"إجمالي الطلبات","value":"211","icon":"shopping-cart","tone":"purple"},
+    {"label":"طلبات مؤكدة","value":"85","percentage":"40.28%","icon":"circle-check","tone":"green"},
+    {"label":"جاري تأكيدها","value":"32","percentage":"15.17%","icon":"clock","tone":"blue"},
+    {"label":"الطلبات الملغاة","value":"85","percentage":"40.28%","icon":"circle-x","tone":"red"},
+    {"label":"طلبات جديدة","value":"0","percentage":"0%","icon":"clock","tone":"purple"},
+    {"label":"بانتظار المخزون","value":"0","percentage":"0%","icon":"package-off","tone":"cyan"},
+    {"label":"مؤجلة","value":"9","percentage":"4.27%","icon":"clock","tone":"amber"},
+    {"label":"وهمية","value":"18","percentage":"8.53%","icon":"circle-x","tone":"orange"}
+  ],
+  "ratios": [
+    {"label":"نسبة التأكيد","caption":"85 طلب مؤكد","value":40.3,"tone":"green"},
+    {"label":"نسبة الإلغاء","caption":"85 طلب ملغي","value":40.3,"tone":"red"},
+    {"label":"نسبة التأجيل","caption":"9 طلب مؤجل","value":4.3,"tone":"purple"},
+    {"label":"نسبة الوهمي","caption":"18 طلب وهمي","value":8.5,"tone":"orange"}
+  ],
+  "shipments": [
+    {"label":"إجمالي الشحنات","value":"84","icon":"truck","tone":"purple"},
+    {"label":"قيد الانتظار","value":"8","percentage":"9.52%","icon":"clock","tone":"orange"},
+    {"label":"جاهزة للتسليم","value":"0","percentage":"0%","icon":"package","tone":"blue"},
+    {"label":"قيد التجهيز","value":"0","percentage":"0%","icon":"package","tone":"cyan"},
+    {"label":"تم الشحن","value":"75","percentage":"89.29%","icon":"truck","tone":"blue"},
+    {"label":"تم التسليم","value":"1","percentage":"1.19%","icon":"circle-check","tone":"purple"},
+    {"label":"فشل التسليم","value":"0","percentage":"0%","icon":"circle-x","tone":"red"},
+    {"label":"مرتجعات","value":"0","percentage":"0%","icon":"arrow-forward-up","tone":"amber"}
+  ],
+  "distribution": {"labels":["قيد الانتظار","تم الشحن","تم التسليم","بانتظار المخزون"],"values":[8,75,1,0],"deliveryPercentage":1.2},
+  "financial": [
+    {"label":"رصيدي الآن","value":"49.79","currency":"USD","caption":"آخر تحديث: منذ 5 دقائق","icon":"wallet","tone":"purple","highlight":true},
+    {"label":"إجمالي الدخل","value":"56.47","currency":"USD","caption":"إجمالي الإيرادات المسجلة خلال الفترة المحددة.","icon":"arrow-up-right","tone":"green"},
+    {"label":"إجمالي المصروفات","value":"216.37","currency":"USD","caption":"إجمالي المصروفات المسجلة خلال الفترة المحددة.","icon":"arrow-down-right","tone":"red"},
+    {"label":"قيد المعالجة","value":"225","currency":"USD","icon":"chart-bar","tone":"amber"}
+  ],
+  "revenue": {
+    "illustrative": true,
+    "note": "Daily values are a visual approximation of the source screenshot, not exported transaction data. Aggregate metrics above are transcribed from the screenshots.",
+    "labels":["2026-09-30","2026-10-02","2026-10-04","2026-10-06","2026-10-08","2026-10-10","2026-10-12","2026-10-14","2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-20","2026-10-22"],
+    "visualValues":[0,0,1,0,0,0,0,0,0,5,40,85,110,140]
+  }
+}

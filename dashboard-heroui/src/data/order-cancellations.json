@@ -1,0 +1,29 @@
+{
+  "source": "User screenshot 2026-10-23 at 5.52.50 PM; counts and percentages transcribed as a separate reference snapshot, not recomputed from dashboard order totals.",
+  "reasons": [
+    {
+      "label": "لم يعد يريد",
+      "count": 34,
+      "percentage": 39,
+      "tone": "red"
+    },
+    {
+      "label": "رفض العميل",
+      "count": 22,
+      "percentage": 26,
+      "tone": "amber"
+    },
+    {
+      "label": "تأخر التوصيل",
+      "count": 18,
+      "percentage": 21,
+      "tone": "purple"
+    },
+    {
+      "label": "نفاد المخزون",
+      "count": 12,
+      "percentage": 14,
+      "tone": "blue"
+    }
+  ]
+}

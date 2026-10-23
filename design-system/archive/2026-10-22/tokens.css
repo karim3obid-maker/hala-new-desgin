@@ -1,0 +1,77 @@
+/* Hala Kommers approved visual direction, 2026-10-22.
+ * Scoped tokens for a later shadcn/ui implementation.
+ * Load actual IBM Plex Sans Arabic fonts in the application before use.
+ */
+.hala-theme {
+  color-scheme: light;
+
+  --font-sans: "IBM Plex Sans Arabic", sans-serif;
+  --font-weight-body: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --background: #f6f8fb;
+  --foreground: #15132b;
+  --card: #ffffff;
+  --card-foreground: #15132b;
+  --popover: #ffffff;
+  --popover-foreground: #15132b;
+  --primary: #270a5e;
+  --primary-foreground: #ffffff;
+  --secondary: #f3eff9;
+  --secondary-foreground: #270a5e;
+  --muted: #f1f3f7;
+  --muted-foreground: #626b82;
+  --accent: #f3eff9;
+  --accent-foreground: #270a5e;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e4e7ee;
+  --input: #e0e5ee;
+  --ring: #270a5e;
+  --radius: 0.75rem;
+
+  --brand-orange: #fb6b12;
+  --brand-orange-foreground: #15132b;
+  --success: #15803d;
+  --success-soft: #e8f9ee;
+  --danger-soft: #fff0f1;
+  --info: #1d4ed8;
+  --info-soft: #eaf2ff;
+  --warning: #9a3412;
+  --warning-soft: #fff4e5;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #15132b;
+  --sidebar-primary: #f3eff9;
+  --sidebar-primary-foreground: #270a5e;
+  --sidebar-accent: #f3eff9;
+  --sidebar-accent-foreground: #270a5e;
+  --sidebar-border: #e4e7ee;
+  --sidebar-ring: #270a5e;
+
+  --chart-1: #270a5e;
+  --chart-2: #1665ed;
+  --chart-3: #16a34a;
+  --chart-4: #f59e0b;
+  --chart-5: #dc2626;
+  --chart-grid: #e4e7ee;
+  --chart-track: #eeeaf5;
+  --chart-area: #f3eff9;
+
+  --space-unit: 0.25rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --control-height: 2.5rem;
+  --control-radius: 0.5rem;
+  --surface-radius: 0.75rem;
+  --sidebar-width: 14.5rem;
+  --header-height: 4rem;
+  --shadow-surface: 0 1px 2px rgb(21 19 43 / 3%);
+}

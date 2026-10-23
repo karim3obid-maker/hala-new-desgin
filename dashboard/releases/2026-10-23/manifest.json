@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "approved_on": "2026-10-23",
+  "timezone": "Africa/Cairo",
+  "status": "approved",
+  "files": {
+    "hala-dashboard.html": "85ecbc74050c78910eb6af4a57c94fc3200c8134260d6d5e095cfa0453cae3ac",
+    "dashboard/styles.css": "9df8b6fe4e8bfea768e4c9088bd9fc4ee3a43f73c6445cc8d0a54ac13959a1a0",
+    "dashboard/app.js": "2a5bbbd9174d883b4206f27e2b185fa311719e97fb3770822f75e6b8919c92b5",
+    "dashboard/build.py": "a2418657e74e13624ac22e4ad6beadaf2a04c4f6c2fae5f78af8b2a2e6a5cd9f",
+    "dashboard/data.json": "271a6537b33f8b2104440cdbf0ceaedfe8a795550a2746673a81ffc3cf13bf78",
+    "hala-dashboard-approved.jpg": "952155810e5b016e3de4daf022580bfd804c3d5031701c6ceaf489492aa755ce"
+  }
+}

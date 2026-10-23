@@ -1,0 +1,38 @@
+{
+  "version": "2.1",
+  "approved_on": "2026-10-23",
+  "status": "approved",
+  "scope": "Permanent visual baseline for future Hala Kommers pages",
+  "design": "Compact React + HeroUI, IBM Plex Sans Arabic, RTL, Gravity icons",
+  "motion": {
+    "metric_count_ms": 400,
+    "on_first_visible": true,
+    "respect_reduced_motion": true
+  },
+  "files": {
+    "hala-dashboard.html": {
+      "sha256": "0276b3685722f05e3c5181d1fceda95a1fb591cd759f6fbf0e6ca6356d190179",
+      "bytes": 3229203
+    },
+    "hala-react-project.zip": {
+      "sha256": "8e0b5f707d40c83744b0131ee50edbbc43f510922df35d669c98051e5abbab19",
+      "bytes": 1196628
+    },
+    "approved-preview.jpg": {
+      "sha256": "6aaa0083c33cc1699b5a601b99727328242266ba5dfb5199627d60636bcec0b7",
+      "bytes": 84241
+    },
+    "styles.css": {
+      "sha256": "dd30ce2a5dab6e474e38a4d829faa8f1d12502482e97b131b49ee4e222c64718",
+      "bytes": 16705
+    },
+    "DESIGN.md": {
+      "sha256": "775e549c82198ee5cc0a25fabd3a813d5e18643dd3c4dfdba9f184a9ed6e4cae",
+      "bytes": 8177
+    },
+    "dashboard.json": {
+      "sha256": "271a6537b33f8b2104440cdbf0ceaedfe8a795550a2746673a81ffc3cf13bf78",
+      "bytes": 3519
+    }
+  }
+}

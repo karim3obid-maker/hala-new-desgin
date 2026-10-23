@@ -1,0 +1,15 @@
+{
+  "referralUrl":"https://seller.halakommers.com/auth/register?referral_code=XPVHIW",
+  "commissionPerDeliveredOrder":"0.25",
+  "totalEarnings":"0.00",
+  "deliveredOrders":"0",
+  "availableForWithdrawal":"0.00",
+  "settlementNote":"التسوية بتتم بعد مدة (مثلاً 7–14 يوم) لتفادي المرتجعات.",
+  "metrics":[
+    {"label":"عدد الحسابات المسجلة","value":"0","icon":"users","tone":"blue"},
+    {"label":"إجمالي العمولة","value":"0","currency":"$","icon":"wallet","tone":"purple"},
+    {"label":"الرصيد قيد المعالجة","value":"0","currency":"$","icon":"calendar","tone":"orange"},
+    {"label":"الرصيد المتاح للسحب","value":"0","currency":"$","icon":"wallet","tone":"green"}
+  ],
+  "accounts":[]
+}

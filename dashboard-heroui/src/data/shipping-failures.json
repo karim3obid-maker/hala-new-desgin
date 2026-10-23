@@ -1,0 +1,41 @@
+{
+  "source": "User screenshot 2026-10-23 at 5.50.52 PM; independent reference snapshot. Counts and percentages are transcribed, not recomputed from the dashboard shipment totals. The coverage label was truncated in the source.",
+  "reasons": [
+    {
+      "label": "العميل لا يستجيب",
+      "count": 34,
+      "percentage": 39,
+      "tone": "red"
+    },
+    {
+      "label": "عنوان غير مكتمل",
+      "count": 22,
+      "percentage": 26,
+      "tone": "amber"
+    },
+    {
+      "label": "طلب إعادة جدولة",
+      "count": 18,
+      "percentage": 21,
+      "tone": "purple"
+    },
+    {
+      "label": "رفض استلام",
+      "count": 12,
+      "percentage": 14,
+      "tone": "blue"
+    },
+    {
+      "label": "المنطقة خارج التغ…",
+      "count": 12,
+      "percentage": 14,
+      "tone": "cyan"
+    },
+    {
+      "label": "أسباب أخرى",
+      "count": 12,
+      "percentage": 14,
+      "tone": "muted"
+    }
+  ]
+}

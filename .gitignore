@@ -1,0 +1,21 @@
+# Local dependencies and generated build folders
+node_modules/
+.pnpm-store/
+dist/
+dist-standalone/
+.vite/
+coverage/
+
+# Local credentials and machine files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+
+# Regenerable source archive; the source itself is tracked
+/hala-react-project.zip

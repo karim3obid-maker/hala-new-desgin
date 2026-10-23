@@ -1,0 +1,37 @@
+# Hala Kommers — New Design
+
+لوحة التاجر العربية RTL بهوية هلا كوميرس. المشروع الحالي React + HeroUI داخل [`dashboard-heroui/`](dashboard-heroui/README.md)، مع خط IBM Plex Sans Arabic وأيقونات Gravity.
+
+## تشغيل المشروع
+
+يلزم Node.js وpnpm. من جذر المستودع:
+
+```sh
+cd dashboard-heroui
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+المعاينة الافتراضية: http://127.0.0.1:4181/
+
+## البناء وتصدير HTML
+
+```sh
+cd dashboard-heroui
+pnpm build
+pnpm export:html
+```
+
+البناء داخل `dashboard-heroui/dist/`. أمر التصدير يحدّث `hala-dashboard.html` و`hala-dashboard-heroui.html` في الجذر، ويضم الخطوط والصور داخل الملف المستقل للمشاركة.
+
+## الملفات الأساسية
+
+- `dashboard-heroui/src/`: مصدر React الحالي والمكونات والبيانات والصور المحلية.
+- `dashboard-heroui/DESIGN.md`: نظام التصميم المعتمد وتحديثاته.
+- `DESIGN_LOCK.md`: سجل اعتماد تصميم هلا الدائم.
+- `dashboard-heroui/README.md`: تفاصيل الصفحات وحدود المعاينة المحلية.
+- `dashboard-heroui/design-qa.md`: سجل التحقق من التنفيذ.
+- `dashboard/` و`design-system/archive/`: المصادر والنسخ التاريخية المحفوظة، وليست أساس التطوير الحالي.
+- صور المعاينة ونسخ HTML موجودة في الجذر.
+
+التصميم الحالي هو الستايل الدائم لباقي الموقع. التطوير يتم في مصدر React، والنسخ المؤرشفة محفوظة دون تعديل. الواجهات والبيانات المحلية هي معاينة تصميم؛ الأجزاء غير المتصلة بـAPI والبيانات التجريبية موضحة في دليل المشروع.
