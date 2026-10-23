@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router';
+import {useNavigate,useSearchParams} from 'react-router';
 import {Button,Card,Input,TextField} from '@heroui/react';
 import {MetricRows,Section} from '../components/dashboard/Metrics';
 import {Icon,IconButton} from '../components/ui/Icon';
@@ -12,7 +12,11 @@ const catalog=[editorProduct,...products];
 const money=value=><bdi dir="ltr">{value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} <small>SAR</small></bdi>;
 export default function ShipmentsPage(){
   const navigate=useNavigate();
-  const [query,setQuery]=useState(''),[status,setStatus]=useState('all'),[product,setProduct]=useState('all');
+  const [searchParams,setSearchParams]=useSearchParams();
+  const requestedStatus=searchParams.get('status');
+  const status=shipmentStatuses.some(item=>item.id===requestedStatus)?requestedStatus:'all';
+  function setStatus(value){setSearchParams(current=>{current.set('status',value);return current},{replace:true})}
+  const [query,setQuery]=useState(''),[product,setProduct]=useState('all');
   const [order,setOrder]=useState(''),[tracking,setTracking]=useState(''),[from,setFrom]=useState(''),[to,setTo]=useState('');
   const [country,setCountry]=useState('all'),[city,setCity]=useState('all');
   const [columns,setColumns]=useState(shipmentColumns.map(([id])=>id)),[columnsOpen,setColumnsOpen]=useState(false);

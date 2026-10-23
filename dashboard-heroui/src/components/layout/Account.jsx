@@ -1,19 +1,26 @@
-import {Avatar} from '@heroui/react';
+import {useEffect,useState} from 'react';
+import {Avatar,Button,Popover} from '@heroui/react';
+import {useNavigate} from 'react-router';
 import {sellerAccount} from '../../config/account';
 import {Icon,IconButton} from '../ui/Icon';
 
+const samples=[{id:1,icon:'shopping-cart',title:'تحديث حالة طلب',text:'مثال لشكل إشعار عند انتقال طلب إلى التأكيد.',path:'/orders'},{id:2,icon:'truck',title:'متابعة شحنة',text:'مثال لشكل إشعار عند تحديث حالة الشحنة.',path:'/shipments'},{id:3,icon:'wallet',title:'تحديث مالي',text:'مثال لشكل إشعار خاص بالمحفظة المالية.',path:'/wallet'}];
 export function Account({onCopy,onFullscreen}){
+  const navigate=useNavigate();
+  const [open,setOpen]=useState(false),[notificationsOpen,setNotificationsOpen]=useState(false);
+  const [notifications,setNotifications]=useState([]),[filter,setFilter]=useState('all');
+  const [dark,setDark]=useState(()=>{try{return localStorage.getItem('hala-theme')==='dark'}catch{return false}});
+  useEffect(()=>{document.documentElement.classList.toggle('dark',dark);document.documentElement.classList.toggle('light',!dark);document.documentElement.style.colorScheme=dark?'dark':'light';try{localStorage.setItem('hala-theme',dark?'dark':'light')}catch{}},[dark]);
+  const unread=notifications.filter(item=>!item.read).length;
+  const visible=filter==='unread'?notifications.filter(item=>!item.read):notifications;
+  function go(path){setOpen(false);setNotificationsOpen(false);navigate(path)}
   return <div className="account">
-    <Avatar size="sm" className="account-avatar"><Avatar.Fallback>{sellerAccount.initials}</Avatar.Fallback></Avatar>
-    <span className="account-name">{sellerAccount.name}</span>
-    <div className="seller-id" aria-label={`معرّف البائع ${sellerAccount.sellerId}`}>
-      <span className="seller-id-label">Seller ID</span>
-      <bdi dir="ltr">{sellerAccount.sellerId}</bdi>
-      <IconButton icon="copy" label="نسخ معرّف البائع" title="نسخ معرّف البائع" onPress={onCopy}/>
-    </div>
+    <Popover isOpen={open} onOpenChange={value=>{setOpen(value);if(value)setNotificationsOpen(false)}}><Button variant="ghost" className="account-trigger" aria-label="قائمة الحساب"><Avatar size="sm" className="account-avatar"><Avatar.Fallback>{sellerAccount.initials}</Avatar.Fallback></Avatar><span className="account-name">{sellerAccount.name}</span><Icon name="chevron-down"/></Button><Popover.Content placement="bottom start" className="topbar-popover account-popover"><Popover.Dialog><Popover.Heading className="sr-only">قائمة الحساب</Popover.Heading><div className="account-menu-header"><Avatar className="account-menu-avatar"><Avatar.Fallback>{sellerAccount.initials}</Avatar.Fallback></Avatar><div><strong>{sellerAccount.name}</strong><small>معرّف البائع <bdi>{sellerAccount.sellerId}</bdi></small></div></div><div className="account-menu-links"><Button variant="ghost" onPress={()=>go('/settings')}><Icon name="users"/>حسابي والإعدادات<Icon name="chevron-left"/></Button><Button variant="ghost" onPress={()=>go('/wallet')}><Icon name="wallet"/>المحفظة المالية<Icon name="chevron-left"/></Button><Button variant="ghost" onPress={()=>{onCopy();setOpen(false)}}><Icon name="copy"/>نسخ معرّف البائع</Button><Button variant="ghost" aria-pressed={dark} onPress={()=>setDark(!dark)}><Icon name={dark?'sun':'moon'}/>{dark?'الوضع الفاتح':'الوضع الداكن'}<span className={'theme-switch '+(dark?'on':'')} aria-hidden="true"><i/></span></Button></div><p className="account-menu-note">معاينة الحساب · تسجيل الخروج يتاح عند ربط خدمة الدخول.</p></Popover.Dialog></Popover.Content></Popover>
+    <div className="seller-id" aria-label={`معرّف البائع ${sellerAccount.sellerId}`}><span className="seller-id-label">Seller ID</span><bdi dir="ltr">{sellerAccount.sellerId}</bdi><IconButton icon="copy" label="نسخ معرّف البائع" title="نسخ معرّف البائع" onPress={onCopy}/></div>
     <div className="account-actions">
-      <span className="notification" title="الإشعارات"><Icon name="bell"/></span>
-      <IconButton icon="maximize" label="ملء الشاشة" onPress={onFullscreen}/>
+      <Popover isOpen={notificationsOpen} onOpenChange={value=>{setNotificationsOpen(value);if(value)setOpen(false)}}><Button isIconOnly size="sm" variant="ghost" className="notification-trigger" aria-label={unread?`الإشعارات، ${unread} غير مقروءة`:'الإشعارات'}><Icon name="bell"/>{unread>0&&<span className="notification-count">{unread}</span>}</Button><Popover.Content placement="bottom start" className="topbar-popover notifications-popover"><Popover.Dialog><header className="notifications-heading"><Popover.Heading>الإشعارات <span>{unread}</span></Popover.Heading><Button variant="ghost" size="sm" isDisabled={!unread} onPress={()=>setNotifications(current=>current.map(item=>({...item,read:true})))}>قراءة الكل</Button></header><div className="notifications-tabs" role="group" aria-label="تصفية الإشعارات"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>الكل</button><button aria-pressed={filter==='unread'} onClick={()=>setFilter('unread')}>غير المقروءة {unread>0&&<bdi>{unread}</bdi>}</button></div><div className="notifications-list">{visible.length?visible.map(item=><button key={item.id} className={'notification-item '+(!item.read?'unread':'')} onClick={()=>{setNotifications(current=>current.map(row=>row.id===item.id?{...row,read:true}:row));go(item.path)}}><span className="notification-item-icon"><Icon name={item.icon}/></span><span><strong>{item.title}<small>مثال توضيحي</small></strong><span>{item.text}</span><time>معاينة الآن</time></span>{!item.read&&<i aria-label="غير مقروء"/>}</button>):<div className="notifications-empty"><span><Icon name="bell"/></span><strong>{filter==='unread'?'كل الإشعارات مقروءة':'أنت متابع كل جديد'}</strong><p>ستظهر هنا تحديثات الطلبات والشحنات والمحفظة عند الربط.</p></div>}</div><footer className="notifications-footer"><span>معاينة تصميم · لا يوجد اتصال مباشر</span><Button variant="ghost" size="sm" onPress={()=>{setNotifications(samples.map(item=>({...item,read:false})));setFilter('all')}}>عرض أمثلة</Button></footer></Popover.Dialog></Popover.Content></Popover>
+      <IconButton icon={dark?'sun':'moon'} label={dark?'تفعيل الوضع الفاتح':'تفعيل الوضع الداكن'} title={dark?'الوضع الفاتح':'الوضع الداكن'} aria-pressed={dark} onPress={()=>setDark(!dark)}/>
+      <IconButton className="account-fullscreen" icon="maximize" label="ملء الشاشة" onPress={onFullscreen}/>
     </div>
   </div>;
 }

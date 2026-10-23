@@ -44,3 +44,19 @@ export const currentServicePrices = [
     {name:'الكول سنتر',rate:'1.50',unit:'لكل طلب مرفوع',icon:'headset'},
   ]},
 ];
+
+// User-requested demo invoices. These are UI fixtures, not issued financial records.
+export const walletInvoices = [
+  {id:'DEMO-INV-003',demo:true,issuedAt:'2026-10-23T10:00:00+03:00',dueAt:'2026-10-30T18:00:00+03:00',status:'مستحقة',total:'110.00',items:[
+    {id:'shipping',name:'شحن الطلبات',quantity:20,unitPrice:'3.00',total:'60.00'},
+    {id:'delivery',name:'توصيل الطلبات',quantity:10,unitPrice:'2.00',total:'20.00'},
+    {id:'call-center',name:'خدمات الكول سنتر',quantity:20,unitPrice:'1.50',total:'30.00'},
+  ]},
+  {id:'DEMO-INV-002',demo:true,issuedAt:'2026-10-20T11:30:00+03:00',dueAt:'2026-10-27T18:00:00+03:00',status:'قيد المعالجة',total:'45.00',items:[
+    {id:'call-center',name:'خدمات الكول سنتر',quantity:30,unitPrice:'1.50',total:'45.00'},
+  ]},
+  {id:'DEMO-INV-001',demo:true,issuedAt:'2026-10-15T09:00:00+03:00',dueAt:'2026-10-22T18:00:00+03:00',status:'مدفوعة',total:'40.00',items:[
+    {id:'shipping',name:'شحن الطلبات',quantity:10,unitPrice:'3.00',total:'30.00'},
+    {id:'delivery',name:'توصيل الطلبات',quantity:5,unitPrice:'2.00',total:'10.00'},
+  ]},
+];

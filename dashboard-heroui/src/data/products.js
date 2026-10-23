@@ -14,7 +14,7 @@ const rows=[
  ['gold-bond','بخاخ جولد بوند JBD 007 (Gold Bond JBD 007)','health',200],
  ['bloom','قهوة بلوم بالكولاجين (Bloom Collagen Coffee)','other',30800],
 ];
-export const products=rows.map(([id,name,category,stock],index)=>({id,name,category,stock,index,cost:15,suggestedPrice:15,image:images[`../assets/catalog/${id}.jpg`]}));
+export const products=rows.map(([id,name,category,stock],index)=>({id,name,category,stock,index,sku:id==='magic-book'?'TxzRIjPA':`HALA-${String(index+1).padStart(4,'0')}`,cost:15,suggestedPrice:15,image:images[`../assets/catalog/${id}.jpg`]}));
 
 // User-requested testing versions of the same catalog, with separate saved offers and no stock.
 export const testingProducts=products.map(product=>({...product,id:'testing-'+product.id,originalId:product.id,testing:true,stock:null}));

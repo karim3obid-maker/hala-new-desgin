@@ -5,6 +5,7 @@ import {OrdersPreviewProvider} from './context/OrdersPreviewContext';
 import DraftEditPage,{NewOrderPage} from './pages/DraftEditPage';
 import {DashboardProvider} from './context/DashboardContext';
 import DashboardPage from './pages/DashboardPage';
+import DashboardTwoPage from './pages/DashboardTwoPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
@@ -18,6 +19,8 @@ import IntegrationsPage from './pages/IntegrationsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/HomePage';
+import BlogPage from './pages/BlogPage';
+import BlogArticlePage from './pages/BlogArticlePage';
 import AuthPage from './pages/AuthPage';
 import ImportOrdersPage from './pages/ImportOrdersPage';
 import ImportOrderDetailsPage from './pages/ImportOrderDetailsPage';
@@ -25,8 +28,9 @@ import {ImportOrdersProvider} from './context/ImportOrdersContext';
 
 export default function App(){
   return <I18nProvider locale="ar-EG"><HashRouter><DashboardProvider><OrdersPreviewProvider><ImportOrdersProvider>
-    <Routes><Route path="home" element={<HomePage/>}/><Route path="auth/login" element={<AuthPage key="login"/>}/><Route path="auth/register" element={<AuthPage key="register" register/>}/><Route path="auth/signup" element={<Navigate to="/auth/register" replace/>}/><Route element={<AdminLayout/>}>
+    <Routes><Route path="home" element={<HomePage/>}/><Route path="blog" element={<BlogPage/>}/><Route path="blog/:slug" element={<BlogArticlePage/>}/><Route path="auth/login" element={<AuthPage key="login"/>}/><Route path="auth/register" element={<AuthPage key="register" register/>}/><Route path="auth/signup" element={<Navigate to="/auth/register" replace/>}/><Route element={<AdminLayout/>}>
       <Route index element={<DashboardPage/>}/>
+      <Route path="dashboard-2" element={<DashboardTwoPage/>}/>
       <Route path="overview" element={<Navigate to="/" replace/>}/>
       <Route path="products/*" element={<ProductsPage/>}/>
       <Route path="affiliate" element={<AffiliatePage/>}/>

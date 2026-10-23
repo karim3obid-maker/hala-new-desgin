@@ -1,12 +1,12 @@
 import {Button} from '@heroui/react';
 import {
   ArrowDownToLine,ArrowDownRight,ArrowUpRight,ArrowUturnCwRight,ArrowsExpand,Bars,Bell,
-  Box,Calculator,Calendar,ChartColumn,ChevronDown,CircleCheck,CircleDollar,
+  Moon,Sun,Box,Calculator,Calendar,ChartColumn,ChevronDown,CircleCheck,CircleDollar,
   CircleXmark,Clock,Copy,FileArrowDown,Gear,Gift,Globe,Headphones,LayoutCells,
   Link,Magnifier,Persons,ArrowUpRightFromSquare,ShoppingBag,ShoppingCart,Trolley,Wallet,Eye,Pencil,TrashBin,CircleInfo,TriangleExclamation,Plus,ArrowRotateLeft,ChevronLeft,ChevronRight,
 } from '@gravity-ui/icons';
 
-const icons={
+const icons={moon:Moon,sun:Sun,
   'arrow-down-right':ArrowDownRight,'arrow-up-right':ArrowUpRight,
   'arrow-forward-up':ArrowUturnCwRight,maximize:ArrowsExpand,'menu-2':Bars,
   bell:Bell,package:Box,'package-off':Box,calculator:Calculator,calendar:Calendar,

@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "reference": "src/assets/hala-logo.png",
+  "note": "AI-generated illustrative brand imagery, not photographs of actual Hala facilities or staff.",
+  "items": [
+    {
+      "name": "blog-cod",
+      "prompt": "Premium photorealistic editorial cover photograph for Hala Kommers Arabic ecommerce blog article about cash-on-delivery order confirmation in the Gulf. A professional Arab woman customer support operator wearing modest professional cream blouse and a deep purple headset seated in a bright modern Saudi office, naturally reviewing an order on a laptop, with a small kraft Hala-branded parcel on the desk beside an orange notebook. Authentic focused expression, natural anatomy, no visible private data, no banknotes or invented numbers. Soft daylight, ivory and deep purple #270A5E with orange #FB6B12 accent, high-end candid commercial photography. Faithfully use supplied Hala Kommers logo on the parcel only. Wide landscape 3:2 composition, crop-safe face and headset with breathing room, no overlay headlines, no watermarks. Illustrative generated brand scene."
+    },
+    {
+      "name": "blog-fulfillment",
+      "prompt": "Premium photorealistic editorial cover photograph for Hala Kommers Arabic ecommerce blog article about organized inventory and fulfillment. Close three-quarter tabletop composition of an Arab operations professional's natural hands using an orange barcode scanner to scan a tidy kraft shipping parcel with exact Hala Kommers logo from supplied reference. Purple polo sleeves, organized storage bins and labeled-without-readable-text warehouse shelves softly blurred behind, workstation in light ivory, realistic cardboard and tape textures, professional natural morning light, brand colors purple #270A5E and orange #FB6B12. Emphasis on order accuracy and stock preparation, no made-up stats, no text overlays or watermark. Wide landscape 3:2 composition, no cropped fingers or physically impossible tools. Illustrative generated brand scene."
+    },
+    {
+      "name": "blog-gulf",
+      "prompt": "Premium photorealistic editorial cover photograph for Hala Kommers Arabic ecommerce blog article about preparing a store for expansion across Gulf markets. An Arab ecommerce business owner in a white thobe at a clean modern office desk with a colleague in a modest beige professional outfit, reviewing a printed outline map of the Arabian Peninsula and Gulf region together. A closed laptop, two kraft Hala Kommers branded parcels and a purple notebook with orange pen on desk. Warm natural daylight, understated modern Gulf city buildings in distant soft window blur, authentic collaborative business planning, real human skin and hands, no handshake, no dramatic global holograms, no invented charts or stats, no writing except exact supplied Hala logo on parcels. Deep purple #270A5E and orange #FB6B12 small accents against ivory. Landscape 3:2, editorial crop-safe composition. Illustrative generated brand scene."
+    }
+  ]
+}

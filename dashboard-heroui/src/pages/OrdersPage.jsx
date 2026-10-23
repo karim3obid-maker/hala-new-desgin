@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useNavigate,useLocation} from 'react-router';
+import {useNavigate,useLocation,useSearchParams} from 'react-router';
 import {Button,Card,Input,TextField} from '@heroui/react';
 import {MetricRows,Section} from '../components/dashboard/Metrics';
 import {Icon,IconButton} from '../components/ui/Icon';
@@ -24,7 +24,10 @@ export default function OrdersPage({draft=false}){
     const value=Number(item.value)+(index<2?newOrders.length:0);
     return {...item,value:String(value),percentage:item.percentage&&newOrders.length?(value/(336+newOrders.length)*100).toFixed(2)+'%':item.percentage};
   });
-  const [status,setStatus]=useState(location.state?.newOrderId?'new':'all');
+  const [searchParams,setSearchParams]=useSearchParams();
+  const requestedStatus=searchParams.get('status');
+  const status=draft?'all':orderStatuses.some(item=>item.id===requestedStatus)?requestedStatus:location.state?.newOrderId?'new':'all';
+  function setStatus(value){setSearchParams(current=>{current.set('status',value);return current},{replace:true})}
   const [query,setQuery]=useState('');
   const [columns,setColumns]=useState(initialColumns);
   const [columnsOpen,setColumnsOpen]=useState(false);

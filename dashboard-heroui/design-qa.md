@@ -1,5 +1,21 @@
 # Compact Hala dashboard QA
 
+## Second dashboard image-to-code — 2026-10-23
+
+- Source visual truth: `design/dashboard-two-reference.png`, the exact user-selected attachment; 1487x1058 pixels. Implementation: `http://127.0.0.1:4181/#/dashboard-2`, light theme, original snapshot period, collapsed product/financial sections.
+- Evidence: `design/dashboard-two-desktop.png`, 1487x1058 CSS/pixels at density 1. Full-view comparison: `design/dashboard-two-comparison.jpg` places both equal-size images together. Focused comparison: `design/dashboard-two-focused.jpg` aligns the orders lanes and shows readable type, values, chips and RTL alignment. No density rescaling was used for the full comparison; focused crops were reduced equally for review.
+- Iteration history: initial P2 findings were undersized status typography and left-aligned LTR values. Increased lane titles to 19px, labels to 16px, values to 30px and lane rhythm; set metric `justify-self:start`. Recaptured and re-compared the same desktop state. Dark-mode review found low-contrast purple status icons; added explicit light-purple and muted minor-icon overrides, then captured `design/dashboard-two-dark.png`.
+- Fonts/typography: local IBM Plex Sans Arabic confirmed loaded. Existing shell density retained intentionally; page label is the requested second homepage name. Arabic labels wrap cleanly and numbers use LTR bdi.
+- Spacing/layout: two independently tinted lanes, four primary cards each, compact secondary statuses, two reasons panels and disclosure controls match the chosen architecture. Original shared header/sidebar remain unchanged; this accounts for the shorter top chrome compared with the generated reference. At mobile 390x844, primary cards form two columns and reasons stack. Document width/scrollWidth both 390.
+- Colors/tokens: purple orders, blue shipments, semantic status colors, white interiors and fine borders preserved. Dark mode uses existing surface tokens and brighter accents. No giant donuts or combined conversion funnel.
+- Images/assets: original local Hala logo and shared Gravity icons reused; no new raster assets needed. Reference is a UI-only screen. No screenshot is used as live page content.
+- Copy/data: same dashboard JSON and independent reasons snapshots. Confirmation/cancellation percentages remain 40.28%; shipping presentation remains the user-selected 50%. The truncated coverage reason is intentionally preserved from source data rather than completed from the generated mock.
+- Interactions verified: sidebar navigation to the new route and back to the original overview; product table and financial summary expand/collapse; date modal opens, applies 2026-10-02 start, displays unavailable-period state, and restores the original period. Light/dark toggle checked. Browser error logs empty. Production build passed.
+- Mobile evidence: `design/dashboard-two-mobile.png` and `design/dashboard-two-mobile-details.png`, normal viewport screenshots after reload. Full-page browser capture had an RTL stitching artifact and was replaced by these inspected captures. Desktop viewport override reset after QA; user preview remains open.
+- Remaining P3: generated reference has slightly larger shared-shell typography; retaining the approved existing shell is intentional. No actionable P0/P1/P2 findings remain.
+
+final result: passed
+
 final result: passed
 
 ## Wallet forms and revised pricing — 2026-10-23
@@ -168,3 +184,44 @@ Application modal verified at390×844: all three fields and action footer visibl
 - Auth layouts reviewed at 1366×950 and 390×844; 250 original country options preserved.
 - Password visibility works. Registration mismatch blocks submission; matching synthetic values produce explicit preview-only status and clear fields. Login produces explicit preview-only status. No requests or persistence added.
 - Screenshots: design/auth-login-desktop.jpg, design/auth-login-mobile.jpg, design/auth-register-desktop.jpg, design/auth-register-mobile.jpg. Homepage captures refreshed.
+
+## Hala Partner 3D presentation — 2026-10-23
+User-supplied banner is displayed whole above partner details, with its native aspect ratio and full-size link. Six matching generated transparent 3D icons replace offer-page line artwork, with live HTML titles and body copy preserved. Purple application panel and restrained orange introduction accent distinguish the promotion within the shared shell. No new animation or change to pricing/application logic.
+Desktop and390×844 mobile visually inspected. Banner loaded at naturalWidth2061; six benefit icons present. Mobile page width/scrollWidth both390. Form trigger and required fields still work; latest console errors empty. Production build passed. Screenshots: `design/hala-partner-3d-desktop.png`, `design/hala-partner-3d-mobile.png`. Generation provenance/prompt: `src/assets/offers/GENERATION.md`.
+
+## Branded homepage, copy review, and motion
+- Reviewed copy with Ibrahim Copywriting; preserved factual service scope and login conversion goal, no invented proof or claims.
+- New local generated assets: brand-parcels.webp, brand-delivery.webp, commerce-icons.webp. Logo reference inspected and used in both brand photos; all outputs visually inspected and optimized to WebP.
+- Desktop 1366px / mobile 390px: no horizontal overflow, all six service icons displayed, all images loaded, no meeting links, login CTA remains fixed.
+- Visually checked service cards and new brand gallery on both sizes; adjusted sprite edge clipping and photo framing after inspection.
+- Entrance animations run once, stagger on desktop, no recurring motion; reduced-motion CSS disables animations/transitions and the preference listener reveals pending sections.
+- Captures: design/home-branded-desktop.jpg, design/home-3d-services.jpg, design/home-3d-mobile.jpg, design/home-brand-story.jpg.
+
+## Partner application placement — 2026-10-23
+Added top CTA directly below banner; retained bottom CTA. Both triggers verified opening the same single modal and closing normally. Production build passed; responsive top CTA becomes full-width below760px.
+
+## 100% Profit banner — 2026-10-23
+Verified supplied1080×400 banner loaded intact above first-offer details. Title/list name corrected to100%بروفت; existing route preserved. Shared fluid banner styling retained. Production build passed.
+
+## 100% PROFIT details — 2026-10-23
+Replaced empty details with supplied financing breakdown, settlement, five conditions and closing line. Verified1500+1500+3000=6000 and Hala's4500 contribution, all settlement statements and all five conditions against brief. Two CTAs use a single local application modal with correct100%PROFIT title. No actual investment/payment functionality introduced. Desktop and390×844 mobile inspected; width/scrollWidth both390, console errors empty. Production and standalone builds passed. Evidence: `design/hala-profit-details-desktop.png`, `design/hala-profit-details-mobile.png`.
+
+## Gulf hero and blog — 2026-10-23
+- Desktop1366 and mobile390 checked. No document horizontal overflow on home, index and article.
+- Gulf route CSS animation observed advancing (offset-distance changed); pause froze at66.0062% across separate observations. Reduced-motion initial state is static, explicit play opt-in works. Offscreen pausing via IntersectionObserver.
+- Blog search with no match showed empty state; reset restored articles; stock category showed exactly one card. Article read link opened correct slug. Article contents button jumped to returns section with header clearance.
+- All three article images loaded. COD mobile article and inventory desktop article reviewed visually; expansion article has five content sections and references. Unknown slug shows recovery state.
+- Evidence: design/home-gulf-desktop.jpg, home-gulf-mobile.jpg, blog-desktop.jpg, blog-mobile.jpg, blog-article-desktop.jpg, blog-article-mobile.jpg.
+- Build successful; Vite retains its existing aggregate bundle-size advisory. Standalone home export includes local blog routes. Existing authentication remains preview-only.
+
+## Invoice ledger — 2026-10-23
+Replaced inline invoice template with a six-column ledger: invoice ID, issue date, due date/time, total, status and view action. Missing issued records remain an empty array. Independently verified sample-modal open/close and original invoice layout, logo and unknown dates. Real-row rendering uses selected record fields without placeholder financial values. Desktop and390×844 mobile inspected, page clientWidth/scrollWidth390, table scroll contained. No console errors. Production and standalone builds passed. Evidence: `design/wallet-invoice-ledger-desktop.png`, `design/wallet-invoice-ledger-mobile.png`.
+
+## Demo invoices — 2026-10-23
+User requested invoices in the ledger. Added three explicit DEMO records (110/45/40USD), each labeled as experimental in row/detail plus shared notice. Verified all three view actions, invoice-specific dates/status/items and amounts. Node check confirms every line quantity×rate and sum of all line totals match invoice totals. Invoice dialog max-width expanded860px and rows compacted after populated visual review. Production and standalone builds passed. Snapshot balances unchanged.
+
+## Formal invoice print/download — 2026-10-23
+Added formal document styling plus per-invoice print and real PDF download. Browser download completed at `/Users/mac/Downloads/Hala-DEMO-INV-003.pdf`. Poppler pdfinfo confirms valid PDF1.4, one A4 page595.28×841.89pt,223077bytes. Rendered and visually inspected the entire page: Arabic shaping, IBM font, Hala logo, recipient, dates, all three service rows,110USD total, and demo disclaimer are clear with no clipping/overlap. Evidence `design/wallet-invoice-a4-verified.png`. Output intentionally uses high-resolution page images (text is not selectable). Print control invoked in isolated test tab, with no console errors; no physical print job submitted. Shared renderer excludes application shell and provides12line pagination. Production and standalone builds passed.
+
+## Calculator catalog selection — 2026-10-23
+Verified product picker search by English name, Arabic name and SKU (HALA-0010), plus no-match feedback. Selecting a catalog product displays its photo, SKU, category, stock and catalog unit prices and populates unit cost15USD. Other inputs remain unchanged. Manual cost18 updates the override notice and calculated result103.90USD; restoring15 returns99.28USD. Reset clears product selection. Desktop and390px mobile visually inspected including modal; mobile clientWidth and scrollWidth both390, console errors empty. Production build and standalone export passed. Evidence: design/calculator-product-selection-desktop.png and design/calculator-product-selection-mobile.png. Uses existing local catalog data; no live catalog connection introduced.
