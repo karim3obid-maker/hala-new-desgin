@@ -42,11 +42,14 @@ assert.equal(template.content.warranty,'');
 assert.equal(template.content.faqs.length,0);
 const customized={...template,content:{...template.content,title:'عنوان المنتج',benefits:'ميزة أولى\nميزة ثانية',faqs:[{question:'كيف أختار العرض؟',answer:'راجع الكمية والإجمالي قبل التأكيد.'}]}};
 assert.deepEqual(validatePage(customized,[],products),{});
-assert.equal(normalizePage(customized).content.title,'عنوان المنتج');
-assert.equal(normalizePage(page).content.title,'');
+assert.equal(normalizePage(customized).content.title,page.name);
+assert.equal(normalizePage(page).content.title,page.name);
+assert.equal(normalizePage({...customized,name:'اسم موحد جديد'}).content.title,'اسم موحد جديد');
+assert.equal(normalizePage(customized).content.benefits,customized.content.benefits);
+assert.deepEqual(normalizePage(customized).content.faqs,customized.content.faqs);
 assert.ok(validatePage({...customized,content:{...customized.content,faqs:[{question:'سؤال',answer:''}]}},[],products).content);
 assert.ok(validatePage({...customized,content:{...customized.content,title:'x'.repeat(161)}},[],products).content);
-console.log('Sitar template: legacy drafts retain data, content is independent, policies default empty, FAQ and text bounds validated.');
+console.log('Sitar template: title follows page name, benefits and FAQ retained, policies default empty, text bounds validated.');
 
 // Removing city in Hala Land must not weaken the standard order editor's address rules.
 const noCity={...values,city:''};

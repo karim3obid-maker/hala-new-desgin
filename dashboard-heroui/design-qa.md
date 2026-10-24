@@ -363,3 +363,10 @@ Removed DashboardTwoPage and sidebar/title entry. Browser previously on /dashboa
 - معاينة 2×24 مقابل 1×15 تُظهر توفير 6 ريال (20%)؛ تطبيق المقترح حدّث حقول العرض والمعاينة دون حفظ بيانات الاختبار.
 - اختبارات منطق النصوص تشمل عدم وجود عرض قطعة واحدة، سعر بلا توفير، مدخلات ناقصة، والحفاظ على نص التاجر.
 - تحققت من إزالة الإخفاء وموعد الانتهاء من إعدادات الصفحة.
+
+## Checkout regression follow-up — 24 October 2026
+- Inspected the existing uncommitted work and current design reference before making changes. Updated stale unit assertions to match the approved unified page/product name, while checking that benefits and FAQ content survive normalization.
+- Removed the obsolete dialog announcement from the sticky purchase button, which now navigates to checkout or cart.
+- Added `tests/hala-land-checkout.browser.mjs`. Passed in a fresh isolated Chromium context at 390×844: no inline form on landing, selected trio retained through checkout and optional cart, correct SAR199 total and quantity3 in the local order, invalid submission without thank-you, successful local submission with thank-you focus, no horizontal page overflow or browser errors. The user's browser storage was not accessed.
+- All four `tests/*.test.mjs` files passed. Production build and standalone export passed; the existing bundle-size advisory remains. Older browser suites still contain historical editor/modal selectors and were not rerun; the new regression specifically covers the current checkout flow.
+- Run the new check against Vite with `node tests/hala-land-checkout.browser.mjs`; the same `PLAYWRIGHT_MODULE`, `PLAYWRIGHT_EXECUTABLE`, and `HALA_BASE_URL` overrides used by the other browser checks are supported.

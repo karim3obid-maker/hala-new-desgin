@@ -6,6 +6,7 @@ import {helpSections} from '../data/help';
 export default function HelpPage(){
   const [active,setActive]=useState(helpSections[0].id);
   const tabs=useRef([]);
+  const [openLesson,setOpenLesson]=useState(null);
   function onTabKey(event,index){
     let next;
     if(event.key==='ArrowLeft')next=(index+1)%helpSections.length;
@@ -22,8 +23,8 @@ export default function HelpPage(){
       {helpSections.map(section=>{
         const items=section.type==='videos'?section.videos:section.articles;
         return <section key={section.id} className="help-panel" role="tabpanel" id={`help-panel-${section.id}`} aria-labelledby={`help-tab-${section.id}`} hidden={active!==section.id} tabIndex={0}>
-          <header className="help-section-heading"><h2>{section.label}</h2><p>{section.description}</p></header>
-          {!items.length?<div className="help-empty"><span><Icon name={section.icon}/></span><h3>{section.emptyTitle}</h3><p>{section.emptyText}</p></div>:section.type==='videos'?<div className="help-video-grid">{items.map(video=><article className="help-video" key={video.id}><span className="help-video-icon"><Icon name="circle-play"/></span><h3>{video.title}</h3><p>{video.description}</p><a href={video.url} target="_blank" rel="noopener noreferrer">مشاهدة الفيديو<Icon name="share"/><span className="sr-only"> (يفتح في تبويب جديد)</span></a></article>)}</div>:<div className="help-articles">{items.map(article=><article key={article.id}><h3>{article.title}</h3>{article.sections.map((part,index)=><section key={index}><h4>{part.heading}</h4>{part.paragraphs.map((paragraph,i)=><p key={i}>{paragraph}</p>)}</section>)}</article>)}</div>}
+          <header className="help-section-heading"><h2>{section.label}</h2><p>{section.description}</p></header><p className="help-demo-note"><Icon name="info"/>{section.type==='videos'?'العناوين والنصوص التالية معاينة تعليمية؛ روابط الفيديو لم تُضف بعد.':'النص التالي مسودة توضيحية، وليس سياسة أو اتفاقية معتمدة.'}</p>
+          {!items.length?<div className="help-empty"><span><Icon name={section.icon}/></span><h3>{section.emptyTitle}</h3><p>{section.emptyText}</p></div>:section.type==='videos'?<div className="help-video-grid">{items.map(video=><article className="help-video" key={video.id}><div className="help-video-cover" aria-hidden="true"><span className="help-video-cover-mark"><Icon name={section.icon}/></span><span className="help-video-play"><Icon name="circle-play"/></span><small>معاينة المحتوى</small></div><div className="help-video-body"><h3>{video.title}</h3><p>{video.description}</p><div className="help-video-actions">{video.url?<a href={video.url} target="_blank" rel="noopener noreferrer">مشاهدة الفيديو<Icon name="share"/><span className="sr-only"> (يفتح في تبويب جديد)</span></a>:<span>الفيديو غير متاح بعد</span>}{video.points?.length?<button type="button" aria-expanded={openLesson===video.id} aria-controls={`help-lesson-${video.id}`} onClick={()=>setOpenLesson(openLesson===video.id?null:video.id)}>{openLesson===video.id?'إخفاء الملخص':'اقرأ ملخص الشرح'}<Icon name="chevron-down"/></button>:null}</div>{video.points?.length?<div id={`help-lesson-${video.id}`} className="help-video-lesson" hidden={openLesson!==video.id}><strong>في هذا الشرح</strong><ol>{video.points.map((point,index)=><li key={index}>{point}</li>)}</ol></div>:null}</div></article>)}</div>:<div className="help-articles">{items.map(article=><article key={article.id}><h3>{article.title}</h3>{article.sections.map((part,index)=><section key={index}><h4>{part.heading}</h4>{part.paragraphs.map((paragraph,i)=><p key={i}>{paragraph}</p>)}</section>)}</article>)}</div>}
         </section>
       })}
     </Card>

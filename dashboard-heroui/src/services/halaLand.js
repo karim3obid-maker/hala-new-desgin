@@ -93,6 +93,6 @@ export const halaLandService={
     const selected=[{...product,quantity:Number(offer.quantity)}];
     const pricing={mode:'cod',codTotal:offer.price};
     if(Object.keys(validateDraft(values,selected,pricing,landAddressPolicy)).length)throw new Error('راجع بيانات الطلب قبل الإرسال.');
-    return createOrder({...values,country:'السعودية',source:'هلا لاند',payment:'عند الاستلام',landPageId:page.id,landPageName:page.name,landPageSlug:page.slug,landSubmissionId:submissionId,landOfferId:offer.id,freeShipping:!!(halaLandPolicies.freeShipping||page.settings?.freeShipping||offer.freeShipping)},selected,pricing);
+    return createOrder({...values,country:'السعودية',source:'هلا لاند',payment:'عند الاستلام',landPageId:page.id,landPageName:page.name,landPageSlug:page.slug,landSubmissionId:submissionId,landOfferId:offer.id,freeShipping:!!(halaLandPolicies.freeShipping||offer.freeShipping)},selected,pricing);
   },
 };
