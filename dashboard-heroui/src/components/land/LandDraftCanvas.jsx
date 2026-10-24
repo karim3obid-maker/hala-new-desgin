@@ -23,8 +23,9 @@ export default function LandDraftCanvas({errors={},page,store,busy,onImages,onMo
     {formOpen&&!page.settings.skipCart?<><Button size="sm" variant="secondary" onPress={()=>setFormOpen(false)}><Icon name="chevron-right"/>العودة للاند</Button><p className="land-help">معاينة صفحة الطلب · تجربة الإرسال من «حفظ ومعاينة».</p>{formView}</>:<>
     <LandTemplateHeader page={page} store={store} onBuy={previewBuy}/>
     {page.settings.imageLayout==='stacked'?<LandStackedStory page={page} product={product} offer={page.offers[0]} onEdit={setSelected} onBuy={previewBuy} empty={<label className="land-canvas-empty">أضف صور اللاند<input aria-label="إضافة صور متتابعة" type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={onUpload}/></label>}></LandStackedStory>:<div className={'land-sitar-main '+(page.settings.imageLayout==='stacked'?'land-images-stacked ':'')+(page.settings.formBeforeImages?'form-first':'')}><div className="land-landing-images"><LandSalesGallery page={page} product={product} onEdit={setSelected} empty={<label className="land-canvas-empty"><Icon name="plus"/><strong>أضف صور اللاند هنا</strong><small>PNG · JPEG · WebP</small><input aria-label="إضافة صور من معاينة اللاند" type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={onUpload}/></label>}/></div><div className="land-sitar-buy-column"><LandProductIntro page={page} product={product} offer={page.offers[0]} editing onBuy={previewBuy}/></div></div>}
-    <LandTrustStrip page={page} store={store} offer={page.offers[0]} onBuy={previewBuy}/><LandTrustSections page={page} store={store} onBuy={previewBuy} editing onEdit={()=>setSelected('content')}/>
+    <LandTrustStrip page={page} store={store} offer={page.offers[0]} onBuy={previewBuy}/>
     {page.settings.skipCart?<div id="land-canvas-inline-form">{formView}</div>:null}
+    <LandTrustSections page={page} store={store} onBuy={previewBuy} editing onEdit={()=>setSelected('content')}/>
     <LandStoreFooter store={store}/>
     <LandStickyPurchaseBar offer={page.offers[0]} store={store} staticBar={!page.settings.stickyCta} onBuy={previewBuy}/>
     </>}
