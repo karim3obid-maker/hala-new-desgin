@@ -1,16 +1,16 @@
 import {Button} from '@heroui/react';
 import {
   ArrowDownToLine,ArrowDownRight,ArrowUpRight,ArrowUturnCwRight,ArrowsExpand,Bars,Bell,
-  StarFill,Person,MapPin,ShieldCheck,Moon,Sun,Box,Calculator,Calendar,ChartColumn,ChevronDown,CircleCheck,CircleDollar,
+  CirclePlay,BookOpen,StarFill,Person,MapPin,ShieldCheck,Moon,Sun,Box,Calculator,Calendar,ChartColumn,ChevronUp,ChevronDown,CircleCheck,CircleDollar,
   CircleXmark,Clock,Copy,FileArrowDown,Gear,Gift,Globe,Headphones,LayoutCells,
   Link,Magnifier,Persons,ArrowUpRightFromSquare,ShoppingBag,ShoppingCart,Trolley,Wallet,Eye,Pencil,TrashBin,CircleInfo,TriangleExclamation,Plus,ArrowRotateLeft,ChevronLeft,ChevronRight,
 } from '@gravity-ui/icons';
 
-const icons={star:StarFill,person:Person,location:MapPin,shield:ShieldCheck,moon:Moon,sun:Sun,
+const icons={'circle-play':CirclePlay,'book-open':BookOpen,star:StarFill,person:Person,location:MapPin,shield:ShieldCheck,moon:Moon,sun:Sun,
   'arrow-down-right':ArrowDownRight,'arrow-up-right':ArrowUpRight,
   'arrow-forward-up':ArrowUturnCwRight,maximize:ArrowsExpand,'menu-2':Bars,
   bell:Bell,package:Box,'package-off':Box,calculator:Calculator,calendar:Calendar,
-  'chart-bar':ChartColumn,'chevron-down':ChevronDown,'circle-check':CircleCheck,
+  'chart-bar':ChartColumn,'chevron-up':ChevronUp,'chevron-down':ChevronDown,'circle-check':CircleCheck,
   'currency-dollar':CircleDollar,'circle-x':CircleXmark,clock:Clock,copy:Copy,
   'file-import':FileArrowDown,settings:Gear,world:Globe,headset:Headphones,
   'layout-grid':LayoutCells,link:Link,search:Magnifier,'building-store':ShoppingBag,

@@ -327,3 +327,39 @@ final result: passed
 - Added explicit products subtotal, free shipping and final total rows, matching the supplied checkout structure while retaining the approved black/red palette and actual offer prices.
 - Mobile390×844 browser measured all6fields at the same292px width and horizontal position, strictly increasing vertical positions. Select has13regions plus the empty choice; no horizontal overflow. Both optional fields are visible. Normal dialog scrolling exposes totals and submit. Store remains incomplete, so fields and submit were correctly disabled; no account settings or orders changed.
 - Evidence: design/hala-land-stacked-fields-mobile.png. Browser console had no errors. Existing browser test field selectors updated; full browser suite not rerun.
+## 24 October 2026 — Saudi review examples and repeated purchase actions
+- Added six Saudi dialect review examples in a shared section, explicitly marked as demonstration content rather than actual reviews. No invented aggregate score, verified purchaser badges or dates. Desktop uses two columns; phone preview measured a single356px column with all six cards.
+- Added black purchase actions after services and after reviews in both editor canvas and saved preview. Browser verified both saved-preview actions open the existing order modal, with exactly one order form. Closing restores focus; no orders or merchant settings changed.
+- Production build and standalone export passed. Browser console had no errors. Evidence: design/hala-land-saudi-reviews-desktop.png and design/hala-land-review-cta-mobile.png.
+
+## 24 October 2026 — landing basics first and offers action
+- Moved name, slug, catalog product and image upload/reorder/delete before the live canvas. Compact two-column desktop arrangement, single-column on phone, bounded scrolling image list. Preserved the same draft state and validation.
+- Added header Offers action with count and a shared offers editor modal, including add/remove, quantity, SAR total and copy settings. Invalid offer saving opens the modal. Changes persist only through Save Draft.
+- Browser checked Bloom desktop and390×844: basics has one366px column on phone, no horizontal overflow; offer dialog362px without overflow. Added an unsaved test offer2×28 and confirmed preview and header count update; discarded test changes by closing the temporary tab without saving. Existing user data untouched. No browser console errors.
+- Production and standalone builds passed. Evidence: design/hala-land-editor-basics.png, design/hala-land-editor-basics-mobile.png and design/hala-land-offers-dialog.png.
+
+## 24 October 2026 — image layout choice and compact stacked story
+- Added per-page gallery/stacked choice above image upload, default gallery for legacy pages, stored with the draft. Validation accepts only the two modes. Pure validation checks passed; no image order or asset data is rewritten by switching.
+- Shared stacked story shows first image, catalog name, editable headline/subtitle, black purchase CTA, actual offer price and clearly marked4.8demo rating, then remaining images with a CTA between each pair. Compact intro applies to every stacked landing in canvas and saved preview; gallery remains supported. Review summary uses matching demo rating in this mode.
+- Browser checked six Bloom images and five inter-image purchase actions, correct original order, full widths, and gallery switching without duplicated images. Compact phone intro measured184px at388px content width. Inter-image CTA opened the existing page form with exactly one form instance, correct selected offer and SAR price, without route change. No order submitted or stored page modified in this test; no console errors.
+- Production build, standalone export and validation tests passed. Evidence: design/hala-land-image-layout-control.png and design/hala-land-compact-story-intro.png.
+
+## 24 October 2026 — simplified canvas inspector
+- Inspector now exposes Content/Trust and Images only. Purchase button text is inside Content/Trust. Removed canvas form settings and offer editing; preserved saved form data, standard form preview and top-level offers action.
+- Images tab exposes upload, six existing thumbnails and selected-image replace/move/delete controls. Browser selected image2 and confirmed selected state plus its matching filename and controls. Content tab has one CTA text field, no form-title settings field. Did not mutate or save user content.
+- Production build and standalone export passed. Evidence: design/hala-land-inspector-images.png and design/hala-land-inspector-content.png.
+
+## Remove second dashboard — 2026-10-24
+Removed DashboardTwoPage and sidebar/title entry. Browser previously on /dashboard-2 now resolves to / with primary dashboard and no second-dashboard navigation entry. Shared navigation supplies desktop and mobile. Standalone production build passed. Evidence: design/dashboard-two-removed.png.
+
+## 24 October 2026 — drag-and-drop image sorting
+- Added a dedicated pointer-capture drag handle per image with a6px movement threshold, nearest-row drop target, cancelled gesture support and scrolling at viewport edges. Images are reordered only on drop; same draft callback updates preview and dirty state. Existing up/down buttons remain. Handles also support keyboard arrows and announce the new position.
+- Browser dragged first Bloom image to third and verified actual stable image IDs changed from A/B/C to B/C/A. Keyboard Up twice restored A/B/C; clicking down moved A to second and showed the matching status announcement. Test changes were discarded without saving. No console errors.
+- Phone390×844:334px list, no horizontal overflow; touch-action is none only on handle. Real touch gesture was not automated; mouse pointer drag and keyboard were exercised. Production and standalone builds passed.
+- Evidence: design/hala-land-drag-sort.png and design/hala-land-drag-sort-mobile.png.
+
+### محرر العروض — 24 أكتوبر 2026
+- راجعت نافذة Magic Book على 1280px و390px: لا تجاوز أفقي، والتذييل متاح.
+- معاينة 2×24 مقابل 1×15 تُظهر توفير 6 ريال (20%)؛ تطبيق المقترح حدّث حقول العرض والمعاينة دون حفظ بيانات الاختبار.
+- اختبارات منطق النصوص تشمل عدم وجود عرض قطعة واحدة، سعر بلا توفير، مدخلات ناقصة، والحفاظ على نص التاجر.
+- تحققت من إزالة الإخفاء وموعد الانتهاء من إعدادات الصفحة.

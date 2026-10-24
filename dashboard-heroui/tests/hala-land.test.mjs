@@ -66,3 +66,8 @@ assert.ok(validateDraft({...stackedValues,region:'منطقة غير موجودة
 assert.ok(validateDraft({...stackedValues,nationalAddress:'bad'},selectedProduct,codPricing,landAddressPolicy).nationalAddress);
 assert.ok(validateDraft(stackedValues,selectedProduct,codPricing).district);
 console.log('Stacked checkout: Saudi region whitelist and optional national address validated; standard order district requirement preserved.');
+
+assert.equal(normalizePage(page).settings.imageLayout,'gallery');
+assert.equal(normalizePage({...page,settings:{imageLayout:'stacked'}}).settings.imageLayout,'stacked');
+assert.deepEqual(validatePage({...page,settings:{imageLayout:'stacked'}},[],products),{});
+assert.ok(validatePage({...page,settings:{imageLayout:'unknown'}},[],products).imageLayout);

@@ -28,6 +28,7 @@ export function validatePage(page,pages,products){
   const settings={...pageDefaults,...page.settings};
   if(!settings.ctaText.trim()||settings.ctaText.length>60)errors.ctaText='أدخل نص زر الشراء بحد أقصى 60 حرفًا.';
   if(!['inherit','inline','separate'].includes(settings.formPlacement))errors.formPlacement='اختر مكان فورم الشراء.';
+  if(!['gallery','stacked'].includes(settings.imageLayout))errors.imageLayout='اختر طريقة عرض الصور.';
   if(settings.expiresAt&&!Number.isFinite(Date.parse(settings.expiresAt)))errors.expiresAt='أدخل موعد انتهاء صحيحًا.';
   if(pageOffers(page).some(offer=>[offer.ctaText,offer.helperText,offer.helperDescription].some(text=>text&&text.length>160)))errors.offer='نصوص العرض لا تتجاوز 160 حرفًا لكل حقل.';
   const content={...contentDefaults,...page.content};
@@ -42,8 +43,8 @@ export function validateImageFiles(files,currentCount=0){
   for(const file of files){if(!imageTypes.includes(file.type))throw new Error('الصور المسموحة PNG وJPEG وWebP فقط.');if(file.size>maxImageSize)throw new Error('حجم كل صورة يجب ألا يتجاوز 5 ميجابايت.');if(!file.size)throw new Error('لا يمكن رفع ملف فارغ.');}
 }
 
-export const pageDefaults={ctaText:'اطلب الآن',skipCart:true,stickyCta:true,formPlacement:'inherit',freeShipping:false,showStock:false,expiresAt:'',hideHeader:false,hideQuantity:false,hidden:false,formBeforeImages:false};
+export const pageDefaults={ctaText:'اطلب الآن',skipCart:true,stickyCta:true,formPlacement:'inherit',freeShipping:false,showStock:false,expiresAt:'',hideHeader:false,hideQuantity:false,hidden:false,formBeforeImages:false,imageLayout:'gallery'};
 export function pageOffers(page){return page.offers?.length?page.offers:[{id:'original',quantity:page.quantity??'',price:page.price??'',ctaText:'',helperText:'',helperDescription:'',hideUnitPrice:false,freeShipping:false}]}
-export const contentDefaults={announcement:'',title:'',subtitle:'',description:'',benefits:'',shipping:'',returns:'',warranty:'',privacy:'',sellerName:'',sellerDetails:'',faqs:[]};
+export const contentDefaults={showReviews:true,showFaq:true,showInformation:true,announcement:'',title:'',subtitle:'',description:'',benefits:'',shipping:'',returns:'',warranty:'',privacy:'',sellerName:'',sellerDetails:'',faqs:[]};
 export const formDefaults={title:'اطلب الآن',description:'',submitText:'',successMessage:'',showNotes:true,showNationalAddress:true};
-export function normalizePage(page){const offers=pageOffers(page).map((offer,index)=>({id:'offer-'+index,ctaText:'',helperText:'',helperDescription:'',hideUnitPrice:false,freeShipping:false,...offer}));return {...page,template:'sitar',content:{...contentDefaults,...page.content,faqs:page.content?.faqs||[]},form:{...formDefaults,...page.form},settings:{...pageDefaults,...page.settings},offers,quantity:offers[0].quantity,price:offers[0].price}}
+export function normalizePage(page){const offers=pageOffers(page).map((offer,index)=>({id:'offer-'+index,ctaText:'',helperText:'',helperDescription:'',hideUnitPrice:false,freeShipping:false,...offer}));return {...page,template:'sitar',content:{...contentDefaults,...page.content,title:page.name||'',faqs:page.content?.faqs||[]},form:{...formDefaults,...page.form},settings:{...pageDefaults,...page.settings},offers,quantity:offers[0].quantity,price:offers[0].price}}

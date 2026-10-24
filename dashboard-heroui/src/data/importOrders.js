@@ -4,6 +4,15 @@ export const importOrigins=[
   {id:'EG',name:'مصر',flag:'🇪🇬',routes:[{id:'land',label:'بري',duration:'10–15 يوم عمل'}]},
 ];
 export const importDestinations=['المملكة العربية السعودية','الإمارات العربية المتحدة','الكويت','قطر','البحرين','سلطنة عُمان','مصر'];
+export const importDestinationCountries=[
+  {id:'SA',name:importDestinations[0],flag:'🇸🇦'},
+  {id:'AE',name:importDestinations[1],flag:'🇦🇪'},
+  {id:'KW',name:importDestinations[2],flag:'🇰🇼'},
+  {id:'QA',name:importDestinations[3],flag:'🇶🇦'},
+  {id:'BH',name:importDestinations[4],flag:'🇧🇭'},
+  {id:'OM',name:importDestinations[5],flag:'🇴🇲'},
+  {id:'EG',name:importDestinations[6],flag:'🇪🇬'},
+];
 export const importCategories=['الصحة والعناية','مستلزمات الأطفال','الإلكترونيات','منتجات متنوعة'];
 export const importColumns=[['id','رقم الطلب'],['name','المنتج'],['requestedBy','الطلب من'],['origin','بلد المصدر'],['category','الفئة'],['status','الحالة'],['payment','حالة الدفع'],['date','تاريخ الإنشاء'],['width','العرض'],['height','الارتفاع'],['weight','الوزن'],['length','الطول'],['notes','ملاحظات']];
 export function validateImport(values,images){

@@ -1,3 +1,4 @@
+import {withTrioOffer} from './landTrioOffer';
 import {landAddressPolicy} from '../data/saudiRegions';
 import {halaLandPolicies} from '../config/halaLandPolicies';
 import {defaultStore,validateStore,validatePage,validateImageFiles,normalizePage,pageOffers} from './halaLandValidation';
@@ -40,6 +41,19 @@ export const halaLandService={
     return new Promise((resolve,reject)=>{const tx=db.transaction(['pages','store'],'readwrite'),pages=tx.objectStore('pages'),store=tx.objectStore('store');let added=[];
       tx.oncomplete=()=>resolve(added);tx.onabort=tx.onerror=()=>reject(new Error('تعذّر حفظ اللاندات التجريبية. أعد المحاولة.'));
       const marker=store.get('examples-v1');marker.onsuccess=()=>{if(marker.result)return;const all=pages.getAll();all.onsuccess=()=>{const existing=all.result;for(const draft of drafts){if(existing.some(p=>p.id===draft.id))continue;let slug=draft.slug,n=2;while(existing.some(p=>p.slug===slug))slug=draft.slug+'-'+n++;const next={...draft,slug};pages.put(next);added.push(next);existing.push(next)}store.put(true,'examples-v1')}};
+    });
+  },
+  async addTrioOffers(){
+    // One atomic migration: saved edits/deletions after this update stay respected.
+    const db=await database();
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(['pages','store'],'readwrite'),store=tx.objectStore('store'),pages=tx.objectStore('pages');
+      tx.oncomplete=()=>resolve();tx.onabort=tx.onerror=()=>reject(new Error('تعذّر إضافة عروض الثلاث قطع. أعد المحاولة.'));
+      const marker=store.get('trio-offers-v1');
+      marker.onsuccess=()=>{if(marker.result)return;const request=pages.getAll();request.onsuccess=()=>{
+        for(const page of request.result){const original=pageOffers(page),offers=withTrioOffer(original);if(offers!==original)pages.put({...page,offers,updatedAt:new Date().toISOString()})}
+        store.put(true,'trio-offers-v1');
+      }};
     });
   },
   async getStore(){return {...defaultStore,...await transaction('store','readonly',(store,set)=>{const r=store.get('current');r.onsuccess=()=>set(r.result)})}},

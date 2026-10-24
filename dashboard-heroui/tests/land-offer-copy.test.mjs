@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {offerPresentation} from '../src/services/landOfferCopy.js';
+const offers=[{quantity:'1',price:'15'},{quantity:'2',price:'24'},{quantity:'3',price:'33'}];
+assert.equal(offerPresentation(offers[1],offers).saving,6);
+assert.equal(offerPresentation(offers[2],offers).percent,27);
+assert.match(offerPresentation(offers[1],offers).copy.ctaText,/6.00/);
+assert.equal(offerPresentation({...offers[1],ctaText:'نص التاجر'},offers).copy.ctaText,'نص التاجر');
+assert.equal(offerPresentation({quantity:'2',price:'40'},offers).saving,0);
+assert.equal(offerPresentation(offers[1],[offers[1]]).saving,0);
+assert.equal(offerPresentation({quantity:'',price:''},offers).valid,false);
+assert.doesNotMatch(offerPresentation({quantity:'',price:''},offers).copy.ctaText,/NaN/);
+assert.doesNotMatch(offerPresentation(offers[1],offers,{hideQuantity:true}).copy.ctaText,/قطعتين/);
+console.log('Offer copy: actual savings, missing baseline, invalid pricing and custom content passed.');

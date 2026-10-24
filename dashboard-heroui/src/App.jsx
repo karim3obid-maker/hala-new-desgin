@@ -9,10 +9,10 @@ import {OrdersPreviewProvider} from './context/OrdersPreviewContext';
 import DraftEditPage,{NewOrderPage} from './pages/DraftEditPage';
 import {DashboardProvider} from './context/DashboardContext';
 import DashboardPage from './pages/DashboardPage';
-import DashboardTwoPage from './pages/DashboardTwoPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
+import HelpPage from './pages/HelpPage';
 import AffiliatePage from './pages/AffiliatePage';
 import ShipmentsPage from './pages/ShipmentsPage';
 import ShipmentDetailsPage from './pages/ShipmentDetailsPage';
@@ -28,19 +28,22 @@ import BlogArticlePage from './pages/BlogArticlePage';
 import AuthPage from './pages/AuthPage';
 import ImportOrdersPage from './pages/ImportOrdersPage';
 import ImportOrderDetailsPage from './pages/ImportOrderDetailsPage';
+import ImportOrderCreatePage from './pages/ImportOrderCreatePage';
+import ImportOrderThankYouPage from './pages/ImportOrderThankYouPage';
 import {ImportOrdersProvider} from './context/ImportOrdersContext';
 
 export default function App(){
   return <I18nProvider locale="ar-EG"><HashRouter><DashboardProvider><OrdersPreviewProvider><ImportOrdersProvider><ProductOffersProvider>
     <Routes><Route path="hala-land/preview/:pageId/cart" element={<HalaLandPreviewPage cart/>}/><Route path="hala-land/preview/:pageId/checkout" element={<HalaLandPreviewPage checkout/>}/><Route path="hala-land/preview/:pageId" element={<HalaLandPreviewPage/>}/><Route path="home" element={<HomePage/>}/><Route path="blog" element={<BlogPage/>}/><Route path="blog/:slug" element={<BlogArticlePage/>}/><Route path="auth/login" element={<AuthPage key="login"/>}/><Route path="auth/register" element={<AuthPage key="register" register/>}/><Route path="auth/signup" element={<Navigate to="/auth/register" replace/>}/><Route element={<AdminLayout/>}>
       <Route index element={<DashboardPage/>}/>
-      <Route path="dashboard-2" element={<DashboardTwoPage/>}/>
+      <Route path="dashboard-2" element={<Navigate to="/" replace/>}/>
       <Route path="overview" element={<Navigate to="/" replace/>}/>
       <Route path="products/*" element={<ProductsPage/>}/>
       <Route path="hala-land" element={<HalaLandPage key="pages"/>}/>
       <Route path="hala-land/settings" element={<HalaLandPage key="settings" settings/>}/>
       <Route path="hala-land/pages/new" element={<HalaLandEditorPage/>}/>
       <Route path="hala-land/pages/:pageId/edit" element={<HalaLandEditorPage/>}/>
+      <Route path="help" element={<HelpPage/>}/>
       <Route path="affiliate" element={<AffiliatePage/>}/>
       <Route path="orders" element={<OrdersPage key="orders"/>}/>
       <Route path="orders/new" element={<NewOrderPage/>}/>
@@ -56,6 +59,8 @@ export default function App(){
       <Route path="calculator" element={<CalculatorPage/>}/>
       <Route path="integrations" element={<IntegrationsPage/>}/>
       <Route path="import-orders" element={<ImportOrdersPage/>}/>
+      <Route path="import-orders/new" element={<ImportOrderCreatePage/>}/>
+      <Route path="import-orders/:importId/thank-you" element={<ImportOrderThankYouPage/>}/>
       <Route path="import-orders/:importId" element={<ImportOrderDetailsPage/>}/>
       <Route path="financial" element={<Navigate to="/wallet" replace/>}/>
       <Route path="*" element={<NotFoundPage/>}/>

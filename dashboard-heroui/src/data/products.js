@@ -24,3 +24,9 @@ export const savedPreviewProductIds=['magic-book','lumbar','olevs','dental','gri
 export function createSavedPreviewOffers(){
   return Object.fromEntries(products.filter(product=>savedPreviewProductIds.includes(product.id)).map(product=>[product.id,[{quantity:1,price:product.suggestedPrice}]]));
 }
+
+// Two low-stock examples explicitly requested for the saved-list preview.
+const savedStockPreview={'magic-book':6,'lumbar':8};
+export function withSavedStockPreview(product){
+  return Object.hasOwn(savedStockPreview,product.id)?{...product,stock:savedStockPreview[product.id],stockPreview:true}:product;
+}

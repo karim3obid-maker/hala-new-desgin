@@ -2,6 +2,7 @@ export const sellerAccount = {
   name: 'karim obide',
   initials: 'k',
   sellerId: '86jdk5',
+  subscriptionPlan: 'الباقة الأساسية',
 };
 
 export const accountManager = {

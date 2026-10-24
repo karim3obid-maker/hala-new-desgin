@@ -39,6 +39,7 @@ export const currentServicePrices = [
     {name:'الشحن',rate:'3.00',unit:'لكل طلب مشحون',icon:'truck'},
     {name:'التوصيل',rate:'2.00',unit:'لكل طلب موصّل',icon:'package'},
     {name:'المرتجع',rate:'0.00',unit:'لكل طلب مرتجع',icon:'arrow-forward-up'},
+    {name:'رسوم التحصيل (COD)',rate:'5',percentage:true,unit:'من قيمة الطلب المُسلَّم',icon:'currency-dollar'},
   ]},
   {name:'خدمات الكول سنتر',icon:'headset',items:[
     {name:'الكول سنتر',rate:'1.50',unit:'لكل طلب مرفوع',icon:'headset'},
