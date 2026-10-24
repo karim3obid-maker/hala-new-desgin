@@ -370,3 +370,7 @@ Removed DashboardTwoPage and sidebar/title entry. Browser previously on /dashboa
 - Added `tests/hala-land-checkout.browser.mjs`. Passed in a fresh isolated Chromium context at 390×844: no inline form on landing, selected trio retained through checkout and optional cart, correct SAR199 total and quantity3 in the local order, invalid submission without thank-you, successful local submission with thank-you focus, no horizontal page overflow or browser errors. The user's browser storage was not accessed.
 - All four `tests/*.test.mjs` files passed. Production build and standalone export passed; the existing bundle-size advisory remains. Older browser suites still contain historical editor/modal selectors and were not rerun; the new regression specifically covers the current checkout flow.
 - Run the new check against Vite with `node tests/hala-land-checkout.browser.mjs`; the same `PLAYWRIGHT_MODULE`, `PLAYWRIGHT_EXECUTABLE`, and `HALA_BASE_URL` overrides used by the other browser checks are supported.
+
+### 24 أكتوبر 2026 — صفحة الأسعار والخدمات
+- أضيف `/pricing` ورابط القائمة، والتعريفة من مصدر أسعار المحفظة الحالي. المثال يحتسب نفس أسعار الخدمات، والقاموس 12 مصطلحًا مع بحث وتصفية وحالة فراغ وإعادة تعيين.
+- نجح بناء الإنتاج. التحقق البصري والتفاعلي عبر المتصفح غير مكتمل: رفضت سياسة المتصفح تلقائيًا ربط تبويب المشروع المحلي؛ لم تُستخدم وسائل بديلة لتجاوز الرفض. يلزم فتح الصفحة للتحقق البصري النهائي على الكمبيوتر والهاتف.

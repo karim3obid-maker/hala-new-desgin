@@ -21,7 +21,7 @@ export function AdminLayout(){
   const {available}=useDashboard();
   const location=useLocation();
   const navigate=useNavigate();
-  const title=pageTitles[location.pathname]||(location.pathname.startsWith('/hala-land/pages/')?'تعديل صفحة هبوط':location.pathname.startsWith('/import-orders/')&&location.pathname.endsWith('/thank-you')?'تمت إضافة طلب الاستيراد':location.pathname.startsWith('/import-orders/')?'تفاصيل طلب الاستيراد':location.pathname.startsWith('/shipments/')?'تفاصيل الشحنة':location.pathname.startsWith('/products/item/')?'تفاصيل المنتج':location.pathname.startsWith('/orders/drafts/')?'تعديل طلب درافت':location.pathname.startsWith('/orders/')?'تفاصيل الطلب':'الصفحة غير موجودة');
+  const title=pageTitles[location.pathname]||(location.pathname.startsWith('/help/learning/')?'فيديوهات تعليمية':location.pathname.startsWith('/hala-land/pages/')?'تعديل صفحة هبوط':location.pathname.startsWith('/import-orders/')&&location.pathname.endsWith('/thank-you')?'تمت إضافة طلب الاستيراد':location.pathname.startsWith('/import-orders/')?'تفاصيل طلب الاستيراد':location.pathname.startsWith('/shipments/')?'تفاصيل الشحنة':location.pathname.startsWith('/products/item/')?'تفاصيل المنتج':location.pathname.startsWith('/orders/drafts/')?'تعديل طلب درافت':location.pathname.startsWith('/orders/')?'تفاصيل الطلب':'الصفحة غير موجودة');
   const term=normalize(query);
   const matches=term&&available?allMetrics.filter(metric=>normalize(metric.label+' '+metricGroups[metric.group].label).includes(term)):[];
   useEffect(()=>{if(!notice)return;const id=setTimeout(()=>setNotice(''),2800);return()=>clearTimeout(id)},[notice]);

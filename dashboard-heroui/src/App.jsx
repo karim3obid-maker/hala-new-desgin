@@ -13,12 +13,14 @@ import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/ProductsPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
 import HelpPage from './pages/HelpPage';
+import HelpLearningTopicPage from './pages/HelpLearningTopicPage';
 import AffiliatePage from './pages/AffiliatePage';
 import ShipmentsPage from './pages/ShipmentsPage';
 import ShipmentDetailsPage from './pages/ShipmentDetailsPage';
 import WalletPage from './pages/WalletPage';
 import OffersPage from './pages/OffersPage';
 import CalculatorPage from './pages/CalculatorPage';
+import ServicePricingPage from './pages/ServicePricingPage';
 import IntegrationsPage from './pages/IntegrationsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -44,6 +46,7 @@ export default function App(){
       <Route path="hala-land/pages/new" element={<HalaLandEditorPage/>}/>
       <Route path="hala-land/pages/:pageId/edit" element={<HalaLandEditorPage/>}/>
       <Route path="help" element={<HelpPage/>}/>
+      <Route path="help/learning/:topicId" element={<HelpLearningTopicPage/>}/>
       <Route path="affiliate" element={<AffiliatePage/>}/>
       <Route path="orders" element={<OrdersPage key="orders"/>}/>
       <Route path="orders/new" element={<NewOrderPage/>}/>
@@ -57,6 +60,7 @@ export default function App(){
       <Route path="offers/:offerId" element={<OffersPage/>}/>
       <Route path="settings/*" element={<SettingsPage/>}/>
       <Route path="calculator" element={<CalculatorPage/>}/>
+      <Route path="pricing" element={<ServicePricingPage/>}/>
       <Route path="integrations" element={<IntegrationsPage/>}/>
       <Route path="import-orders" element={<ImportOrdersPage/>}/>
       <Route path="import-orders/new" element={<ImportOrderCreatePage/>}/>
