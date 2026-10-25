@@ -3,7 +3,7 @@
 اعتمد المستخدم يوم **23 أكتوبر 2026** التصميم الحالي ليكون التصميم الأساسي والستايل الموحد لباقي الموقع. يشمل النسخة المضغوطة الأخيرة وخط IBM والقائمة المحسنة وأيقونات Gravity ومعرّف البائع، مع حركة عدّ خفيفة للأرقام طلبها المستخدم بعد الاعتماد.
 
 - **دليل التصميم الأساسي:** [dashboard-heroui/DESIGN.md](dashboard-heroui/DESIGN.md).
-- **المصدر التنفيذي:** `dashboard-heroui/src/styles.css` والمكونات المشتركة داخل `dashboard-heroui/src/components/`.
+- **المصدر التنفيذي:** `dashboard-heroui/src/styles.css` وملفات التنسيق المرتبة داخل `dashboard-heroui/src/styles/` والمكونات المشتركة داخل `dashboard-heroui/src/components/`.
 - **النسخة المعتمدة المحفوظة:** `dashboard/releases/2026-10-23-heroui-approved-v2.1/`.
 - **المعاينة:** `hala-dashboard.html` وReact على `http://127.0.0.1:4181/`.
 - **المرجع البصري:** `hala-dashboard-refined.jpg`.

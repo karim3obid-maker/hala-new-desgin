@@ -1,0 +1,33 @@
+/* Shared black dark theme: neutral surfaces, white copy, semantic chart colors. */
+.dark #sections>:is(#orders,#shipments){--group-tint:var(--surface);--group-border:var(--border);--group-accent:var(--foreground)}
+.dark :is(.sidebar,.drawer-dialog){background:#0B0B0D}
+.dark .card{box-shadow:inset 0 0 0 1px var(--line)}
+.dark .topbar{background:#0D0D0FF2}
+.dark .section-heading{color:var(--foreground)}
+.dark :is(.side-link,.side-sublink,.side-sublink.current){color:var(--foreground)}
+.dark :is(.side-link.current,.side-sublink.current){background:var(--accent-soft)}
+.dark .side-link.current:before{background:var(--foreground)}
+.dark .side-link.current>.icon,.dark .metric-icon.tone-purple>.icon{color:#C3A4F8!important;filter:none}
+.dark .account-manager-avatar{background:var(--surface-tertiary);color:var(--foreground)}
+.dark #overview .logo-crop{background:transparent;border-radius:0}
+.dark #overview .hala-brand-logo{filter:grayscale(1) invert(1);mix-blend-mode:screen}
+.dark :is(.commission-note,.orders-filters,.detail-payment-summary,.draft-shipping-country,.draft-edit-product,.draft-submit-explanation,.draft-cod-input,.offer-explanation,.add-offer-button.button,.store-platform-option.selected,.integration-platform-card.coming-soon,.integration-setup-note,.wallet-fees-total,.import-steps li>span,.import-steps .active,.import-origin.selected,.import-selected-country,.import-upload-button.button,.import-stage-icon,.import-next-step,.import-route,.wallet-transfer-note,.wallet-method-cards>div,.settings-payment-note,.product-sku-panel,.detail-field-icon){background:var(--surface-secondary);border-color:var(--border);color:var(--foreground)}
+.dark :is(.order-tab bdi,.order-tab.selected bdi,.product-stat-percentage,.top-products-table tfoot,.integration-platform-card.coming-soon>.button){background:var(--surface-tertiary);color:var(--foreground)}
+.dark :is(.orders-table tbody tr:hover,.orders-table .preview-new-row td,.draft-picker-product.selected,.import-origin:hover,.wallet-invoice-table tbody tr:nth-child(even) td,.wallet-invoice-table tbody tr:nth-child(even) th){background:var(--surface-secondary)}
+.dark .partner-detail-page .offer-prices dl>div:last-child{background:var(--surface-secondary)}
+.dark :is(.draft-detail-warning,.draft-edit-alert,.draft-edit-alert.resolved,.catalog-testing-notice,.catalog-testing-fee,.import-error-summary,.calc-loss){background:var(--surface-secondary);color:var(--foreground);border-color:var(--border)}
+.dark :is(.catalog-testing-notice-icon,.catalog-tabs .catalog-testing-tab.button,.catalog-tabs .catalog-testing-tab.button.selected,.catalog-tabs .catalog-testing-tab .catalog-testing-badge){background:var(--surface-tertiary);color:var(--foreground);border-color:var(--border)}
+.dark :is(.settings-field input[readonly],.draft-form-field input[aria-invalid=true],.draft-form-field select[aria-invalid=true]){background:var(--field-background)}
+.dark .shipment-stage-icon{background:var(--surface-secondary);box-shadow:none}
+.dark .shipment-journey .current .shipment-stage-icon{background:var(--surface-tertiary);color:#FFB45B;box-shadow:none}
+.dark .theme-switch.on{background:#666}
+.dark .button--primary{background:#303033;color:#FFF}
+.dark .button--primary:hover{background:#3A3A3E}
+.dark .button--secondary{background:var(--surface-tertiary);color:var(--foreground)}
+.dark .icon[style*="rgb(39, 10, 94)"],.dark .icon[style*="#270A5E"]{color:#C3A4F8!important}
+.dark .tone-purple{--status-ink:#C3A4F8}.dark .tone-green{--status-ink:#65D99A}.dark .tone-red{--status-ink:#FF7589}.dark .tone-blue{--status-ink:#76AAFF}.dark .tone-cyan{--status-ink:#67D5E8}.dark .tone-amber{--status-ink:#F2CC66}.dark .tone-orange{--status-ink:#FFB45F}
+.dark :is(.order-status,.call-result-icon){color:var(--status-ink,var(--foreground));background:color-mix(in srgb,var(--status-ink,var(--foreground)) 12%,var(--surface))}
+.dark .metric-icon .icon{color:var(--status-ink,var(--foreground))!important;filter:none}
+.dark :is(.catalog-category.button.selected,.draft-pricing-switch button[aria-pressed="true"],.import-steps .active>span,.wallet-invoice-table thead th,.partner-detail-page .offer-start,.button.product-add-button,.land-create-link,.land-canvas-submit,.land-canvas-buy,.skip-link){background:var(--surface-tertiary);color:var(--foreground);border-color:var(--border)}
+.dark .help-card{background:var(--surface-secondary)!important}
+.dark .affiliate-earnings>.affiliate-card-icon{background:var(--surface-tertiary)}

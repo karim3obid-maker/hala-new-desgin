@@ -4,6 +4,7 @@ import {Button,Card,Input,TextField} from '@heroui/react';
 import {MetricRows,Section} from '../components/dashboard/Metrics';
 import {Icon,IconButton} from '../components/ui/Icon';
 import {AppModal} from '../components/ui/AppModal';
+import {OrderSourceIcon} from '../components/orders/OrderSourceIcon';
 import {useOrdersPreview} from '../context/OrdersPreviewContext';
 import {draftMetrics,draftOrders,draftColumns} from '../data/draftOrders';
 import {snapshotMetrics,orderStatuses,screenshotOrders,orderColumns,defaultColumns} from '../data/orders';
@@ -45,6 +46,7 @@ export default function OrdersPage({draft=false}){
       case 'country':return <div className="order-country">{row.city?<span>{row.city}</span>:null}<small>{row.country}</small></div>;
       case 'amount':return <span className="order-amount"><bdi dir="ltr">{amount(row.amount)}</bdi><span>ر.س</span></span>;
       case 'attempts':return <bdi dir="ltr">{row.attempts}</bdi>;
+      case 'source':return <OrderSourceIcon order={row}/>;
       default:return <span className={['reason','date','product'].includes(id)?'order-muted':''}>{row[id]??'غير متاح'}</span>;
     }
   }

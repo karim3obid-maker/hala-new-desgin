@@ -11,6 +11,7 @@ export const navigation=[
   {icon:'link',label:integrationsPageTitle,path:'/integrations'},
   {icon:'file-import',label:'طلبات الاستيراد',path:'/import-orders'},
   {icon:'wallet',label:'المحفظة المالية',path:'/wallet'},
+  {icon:'chart-bar',label:'الفاند التسويقي',path:'/marketing-fund'},
   {icon:'gift',label:'عروض هلا',path:'/offers'},
   {icon:'calculator',label:'الحاسبة',path:'/calculator'},
   {icon:'currency-dollar',label:'الأسعار والخدمات',path:'/pricing'},
@@ -18,5 +19,5 @@ export const navigation=[
   {icon:'headset',label:'المساعدة',path:'/help'},
 ];
 export const offerPageTitles={'/offers':'عروض هلا','/offers/100-products':'عرض 100% بروفت','/offers/hala-partner':'Hala Partner'};
-export const pageTitles={'/pricing':'الأسعار والخدمات','/help':'المساعدة','/hala-land':'هلا لاند','/hala-land/settings':'هلا لاند','/hala-land/pages/new':'إنشاء صفحة هبوط',...offerPageTitles,...Object.fromEntries(settingsSections.map(({path})=>[path,'الإعدادات'])),...Object.fromEntries(productViews.map(({path,label})=>[path,label])),'/products':'المنتجات','/':'لوحة التحكم','/affiliate':'الأفلييت','/orders/new':'طلب جديد','/orders':'الطلبات','/orders/drafts':'طلبات الدرافت','/shipments':'الشحنات','/calculator':'حاسبة التسعير والأرباح','/wallet':'المحفظة المالية','/integrations':integrationsPageTitle,'/import-orders':'طلبات الاستيراد','/import-orders/new':'طلب استيراد جديد'};
+export const pageTitles={'/marketing-fund':'الفاند التسويقي','/pricing':'الأسعار والخدمات','/help':'المساعدة','/hala-land':'هلا لاند','/hala-land/settings':'هلا لاند','/hala-land/pages/new':'إنشاء صفحة هبوط',...offerPageTitles,...Object.fromEntries(settingsSections.map(({path})=>[path,'الإعدادات'])),...Object.fromEntries(productViews.map(({path,label})=>[path,label])),'/products':'المنتجات','/':'لوحة التحكم','/affiliate':'الأفلييت','/orders/new':'طلب جديد','/orders':'الطلبات','/orders/drafts':'طلبات الدرافت','/shipments':'الشحنات','/calculator':'حاسبة التسعير والأرباح','/wallet':'المحفظة المالية','/integrations':integrationsPageTitle,'/import-orders':'طلبات الاستيراد','/import-orders/new':'طلب استيراد جديد'};
 export const metricGroups={orders:{label:'الطلبات',path:'/orders',children:[{label:'كل الطلبات',path:'/orders'},{label:'طلبات الدرافت',path:'/orders/drafts'}]},shipments:{label:'الشحنات',path:'/shipments'},financial:{label:'المالية',path:'/wallet'}};

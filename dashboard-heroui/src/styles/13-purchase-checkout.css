@@ -1,0 +1,192 @@
+/* Fixed Hala Land purchase-bar design, approved 24 October 2026. */
+.land-sitar .land-purchase-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:14px;padding:14px 16px max(14px,env(safe-area-inset-bottom));background:var(--sitar-bg);box-shadow:0 -4px 18px #00000005;isolation:isolate}
+.land-purchase-price{display:grid;align-content:center;gap:3px;min-width:0}
+.land-purchase-payment{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;line-height:1.5;color:var(--sitar-ink)}
+.land-purchase-payment .icon{color:#07804e;width:16px;height:16px;flex-shrink:0}
+.land-purchase-price>strong{font-size:29px;font-weight:600;line-height:1.25;white-space:nowrap;color:var(--sitar-ink)}
+.land-purchase-price small{font-size:13px;font-weight:500}
+.land-sitar .land-purchase-bar>.land-purchase-button.button{max-width:none;width:100%;min-width:0;min-height:64px;gap:12px;padding:12px 16px;background:#090c0b;color:#fff;border-radius:12px;font-size:16px;font-weight:600;line-height:1.6}
+.land-purchase-button>.icon{width:26px;height:26px;flex-shrink:0}
+.app-dialog.land-order-dialog{width:min(660px,calc(100vw - 24px));max-width:min(660px,calc(100vw - 24px));max-height:calc(100dvh - 24px);direction:rtl}
+.land-order-modal-content{min-width:0}.land-order-modal-content>.land-order-wrap{padding:0;max-width:none}.land-order-modal-content .land-canvas-form{width:100%}
+@container (max-width:500px){.land-sitar .land-purchase-bar{grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:10px;padding-inline:12px}.land-purchase-payment{font-size:10px;gap:4px}.land-purchase-price>strong{font-size:26px}.land-sitar .land-purchase-bar>.land-purchase-button.button{font-size:12px;gap:7px;min-height:58px;padding:10px;border-radius:10px}.land-purchase-button>.icon{width:22px;height:22px}}
+
+/* Shared bundle offers: truthful savings use the recorded single-piece offer. */
+.land-bundle-offers{display:grid;gap:20px;min-width:0;width:100%;text-align:start}
+.land-bundle-offers>legend,.land-bundle-heading{display:flex;align-items:center;gap:8px;width:100%;padding:12px;margin-bottom:16px;background:var(--sitar-soft);font-size:15px;font-weight:600;border-radius:8px;color:var(--sitar-ink)}
+.land-sitar .land-bundle-offers>.land-bundle-card{--bundle-color:#17191a;position:relative;display:flex;align-items:center;gap:10px;min-width:0;padding:22px 12px 15px;border:2px solid var(--line);border-radius:12px;background:var(--sitar-bg);color:var(--sitar-ink);transition:border-color 160ms,background-color 160ms}
+.land-sitar .land-bundle-offers>.is-duo{--bundle-color:#087c56;border-color:#087c5655;background:color-mix(in srgb,#087c56 5%,var(--sitar-bg))}
+.land-sitar .land-bundle-offers>.is-trio{--bundle-color:#7742b5;border-color:#7742b555;background:color-mix(in srgb,#7742b5 5%,var(--sitar-bg))}
+.dark .land-bundle-offers>.is-duo{--bundle-color:#76d9b5}.dark .land-bundle-offers>.is-trio{--bundle-color:#c3a0f1}.dark .land-bundle-offers>.land-bundle-card:not(.is-duo):not(.is-trio){--bundle-color:#eee}
+.land-sitar .land-bundle-offers>.land-bundle-card.selected{border-color:var(--bundle-color);background:color-mix(in srgb,var(--bundle-color) 7%,var(--sitar-bg))}
+.land-bundle-card input{accent-color:var(--bundle-color);width:20px;height:20px;flex-shrink:0;margin:0}
+.land-bundle-card:focus-within{outline:2px solid var(--focus);outline-offset:3px}
+.land-bundle-copy{display:grid;gap:5px;flex:1;min-width:0}.land-bundle-copy>strong{font-size:15px;font-weight:500;line-height:1.6}.land-bundle-copy>small{font-size:10px;color:var(--muted);line-height:1.6;overflow-wrap:anywhere}
+.land-bundle-copy>.land-bundle-saving{justify-self:start;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;color:var(--bundle-color);background:color-mix(in srgb,var(--bundle-color) 10%,var(--sitar-bg))}
+.land-bundle-price{display:grid;gap:4px;text-align:left;flex-shrink:0;max-width:42%;overflow-wrap:anywhere}.land-bundle-price>b{font-size:17px;font-weight:600}.land-bundle-price>b>small{font-size:10px}.land-bundle-price>del{font-size:11px;color:var(--muted)}
+.land-bundle-ribbon{position:absolute;top:-13px;inset-inline-start:30px;background:var(--bundle-color);color:#fff;font-size:11px;font-weight:600;padding:4px 12px;border-radius:5px;line-height:1.5;animation:land-bundle-entrance 420ms ease-out both}.dark .land-bundle-ribbon{color:#121416}
+.is-trio .land-bundle-ribbon{animation-delay:120ms}
+@keyframes land-bundle-entrance{from{opacity:0;transform:translateY(5px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media (prefers-reduced-motion:reduce){.land-bundle-ribbon{animation:none}.land-sitar .land-bundle-offers>.land-bundle-card{transition:none}}
+@container (max-width:360px){.land-bundle-copy>strong{font-size:13px}.land-bundle-price>b{font-size:15px}.land-sitar .land-bundle-offers>.land-bundle-card{gap:7px;padding-inline:10px}}
+
+/* Raised Hala order form, shared with the editor preview. */
+.land-sitar .land-hala-form{position:relative;isolation:isolate;background:var(--sitar-bg);border:1px solid color-mix(in srgb,var(--purple) 24%,var(--line));border-radius:16px;padding:20px;box-shadow:0 12px 36px #24104712;animation:land-form-halo 2.4s ease-in-out 3;overflow:visible}
+.land-sitar .land-hala-form:focus-within{border-color:var(--purple);box-shadow:0 0 0 3px color-mix(in srgb,var(--purple) 10%,transparent),0 12px 36px #24104712}
+.land-order-modal-content>.land-hala-form{padding:18px;margin-block:4px 14px}
+.land-sitar .land-customer-heading{display:flex;align-items:center;gap:10px;padding:16px 12px;margin:4px 0;background:var(--sitar-soft);border-radius:9px;font-size:16px;line-height:1.7;font-weight:600;text-align:start}
+.land-customer-heading .icon{width:25px;height:25px;flex-shrink:0}
+.land-hala-form .land-field-with-icon{position:relative}.land-hala-form .land-field-with-icon :is(.input,textarea){padding-inline-start:52px;min-height:56px;border-radius:9px;border:1px solid var(--line);font-size:14px}
+.land-hala-form .land-field-with-icon .input[dir=ltr]{padding-inline-start:14px;padding-inline-end:52px;text-align:right}
+.land-hala-form .land-field-with-icon textarea{padding-top:14px;min-height:86px}
+.land-field-icon{position:absolute;inset-inline-start:9px;top:32px;display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:var(--sitar-soft);color:var(--muted);z-index:1;pointer-events:none}
+.land-sitar .land-hala-form .land-order-submit.button,.land-hala-form .land-canvas-submit{min-height:60px;background:#090c0b;color:white;border-radius:8px;font-size:18px;font-weight:600;padding:14px;width:100%;line-height:1.6}
+.land-form-details{display:grid;gap:14px;margin-top:18px;text-align:start}
+.land-form-assurances{display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;padding:15px 10px;background:var(--sitar-soft);border-radius:9px}
+.land-form-assurances>span{display:flex;align-items:center;gap:6px;font-size:11px;line-height:1.7;min-width:0}
+.land-form-assurances .icon{color:#d92d32;flex-shrink:0;width:20px;height:20px}
+.land-form-hala{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line)}
+.land-form-hala>span{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--purple)}.land-form-hala>small{font-size:10px;color:var(--muted)}
+.land-sitar .land-form-local-note{font-size:10px;line-height:1.8;color:var(--muted);margin:0}
+.land-hala-form .land-canvas-fields{grid-template-columns:1fr}.land-hala-form .land-canvas-fields>span{display:flex;align-items:center;gap:12px;min-height:52px;font-size:12px;border-radius:9px}.land-canvas-fields .icon{color:var(--muted);width:24px;height:24px;flex-shrink:0}
+@keyframes land-form-halo{0%,100%{box-shadow:0 12px 36px #24104712,0 0 0 0 #7742b500}50%{box-shadow:0 12px 36px #2410471a,0 0 0 5px #7742b51a}}
+@media(prefers-reduced-motion:reduce){.land-sitar .land-hala-form{animation:none}}
+@container(max-width:400px){.land-sitar .land-hala-form{padding:14px}.land-sitar .land-customer-heading{font-size:14px;padding:13px 10px}.land-sitar .land-hala-form .land-order-submit.button{font-size:15px}.land-form-assurances{justify-content:flex-start;gap:10px}.land-form-assurances>span{font-size:10px}}
+
+.land-hala-form>.land-customer-heading,.land-hala-form>form>.land-customer-heading{margin:18px 0 14px}
+.land-service-section{padding:24px 16px 32px;border-top:1px solid var(--line)}
+.land-service-policies{margin-bottom:28px}.land-service-policies details:first-child{background:var(--sitar-soft)}
+.land-sitar .land-service-policies summary{padding:20px 14px;font-size:17px;line-height:1.7}.land-service-policies summary>span{display:flex;align-items:center;gap:12px}.land-service-policies summary>span>.icon{width:25px;height:25px}
+.land-service-policies summary>.icon{box-sizing:content-box;padding:8px;background:var(--sitar-soft);border-radius:5px}.land-service-policies details p{padding:0 18px 18px}
+.land-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--sitar-soft);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.land-service-grid>div{padding:28px 14px;text-align:center;display:grid;justify-items:center;align-content:start;gap:10px;box-shadow:0 0 0 1px var(--line);min-width:0}
+.land-service-icon{display:grid;place-items:center;width:54px;height:54px;border:1px solid var(--line);border-radius:50%}.land-service-icon>.icon{width:28px;height:28px}
+.land-service-grid h3{font-size:18px;font-weight:600}.land-service-grid p{font-size:13px;line-height:1.9;color:var(--muted);margin:0}
+@container(min-width:800px){.land-service-section{padding-inline:32px}.land-service-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Compact checkout: no city field; optional details stay available on demand. */
+.land-sitar .land-hala-form{padding:14px}.land-sitar .land-hala-form .land-order-heading{padding:8px 10px;margin-bottom:10px}.land-hala-form .land-order-heading p{font-size:10px;line-height:1.5}.land-order-dialog .land-order-heading p{display:none}
+.land-sitar .land-hala-form .land-grid,.land-device-mobile .land-hala-form .land-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.land-hala-form .land-order-fields{gap:8px}.land-hala-form .land-field label{font-size:10px}.land-hala-form .land-field-with-icon :is(.input,textarea){min-height:40px;height:40px;font-size:12px;padding-inline-start:40px}.land-hala-form .land-field-with-icon textarea{padding-top:10px}.land-hala-form .land-field-with-icon .input[dir=ltr]{padding-inline-end:40px}
+.land-hala-form .land-field-icon{width:26px;height:26px;top:25px;inset-inline-start:7px;border-radius:6px}.land-field-icon>.icon{width:17px;height:17px}
+.land-sitar .land-hala-form .land-customer-heading{font-size:13px;padding:9px 10px;margin:10px 0}.land-hala-form .land-customer-heading>.icon{width:20px;height:20px}
+.land-hala-form .land-bundle-offers{gap:14px}.land-hala-form .land-bundle-offers>legend,.land-hala-form .land-bundle-heading{padding:8px 10px;font-size:13px;margin-bottom:12px}
+.land-sitar .land-hala-form .land-bundle-card{padding:14px 10px 9px;gap:8px}.land-hala-form .land-bundle-copy{gap:2px}.land-hala-form .land-bundle-copy>strong{font-size:13px}.land-hala-form .land-bundle-copy>small{font-size:9px}.land-hala-form .land-bundle-saving{padding:1px 5px}.land-hala-form .land-bundle-copy>.land-free-shipping{display:none}.land-hala-form .land-bundle-ribbon{font-size:9px;top:-10px;padding:2px 9px}.land-hala-form .land-bundle-price>b{font-size:15px}.land-hala-form .land-bundle-price>del{font-size:10px}
+.land-sitar .land-order-extras{border-block:1px solid var(--line)}.land-sitar .land-order-extras>summary{padding:7px 0;font-size:11px}.land-order-extras[open]{display:grid;gap:8px}
+.land-hala-form .land-payment-options>label{padding:7px 9px;font-size:11px}.land-hala-form .land-payment-options legend{font-size:10px;margin-bottom:4px}.land-hala-form .land-payment-options small{font-size:9px}.land-hala-form .land-order-total{padding-top:8px;font-size:11px}.land-hala-form .land-order-total strong{font-size:17px}
+.land-sitar .land-hala-form .land-order-submit.button,.land-hala-form .land-canvas-submit{min-height:44px;padding:9px;font-size:14px}.land-hala-form .land-form-details{margin-top:10px;gap:8px}.land-hala-form .land-form-assurances{padding:8px;gap:8px}.land-hala-form .land-form-assurances>span{font-size:9px}.land-hala-form .land-form-assurances .icon{width:15px;height:15px}.land-hala-form .land-form-hala{padding-top:8px}.land-hala-form .land-form-local-note{font-size:9px}
+.land-hala-form .land-canvas-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.land-hala-form .land-canvas-fields>span{min-height:40px;font-size:10px}.land-hala-form .land-canvas-fields>span:last-child{grid-column:1/-1}
+
+.land-sitar .land-form-offer-choices{margin-bottom:8px;border:1px solid var(--line);border-radius:8px;padding:0 9px;background:var(--sitar-soft)}.land-sitar .land-form-offer-choices>summary{font-size:11px;padding:10px 0;gap:8px}.land-form-offer-choices summary>span{display:flex;align-items:center;gap:4px;flex-wrap:wrap}.land-form-offer-choices summary small{font-size:10px;font-weight:400}.land-form-offer-choices>.land-bundle-offers{margin:16px 0 10px}
+.land-order-dialog .land-hala-form .land-field label,.land-order-dialog .land-hala-form .land-field [data-slot=label]{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.land-order-dialog .land-hala-form .land-field-icon{top:7px}.land-order-dialog .land-hala-form .land-field :is(.input,textarea){margin:0}
+.land-order-dialog .land-hala-form .land-notice{font-size:10px;padding:8px;margin-bottom:8px;line-height:1.6}.land-order-dialog .land-hala-form .land-order-heading{padding:6px 9px;margin-bottom:8px}.land-order-dialog .land-hala-form .land-order-heading h1{font-size:14px;margin:0}.land-order-dialog .land-local-badge{font-size:9px}
+.land-order-dialog .land-hala-form .land-payment-options legend,.land-order-dialog .land-hala-form .land-payment-options small{display:none}.land-order-dialog .land-hala-form .land-form-details{gap:6px;margin-top:8px}.land-order-dialog .land-hala-form .land-form-assurances{padding:6px;gap:6px}.land-order-dialog .land-hala-form .land-form-hala{padding-top:6px}.land-order-dialog .land-hala-form .land-form-local-note{line-height:1.5}
+
+/* Merchant-approved landing palette: black and red; dashboard identity is unchanged. */
+.land-preview-page,.land-sitar,.land-order-dialog{--purple:#161616;--accent:#d92329;--accent-soft:#fff1f1;--focus:#d92329}
+.land-sitar{--sitar-soft:#f5f5f5;--sitar-button:#0c0d0e;--sitar-button-text:#fff}
+.dark .land-preview-page,.dark .land-sitar,.dark .land-order-dialog{--purple:#f2f2f2;--accent:#ff7377;--accent-soft:#321b1d;--focus:#ff7377}.dark .land-sitar{--sitar-soft:#202022;--sitar-button:#0c0d0e;--sitar-button-text:#fff}
+.land-sitar .land-bundle-offers>.land-bundle-card{--bundle-color:#161616;border-color:#161616;background:var(--sitar-bg)}
+.dark .land-sitar .land-bundle-offers>.land-bundle-card{--bundle-color:#ececee;border-color:#737377;background:var(--sitar-bg)}
+.land-sitar .land-bundle-offers>.land-bundle-card.selected{--bundle-color:#d92329;border-color:var(--bundle-color);background:color-mix(in srgb,var(--bundle-color) 5%,var(--sitar-bg))}
+.dark .land-sitar .land-bundle-offers>.land-bundle-card.selected{--bundle-color:#ff7377}
+.land-sitar .land-bundle-ribbon,.dark .land-sitar .land-bundle-ribbon{background:#161616;color:#fff}.land-sitar .selected>.land-bundle-ribbon{background:#d92329}
+.land-sitar .land-purchase-payment .icon,.land-sitar .land-free-shipping,.dark .land-sitar .land-free-shipping{color:#d92329!important}.dark .land-sitar .land-purchase-payment .icon{color:#ff7377!important}
+.land-sitar .land-hala-form{border-color:#d9232938;box-shadow:0 12px 36px #0000000d}.land-sitar .land-hala-form:focus-within{border-color:#d92329;box-shadow:0 0 0 3px #d9232912,0 12px 36px #0000000d}
+@keyframes land-form-halo{0%,100%{box-shadow:0 12px 36px #0000000d,0 0 0 0 #d9232900}50%{box-shadow:0 12px 36px #00000014,0 0 0 5px #d923291a}}
+.land-sitar .land-local-badge{background:var(--sitar-soft);color:var(--sitar-ink)}.land-sitar .land-notice{background:var(--sitar-soft);color:var(--muted)}
+.land-preview-page .land-device-controls .button[aria-pressed=true]{background:#111;color:#fff}.land-order-dialog .modal__close-trigger:focus-visible{outline-color:#d92329}
+
+/* Slightly denser landing rhythm without shrinking form touch targets. */
+.land-sitar .land-sitar-header{padding:14px 20px}.land-sitar .land-sitar-main{padding-block:16px;gap:16px}
+.land-sitar .land-sitar-product-intro{padding-bottom:12px}.land-sitar .land-sitar-product-intro h2{font-size:22px;margin:6px 0 8px}.land-sitar .land-sitar-price{margin-top:10px}
+.land-sitar .land-service-section{padding-block:18px 22px}.land-sitar .land-service-policies{margin-bottom:20px}.land-sitar .land-service-policies summary{padding-block:14px;font-size:16px}
+.land-sitar .land-service-grid>div{padding:20px 12px;gap:8px}.land-sitar .land-service-icon{width:44px;height:44px}.land-sitar .land-service-icon>.icon{width:24px;height:24px}.land-sitar .land-service-grid h3{font-size:16px}
+.land-sitar .land-sitar-information,.land-sitar .land-sitar-faq{padding-block:22px;gap:18px}.land-sitar .land-sitar-information h2,.land-sitar .land-sitar-faq h2{font-size:22px;margin-block:6px}
+.land-sitar .land-sitar-final{padding-block:20px;gap:12px}.land-sitar .land-store-footer{padding-block:22px}
+
+/* Checkout fields follow the merchant's fixed single-column order. */
+.land-sitar .land-hala-form .land-grid,.land-device-mobile .land-hala-form .land-grid,.land-hala-form .land-canvas-fields{grid-template-columns:minmax(0,1fr)}
+.land-hala-form .land-field-with-icon select{padding-inline-start:40px;min-height:40px;border-radius:9px;font-size:12px;width:100%;border:1px solid var(--line);color:var(--sitar-ink);background-color:var(--sitar-bg)}
+.land-order-dialog .land-hala-form .land-field-with-icon select{margin:0}
+.land-hala-form .land-canvas-fields>span:last-child{grid-column:auto}
+
+/* Visible field labels and explicit checkout totals match the supplied form structure. */
+.land-order-dialog .land-hala-form .land-field label,.land-order-dialog .land-hala-form .land-field [data-slot=label]{position:static!important;width:auto;height:auto;overflow:visible;clip-path:none;white-space:normal;font-size:11px;line-height:1.6}
+.land-order-dialog .land-hala-form .land-field-icon{top:26px}.land-hala-form .land-field-with-icon textarea{height:62px;min-height:62px;resize:vertical}
+.land-hala-form .land-field-with-icon select{appearance:auto;padding-inline-end:10px;text-align:start}
+.land-checkout-summary{display:grid;gap:10px;margin-block:4px}.land-checkout-summary>div{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;line-height:1.7}.land-checkout-summary strong{font-weight:600;white-space:nowrap}.land-checkout-summary>.land-order-total{padding-top:12px;border-top:1px solid var(--line);font-size:14px}.land-checkout-summary>.land-order-total strong{font-size:20px;color:var(--sitar-ink)}
+.land-order-dialog .land-hala-form .land-payment-options legend,.land-order-dialog .land-hala-form .land-payment-options small{display:block}.land-hala-form .land-payment-options legend{font-size:12px;font-weight:500}
+
+.land-reviews{padding:24px 16px;border-block:1px solid var(--line)}.land-reviews>header{text-align:center;max-width:620px;margin:0 auto 20px}.land-reviews>header h2{font-size:24px;margin:8px 0}.land-reviews>header p{font-size:11px;color:var(--muted);line-height:1.8}.land-reviews-demo{display:inline-block;padding:4px 10px;background:var(--sitar-soft);color:var(--muted);font-size:10px;border-radius:6px}
+.land-reviews-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.land-review-card{display:flex;flex-direction:column;gap:12px;padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--sitar-bg);min-width:0}.land-review-person{display:flex;align-items:center;gap:10px}.land-review-avatar{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--sitar-soft);font-size:15px;font-weight:500}.land-review-person h3{font-size:15px;font-weight:600}.land-review-person small{font-size:10px;color:var(--muted)}.land-review-stars{display:flex;gap:3px;color:#d92329}.land-review-stars>.icon{width:17px;height:17px}.land-review-card>p{font-size:14px;line-height:1.9;color:var(--sitar-ink);margin:0;flex:1}.land-review-example{border-top:1px solid var(--line);padding-top:8px;font-size:9px;color:var(--muted)}
+@container(min-width:600px){.land-reviews{padding-inline:28px}.land-reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.land-section-cta{display:grid;justify-items:center;gap:8px;padding-top:20px}.land-section-cta>.land-sitar-primary{margin:0;width:min(100%,420px);min-height:48px;border-radius:8px;font-size:14px}.land-section-cta>small{font-size:10px;color:var(--muted);text-align:center}
+
+/* Compact stacked reviews: all six examples in one list, with a demo summary. */
+.land-reviews{padding:16px 12px}
+.land-reviews>header{margin-bottom:10px;max-width:none}
+.land-reviews>header h2{font-size:19px;margin:5px 0 8px}
+.land-reviews>header p{font-size:10px;line-height:1.6;margin-top:6px}
+.land-reviews-demo{padding:2px 7px;font-size:9px}
+.land-reviews-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);border-radius:9px;background:var(--sitar-soft);text-align:start}
+.land-reviews-summary>div{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 7px;min-width:0}
+.land-reviews-summary>div+div{border-inline-start:1px solid var(--line)}
+.land-reviews-summary>.icon,.land-reviews-summary>div>.icon{width:20px;height:20px;flex-shrink:0;color:var(--sitar-ink)}
+.land-reviews-summary>div:last-child>.icon{color:#d92329}
+.land-reviews-summary span{font-size:10px;color:var(--muted)}
+.land-reviews-summary strong{display:block;font-size:18px;line-height:1.4;font-weight:600;color:var(--sitar-ink)}
+.land-reviews-summary strong small{font-size:10px;font-weight:400;color:var(--muted)}
+.land-reviews .land-reviews-grid{grid-template-columns:minmax(0,1fr);gap:6px}
+.land-reviews .land-review-card{padding:8px 10px;gap:5px;border-radius:8px}
+.land-review-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.land-review-person{gap:7px;min-width:0}
+.land-review-avatar{width:27px;height:27px;font-size:12px}
+.land-review-person>div{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.land-review-person h3{font-size:12px}
+.land-review-person small{font-size:9px}
+.land-review-stars{gap:2px;flex-shrink:0}
+.land-review-stars>.icon{width:13px;height:13px}
+.land-review-card>p{font-size:12px;line-height:1.65;flex:initial}
+@container(min-width:600px){.land-reviews{padding:18px 24px}.land-review-card>p{font-size:13px}.land-reviews .land-review-card{padding:10px 12px}}
+.land-reviews .land-review-card{padding:6px 10px;gap:4px}
+.land-review-avatar{width:24px;height:24px}
+.land-review-person h3,.land-review-person small{line-height:1.4}
+.land-review-card>p{line-height:1.5}
+.land-reviews .land-section-cta{margin-top:10px;padding-top:0;gap:4px}
+
+/* Product price and stable, explicitly illustrative promotion signals. */
+.land-sitar-price .land-discount-current,.land-discount-before{display:flex;flex-direction:column;gap:2px}
+.land-sitar-price .land-discount-current>small,.land-discount-before>small{font-size:10px;font-weight:400;color:var(--muted)}
+.land-discount-before del{font-size:16px;font-weight:400;color:var(--muted);text-decoration-thickness:1px}
+.land-promotion-demo{border:1px solid var(--line);border-radius:9px;background:var(--sitar-soft);padding:8px 10px;margin-block:10px;min-width:0}
+.land-promotion-demo-label{display:block;font-size:9px;color:var(--muted);margin-bottom:5px}
+.land-demo-visitors{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11px}
+.land-demo-visitors>.icon{width:17px;height:17px;flex-shrink:0}
+.land-demo-visitors strong{font-weight:600;color:var(--sitar-ink);margin-inline-start:5px}
+.land-demo-visitors>small{font-size:9px;color:var(--muted);margin-inline-start:auto}
+.land-promotion-demo .land-countdown{background:transparent;padding:8px 0 0;gap:5px;color:var(--sitar-ink);font-size:11px}
+.land-promotion-demo .land-countdown>bdi{font-size:18px;color:#d92329;letter-spacing:1px}
+.land-promotion-demo .land-countdown>small{font-size:9px}
+.land-demo-deadline-note{display:block;text-align:center;color:var(--muted);font-size:9px;margin-top:3px}
+
+/* Strong visitor badge and clear countdown tiles, without urgency animation. */
+.land-promotion-demo{padding:12px;border:1px solid color-mix(in srgb,#d92329 22%,var(--line));background:var(--sitar-bg);border-radius:12px}
+.land-demo-visitors{justify-content:center;gap:8px;font-size:15px;font-weight:500;padding:4px 0 12px;border-bottom:1px solid var(--line)}
+.land-demo-visitors>.icon{width:20px;height:20px}
+.land-demo-visitors .land-visitors-badge{display:inline-flex;align-items:center;gap:5px;margin:0;padding:3px 10px;border-radius:7px;background:#171717;color:#fff;line-height:1.4}
+.land-visitors-badge>bdi{font-size:23px;font-weight:600;font-variant-numeric:tabular-nums}
+.land-visitors-badge>small{font-size:11px;font-weight:400;color:#fff}
+.land-demo-visitors>small{flex-basis:100%;margin:0;text-align:center;font-size:9px;font-weight:400}
+.land-promotion-demo .land-countdown-prominent{display:flex;flex-direction:column;gap:10px;padding-top:12px}
+.land-countdown-prominent .land-countdown-heading{display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:500}
+.land-countdown-heading>.icon{width:19px;height:19px}
+.land-countdown-units{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;width:100%;direction:ltr}
+.land-countdown-units>div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;border-radius:8px;background:var(--sitar-soft);border:1px solid var(--line);min-width:0}
+.land-countdown-units bdi{font-size:29px;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums;color:#d92329}
+.land-countdown-units span{font-size:11px;line-height:1.5;font-weight:500;color:var(--sitar-ink);direction:rtl}
+.dark .land-visitors-badge{background:#fff;color:#171717}
+.dark .land-visitors-badge>small{color:#171717}
+.dark .land-countdown-units bdi{color:#ff7c83}

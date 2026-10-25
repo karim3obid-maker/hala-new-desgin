@@ -21,6 +21,7 @@ import WalletPage from './pages/WalletPage';
 import OffersPage from './pages/OffersPage';
 import CalculatorPage from './pages/CalculatorPage';
 import ServicePricingPage from './pages/ServicePricingPage';
+import MarketingFundPage from './pages/MarketingFundPage';
 import IntegrationsPage from './pages/IntegrationsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -61,6 +62,7 @@ export default function App(){
       <Route path="settings/*" element={<SettingsPage/>}/>
       <Route path="calculator" element={<CalculatorPage/>}/>
       <Route path="pricing" element={<ServicePricingPage/>}/>
+      <Route path="marketing-fund" element={<MarketingFundPage/>}/>
       <Route path="integrations" element={<IntegrationsPage/>}/>
       <Route path="import-orders" element={<ImportOrdersPage/>}/>
       <Route path="import-orders/new" element={<ImportOrderCreatePage/>}/>
